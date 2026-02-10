@@ -1,0 +1,1563 @@
+<!doctype html>
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ICPRD - Building Sustainable Peace in DRC</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- <link rel="stylesheet" href="./output.css"> -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style type="text/tailwindcss">
+      @layer base {
+        body {
+          font-family: "Inter", sans-serif;
+        }
+      }
+      :root {
+        --primary: #4a6df7;
+        --background-dark: #101322;
+      }
+      .hero-gradient {
+        background: linear-gradient(
+          to right,
+          rgba(16, 19, 34, 0.95) 0%,
+          rgba(16, 19, 34, 0.6) 50%,
+          transparent 100%
+        );
+      }
+    </style>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#4a6df7",
+              "background-light": "#f5f6f8",
+              "background-dark": "#101322",
+            },
+            fontFamily: {
+              display: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 transition-colors duration-300"
+  >
+   <header
+  class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#101322]/80 backdrop-blur-md"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20">
+      <div class="flex items-center gap-10">
+        <div class="flex items-center gap-3">
+          <div class="text-primary">
+            <svg
+              class="size-10"
+              fill="none"
+              viewBox="0 0 48 48"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M13.8261 17.4264C16.7203 18.1174 20.2244 18.5217 24 18.5217C27.7756 18.5217 31.2797 18.1174 34.1739 17.4264C36.9144 16.7722 39.9967 15.2331 41.3563 14.1648L24.8486 40.6391C24.4571 41.267 23.5429 41.267 23.1514 40.6391L6.64374 14.1648C8.00331 15.2331 11.0856 16.7722 13.8261 17.4264Z"
+                fill="currentColor"
+              ></path>
+              <path
+                clip-rule="evenodd"
+                d="M39.998 12.236C39.9944 12.2537 39.9875 12.2845 39.9748 12.3294C39.9436 12.4399 39.8949 12.5741 39.8346 12.7175C39.8168 12.7597 39.7989 12.8007 39.7813 12.8398C38.5103 13.7113 35.9788 14.9393 33.7095 15.4811C30.9875 16.131 27.6413 16.5217 24 16.5217C20.3587 16.5217 17.0125 16.131 14.2905 15.4811C12.0012 14.9346 9.44505 13.6897 8.18538 12.8168C8.17384 12.7925 8.16216 12.767 8.15052 12.7408C8.09919 12.6249 8.05721 12.5114 8.02977 12.411C8.00356 12.3152 8.00039 12.2667 8.00004 12.2612C8.00004 12.261 8 12.2607 8.00004 12.2612C8.00004 12.2359 8.0104 11.9233 8.68485 11.3686C9.34546 10.8254 10.4222 10.2469 11.9291 9.72276C14.9242 8.68098 19.1919 8 24 8C28.8081 8 33.0758 8.68098 36.0709 9.72276C37.5778 10.2469 38.6545 10.8254 39.3151 11.3686C39.9006 11.8501 39.9857 12.1489 39.998 12.236ZM4.95178 15.2312L21.4543 41.6973C22.6288 43.5809 25.3712 43.5809 26.5457 41.6973L43.0534 15.223C43.0709 15.1948 43.0878 15.1662 43.104 15.1371L41.3563 14.1648C43.104 15.1371 43.1038 15.1374 43.104 15.1371L43.1051 15.135L43.1065 15.1325L43.1101 15.1261L43.1199 15.1082C43.1276 15.094 43.1377 15.0754 43.1497 15.0527C43.1738 15.0075 43.2062 14.9455 43.244 14.8701C43.319 14.7208 43.4196 14.511 43.5217 14.2683C43.6901 13.8679 44 13.0689 44 12.2609C44 10.5573 43.003 9.22254 41.8558 8.2791C40.6947 7.32427 39.1354 6.55361 37.385 5.94477C33.8654 4.72057 29.133 4 24 4C18.867 4 14.1346 4.72057 10.615 5.94478C8.86463 6.55361 7.30529 7.32428 6.14419 8.27911C4.99695 9.22255 3.99999 10.5573 3.99999 12.2609C3.99999 13.1275 4.29264 13.9078 4.49321 14.3607C4.60375 14.6102 4.71348 14.8196 4.79687 14.9689C4.83898 15.0444 4.87547 15.1065 4.9035 15.1529C4.91754 15.1762 4.92954 15.1957 4.93916 15.2111L4.94662 15.223L4.95178 15.2312ZM35.9868 18.996L24 38.22L12.0131 18.996C12.4661 19.1391 12.9179 19.2658 13.3617 19.3718C16.4281 20.1039 20.0901 20.5217 24 20.5217C27.9099 20.5217 31.5719 20.1039 34.6383 19.3718C35.082 19.2658 35.5339 19.1391 35.9868 18.996Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+          <h2
+            class="text-slate-900 dark:text-white text-2xl font-black tracking-tighter"
+          >
+            ICPRD
+          </h2>
+        </div>
+        <nav class="hidden lg:flex items-center gap-8">
+          <a
+            class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+            href="#mission"
+            data-translate="nav.about"
+            >About Us</a
+          >
+          <a
+            class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+            href="#intervention"
+            data-translate="nav.what-we-do"
+            >What we do</a
+          >
+          <a
+            class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+            href="#insights"
+            data-translate="nav.insights"
+            >Insights</a
+          >
+          <a
+            class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+            href="#team"
+            data-translate="nav.team"
+            >Team</a
+          >
+          <a
+            class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+            href="#contact"
+            data-translate="nav.contact"
+            >Contact</a
+          >
+        </nav>
+      </div>
+      <div class="flex items-center gap-4">
+        <!-- Sélecteur de langue -->
+        <div
+          class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50"
+        >
+          <span class="material-symbols-outlined text-primary !text-lg"
+            >language</span
+          >
+          <button class="text-xs font-bold text-primary" data-lang-btn="en">
+            EN
+          </button>
+          <span class="text-slate-300 dark:text-slate-700">|</span>
+          <button
+            class="text-xs font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+            data-lang-btn="fr"
+          >
+            FR
+          </button>
+        </div>
+
+        <!-- Bouton menu mobile -->
+        <button
+          id="mobile-menu-toggle"
+          class="lg:hidden flex items-center border justify-center  text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+          aria-label="Menu"
+        >
+          <span class="material-symbols-outlined text-4xl">menu</span>
+        </button>
+
+        <!-- Bouton Donate (caché sur mobile) -->
+        <button
+          class="hidden lg:block bg-primary hover:bg-primary/90 text-white px-7 py-2.5 rounded-full font-bold text-sm transition-all shadow-lg shadow-primary/30"
+          data-translate="header.donate"
+        >
+          Donate Now
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Menu mobile (sidebar) avec overlay -->
+<div id="mobile-overlay" class="fixed inset-0 z-[59] bg-black/50 hidden lg:hidden"></div>
+
+<div
+  id="mobile-sidebar"
+  class="fixed inset-y-0 right-0 w-64 bg-white dark:bg-[#101322] z-[60] transform translate-x-full transition-transform duration-300 ease-in-out shadow-2xl lg:hidden"
+>
+  <div class="flex flex-col h-full">
+    <div
+      class="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-800"
+    >
+      <div class="flex items-center gap-3">
+        <div class="text-primary">
+          <svg class="size-8" fill="currentColor" viewBox="0 0 48 48">
+            <path
+              d="M13.8261 17.4264C16.7203 18.1174 20.2244 18.5217 24 18.5217C27.7756 18.5217 31.2797 18.1174 34.1739 17.4264C36.9144 16.7722 39.9967 15.2331 41.3563 14.1648L24.8486 40.6391C24.4571 41.267 23.5429 41.267 23.1514 40.6391L6.64374 14.1648C8.00331 15.2331 11.0856 16.7722 13.8261 17.4264Z"
+            ></path>
+          </svg>
+        </div>
+        <span class="text-xl font-black text-slate-900 dark:text-white"
+          >ICPRD</span
+        >
+      </div>
+      <button
+        id="mobile-menu-close"
+        class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+        aria-label="Fermer"
+      >
+        <span class="material-symbols-outlined text-2xl">close</span>
+      </button>
+    </div>
+
+    <nav class="flex-1 p-6 space-y-4 overflow-y-auto">
+      <a
+        href="#mission"
+        class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
+        data-translate="nav.about"
+      >
+        About Us
+      </a>
+      <a
+        href="#intervention"
+        class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
+        data-translate="nav.what-we-do"
+      >
+        What we do
+      </a>
+      <a
+        href="#insights"
+        class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
+        data-translate="nav.insights"
+      >
+        Insights
+      </a>
+      <a
+        href="#team"
+        class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
+        data-translate="nav.team"
+      >
+        Team
+      </a>
+      <a
+        href="#contact"
+        class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
+        data-translate="nav.contact"
+      >
+        Contact
+      </a>
+    </nav>
+
+    <div class="p-6 border-t border-slate-200 dark:border-slate-800">
+      <!-- Bouton Donate dans le sidebar -->
+      <button
+        class="w-full bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full font-bold text-sm transition-all mb-4 sidebar-link"
+        data-translate="header.donate"
+      >
+        Donate Now
+      </button>
+      <p class="text-xs text-slate-500 dark:text-slate-400 text-center">
+        © 2024 ICPRD
+      </p>
+    </div>
+  </div>
+</div>
+
+
+
+    <main>
+      <!-- Hero Section -->
+      <section class="relative min-h-[600px] py-4 flex items-center overflow-hidden">
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-background-dark via-background-dark/70 to-transparent z-10"
+        ></div>
+        <div
+          class="absolute inset-0 bg-cover bg-center scale-105"
+          data-alt="Community outreach group in the Democratic Republic of Congo"
+          style="
+            background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuAH7may5L5D8nGRA6MqEP1mZVpbDF70VGQCsIvshbLO5XzZR_LLldJiPh_4GVoeFD-a8yLDZIjc2zZ_b2iVIs7CsS0jzyPfcdUk7Cbude_5LtGbsuGR-8N8gx4jfNSxo6K_WNVAZzT5CLdVv931vMvGsZuI1X5neGhp0_GvBHeq3WGevMC6VBMotWWo744jPTE_IQx7LgK_jICq8XUnUL-saCsjPc0LQtoE3A_SoZoKPYmHROfKrLaBo11ueDxRHPU6YWFaTJ_AUB38&quot;);
+          "
+        ></div>
+        <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="max-w-2xl">
+            <span
+              data-translate="hero.badge"
+              class="inline-block px-3 py-1 bg-primary/20 text-primary border border-primary/30 rounded-full text-xs font-bold uppercase tracking-wider mb-6"
+            >
+              Depuis 2004 • Focus RDC
+            </span>
+            <h1
+              class="text-5xl md:text-6xl font-black text-white leading-tight mb-6"
+              data-translate="hero.title"
+            >
+              Construction d'une Paix et d'une Stabilité
+              <span class="text-primary">Durables</span>
+            </h1>
+            <p
+              class="text-slate-300 text-lg md:text-xl leading-relaxed mb-10 max-w-xl"
+              data-translate="hero.subtitle"
+            >
+              L'Initiative Chrétienne pour la Paix, la Réconciliation et le
+              Développement (ICPRD) œuvre pour autonomiser les communautés
+              locales et favoriser l'harmonie régionale par le dialogue et le
+              développement durable.
+            </p>
+            <div class="flex flex-wrap gap-4">
+              <button
+                data-translate="hero.button1"
+                class="bg-primary text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-primary/30 transition-all"
+              >
+                S'impliquer
+              </button>
+              <button
+                data-translate="hero.button2"
+                class="bg-white/10 text-white backdrop-blur-sm border border-white/20 px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/20 transition-all"
+              >
+                Notre Plan Stratégique
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Impact Stats -->
+      <section class="py-12 bg-white dark:bg-[#161b33]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            <div
+              class="flex flex-col items-center p-6 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50"
+            >
+              <span class="text-4xl font-black text-primary mb-2">20k+</span>
+              <span
+                data-translate="stats.combatants"
+                class="text-slate-500 dark:text-slate-400 font-semibold uppercase text-xs tracking-widest"
+                >Combattants Désarmés</span
+              >
+            </div>
+            <div
+              class="flex flex-col items-center p-6 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50"
+            >
+              <span class="text-4xl font-black text-primary mb-2">15+</span>
+              <span
+                data-translate="stats.experience"
+                class="text-slate-500 dark:text-slate-400 font-semibold uppercase text-xs tracking-widest"
+                >Années d'Expérience</span
+              >
+            </div>
+            <div
+              class="flex flex-col items-center p-6 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50"
+            >
+              <span class="text-4xl font-black text-primary mb-2">100+</span>
+              <span
+                data-translate="stats.communities"
+                class="text-slate-500 dark:text-slate-400 font-semibold uppercase text-xs tracking-widest"
+                >Communautés Touchées</span
+              >
+            </div>
+            <div
+              class="flex flex-col items-center p-6 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50"
+            >
+              <span class="text-4xl font-black text-primary mb-2">10+</span>
+              <span
+                data-translate="stats.partners"
+                class="text-slate-500 dark:text-slate-400 font-semibold uppercase text-xs tracking-widest"
+                >Partenaires Internationaux</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        class="py-32 bg-background-light dark:bg-background-dark"
+        id="intervention"
+      >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div
+            class="flex flex-col md:flex-row justify-between items-end gap-10 mb-20"
+          >
+            <div class="max-w-2xl">
+              <h2
+                data-translate="pillars.subtitle"
+                class="text-slate-400 font-black uppercase tracking-widest text-sm mb-4"
+              >
+                Domaines d'Intervention
+              </h2>
+              <h3
+                data-translate="pillars.title"
+                class="text-4xl lg:text-5xl font-black text-slate-900 dark:text-white leading-tight"
+              >
+                Agir pour le Changement à Travers Nos Trois Domaines Clés
+              </h3>
+            </div>
+            <div
+              data-translate="pillars.description"
+              class="text-slate-500 dark:text-slate-400 max-w-md font-light"
+            >
+              Notre approche holistique garantit que la paix n'est pas seulement
+              l'absence de conflit, mais la présence de justice et
+              d'opportunités.
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div
+              class="group bg-white dark:bg-slate-900 p-10 rounded-3xl border border-slate-100 dark:border-slate-800 hover:border-primary/50 transition-all hover:shadow-2xl"
+            >
+              <div
+                class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-8 group-hover:scale-110 transition-transform"
+              >
+                <span class="material-symbols-outlined !text-4xl"
+                  >diversity_3</span
+                >
+              </div>
+              <h4
+                data-translate="pillar1.title"
+                class="text-2xl font-bold text-slate-900 dark:text-white mb-4"
+              >
+                Consolidation de la Paix
+              </h4>
+              <p
+                data-translate="pillar1.desc"
+                class="text-slate-600 dark:text-slate-400 leading-relaxed mb-6"
+              >
+                Acteur majeur dans le Désarmement, Démobilisation et
+                Réintégration (DDR) au Sud-Kivu. Nous facilitons le rapatriement
+                des groupes armés et la réintégration socio-professionnelle des
+                combattants.
+              </p>
+              <a href="" class="flex">
+                <a
+                  data-translate="pillar1.learn"
+                  class="inline-flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider group-hover:gap-4 transition-all"
+                  href="#"
+                >
+                  En savoir plus
+                </a>
+                <span class="material-symbols-outlined !text-sm"
+                  >arrow_forward</span
+                >
+              </a>
+            </div>
+            <div
+              class="group bg-white dark:bg-slate-900 p-10 rounded-3xl border border-slate-100 dark:border-slate-800 hover:border-primary/50 transition-all hover:shadow-2xl"
+            >
+              <div
+                class="w-16 h-16 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-500 mb-8 group-hover:scale-110 transition-transform"
+              >
+                <span class="material-symbols-outlined !text-4xl"
+                  >health_and_safety</span
+                >
+              </div>
+              <h4
+                data-translate="pillar2.title"
+                class="text-2xl font-bold text-slate-900 dark:text-white mb-4"
+              >
+                Urgence Humanitaire
+              </h4>
+              <p
+                data-translate="pillar2.desc"
+                class="text-slate-600 dark:text-slate-400 leading-relaxed mb-6"
+              >
+                Nous intervenons dans les domaines de la santé et de la
+                nutrition lorsque le besoin se fait sentir pendant nos
+                activités, avec le soutien de nos partenaires.
+              </p>
+              <a href="" class="flex">
+                <a
+                  data-translate="pillar2.learn"
+                  class="inline-flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider group-hover:gap-4 transition-all"
+                  href="#"
+                >
+                  En savoir plus
+                  <span class="material-symbols-outlined !text-sm"
+                    >arrow_forward</span
+                  >
+                </a>
+              </a>
+            </div>
+            <div
+              class="group bg-white dark:bg-slate-900 p-10 rounded-3xl border border-slate-100 dark:border-slate-800 hover:border-primary/50 transition-all hover:shadow-2xl"
+            >
+              <div
+                class="w-16 h-16 bg-amber-500/10 rounded-2xl flex items-center justify-center text-amber-500 mb-8 group-hover:scale-110 transition-transform"
+              >
+                <span class="material-symbols-outlined !text-4xl">school</span>
+              </div>
+              <h4
+                data-translate="pillar3.title"
+                class="text-2xl font-bold text-slate-900 dark:text-white mb-4"
+              >
+                Développement Durable
+              </h4>
+              <p
+                data-translate="pillar3.desc"
+                class="text-slate-600 dark:text-slate-400 leading-relaxed mb-6"
+              >
+                Nous renforçons la résilience des communautés par la formation
+                professionnelle, l'autonomisation et le plaidoyer pour les
+                droits humains et le développement local.
+              </p>
+              <a href="" class="flex">
+                <a
+                  data-translate="pillar3.learn"
+                  class="inline-flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider group-hover:gap-4 transition-all"
+                  href="#"
+                >
+                  En savoir plus
+                  <p>
+                    <span class="material-symbols-outlined !text-sm"
+                      >arrow_forward</span
+                    >
+                  </p>
+                </a>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="py-32 bg-white dark:bg-[#161b33]" id="mission">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid lg:grid-cols-2 gap-20 items-center">
+            <div class="relative">
+              <div class="aspect-square rounded-[3rem] overflow-hidden">
+                <img
+                  alt="ICPRD in action"
+                  class="w-full h-full object-cover"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXBooU4razIh6JO_IQ0s1R_9GWLhmTpor62wrKwMyCMZkScd4d2_eGJjeq20pC2-19QmjIzLCUTWLtRXf2GQuL8eDMXWiUrO9RYHw-SArYtK_YUkm1CX3cFjtsU3PUsXhlI3ZgQvE_6Fyib-o95rjYQ8lKZbV6128iZyODhgVGYKut5V5Oat-k9bRbhgjXZ-776Y61lsMMk6BlZotSUC7hd_KWOoddSRSxLoUlq-h_fGIGySBrJncAEPljEWS3s88ChdpOgQH0PUyy"
+                />
+              </div>
+              <div
+                class="absolute -bottom-10 -right-10 w-64 bg-primary p-8 rounded-3xl shadow-2xl text-white"
+              >
+                <p class="text-4xl font-black mb-1">12+</p>
+                <p
+                  data-translate="mission.experience"
+                  class="text-sm font-bold opacity-80 tracking-widest"
+                >
+                  Années d'Engagement sur le Terrain
+                </p>
+              </div>
+            </div>
+            <div>
+              <h2
+                data-translate="mission.title"
+                class="text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-8 leading-tight"
+              >
+                Notre Mission : Guérir par l'<span
+                  data-translate="mission.title_highlight"
+                  class="text-primary underline underline-offset-8"
+                  >Action</span
+                >
+                et le Dialogue
+              </h2>
+              <p
+                data-translate="mission.desc"
+                class="text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed"
+              >
+                L'Initiative Chrétienne pour la Paix, la Réconciliation et le
+                Développement (ICPRD) est née de la nécessité urgente de rompre
+                les cycles systémiques de conflit dans l'Est de la RDC, pour
+                porter secours aux populations victimes.
+              </p>
+              <div class="space-y-6">
+                <div class="flex gap-5">
+                  <div
+                    class="shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary"
+                  >
+                    <span class="material-symbols-outlined">handshake</span>
+                  </div>
+                  <div>
+                    <h5
+                      data-translate="mission.point1.title"
+                      class="font-bold text-slate-900 dark:text-white mb-2"
+                    >
+                      Action de Terrain et Médiation
+                    </h5>
+                    <p
+                      data-translate="mission.point1.desc"
+                      class="text-slate-500 dark:text-slate-400 text-sm"
+                    >
+                      Notre approche est fondée sur un engagement direct, la
+                      sensibilisation des parties aux conflits et la médiation
+                      pour faciliter le désarmement volontaire et les
+                      rapatriements.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex gap-5">
+                  <div
+                    class="shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary"
+                  >
+                    <span class="material-symbols-outlined">construction</span>
+                  </div>
+                  <div>
+                    <h5
+                      data-translate="mission.point2.title"
+                      class="font-bold text-slate-900 dark:text-white mb-2"
+                    >
+                      Développement Communautaire
+                    </h5>
+                    <p
+                      data-translate="mission.point2.desc"
+                      class="text-slate-500 dark:text-slate-400 text-sm"
+                    >
+                      Nous croyons que la paix durable passe par le
+                      développement. Nous construisons des centres de formation
+                      et soutenons l'autonomie des communautés pour un avenir
+                      stable.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="py-24 bg-background-light dark:bg-background-dark overflow-hidden"
+      >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-16 scroll-reveal" id="achievements-title">
+            <h2
+              data-translate="achievements.title"
+              class="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-4"
+            >
+              Nos Réalisations
+            </h2>
+            <div class="w-24 h-1.5 bg-primary mx-auto rounded-full mb-6"></div>
+            <p
+              data-translate="achievements.subtitle"
+              class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg italic"
+            >
+              Un aperçu de notre impact durable à travers le Sud-Kivu et le
+              Nord-Kivu au fil des années.
+            </p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div
+              class="group relative flex flex-col bg-white dark:bg-slate-900/40 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 scroll-reveal reveal-delay-1 shadow-2xl shadow-primary/5"
+            >
+              <div class="relative h-64 overflow-hidden">
+                <img
+                  alt="Former child soldiers reintegration"
+                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXBooU4razIh6JO_IQ0s1R_9GWLhmTpor62wrKwMyCMZkScd4d2_eGJjeq20pC2-19QmjIzLCUTWLtRXf2GQuL8eDMXWiUrO9RYHw-SArYtK_YUkm1CX3cFjtsU3PUsXhlI3ZgQvE_6Fyib-o95rjYQ8lKZbV6128iZyODhgVGYKut5V5Oat-k9bRbhgjXZ-776Y61lsMMk6BlZotSUC7hd_KWOoddSRSxLoUlq-h_fGIGySBrJncAEPljEWS3s88ChdpOgQH0PUyy"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"
+                ></div>
+                <div class="absolute bottom-4 left-6">
+                  <span
+                    data-translate="achievement1.category"
+                    class="bg-primary px-3 py-1 rounded-full text-[10px] font-black text-white tracking-widest uppercase mb-2 inline-block"
+                    >Paix & Stabilité</span
+                  >
+                  <p
+                    data-translate="achievement1.status"
+                    class="text-white text-xs font-bold flex items-center gap-1.5"
+                  >
+                    <span class="material-symbols-outlined !text-sm"
+                      >calendar_today</span
+                    >
+                    Projet en cours
+                  </p>
+                </div>
+              </div>
+              <div class="p-8">
+                <h3
+                  data-translate="achievement1.title"
+                  class="text-2xl font-black text-slate-900 dark:text-white mb-4 leading-tight group-hover:text-primary transition-colors"
+                >
+                  1,000+ Anciens Combattants Réintégrés
+                </h3>
+                <p
+                  data-translate="achievement1.desc"
+                  class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed"
+                >
+                  Grâce à un accompagnement psychologique et une formation
+                  professionnelle, nous réintégrons avec succès d'anciens
+                  combattants, y compris d'anciens enfants soldats, dans leurs
+                  familles et communautés.
+                </p>
+                <div class="mt-8 flex items-center justify-between">
+                  <div class="flex -space-x-2">
+                    <div
+                      class="w-8 h-8 rounded-full border-2 border-slate-900 bg-slate-800 flex items-center justify-center text-[10px] font-bold"
+                    >
+                      UN
+                    </div>
+                    <div
+                      class="w-8 h-8 rounded-full border-2 border-slate-900 bg-slate-800 flex items-center justify-center text-[10px] font-bold"
+                    >
+                      RDC
+                    </div>
+                  </div>
+                  <span
+                    data-translate="achievement1.report"
+                    class="text-primary font-black text-xs uppercase tracking-tighter cursor-pointer hover:underline"
+                    >Rapport Complet →</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              class="group relative flex flex-col bg-white dark:bg-slate-900/40 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 scroll-reveal reveal-delay-2 shadow-2xl shadow-primary/5"
+            >
+              <div class="relative h-64 overflow-hidden">
+                <img
+                  alt="Voluntary disarmament operations"
+                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIBH51I5to352MBbtWf6ES6qCfGDi4iDpm4Da35m9hXwvDGee_L7_evUnYArhvpQX3wk1pECuShb5io98eLcTg0LpiXRjitSQSWRMUXzAe70W0K6lQcKrfagbl67-cNzTADgEBKUmh4wdzf6Bq8WKXYk0LvfeMOy8Mz8sHKYR0NNdU3w14cUyEWkVFqyBhYjOTgDLA52Vhf3pzX2QBb_Kss5-J8MGQKnyRAHjY0qdpiNt_JguvdOgnwOeYaRQ-WdwUuykYsgTUlkek"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"
+                ></div>
+                <div class="absolute bottom-4 left-6">
+                  <span
+                    data-translate="achievement2.category"
+                    class="bg-emerald-500 px-3 py-1 rounded-full text-[10px] font-black text-white tracking-widest uppercase mb-2 inline-block"
+                    >Désarmement</span
+                  >
+                  <p
+                    class="text-white text-xs font-bold flex items-center gap-1.5"
+                  >
+                    <span class="material-symbols-outlined !text-sm"
+                      >calendar_today</span
+                    >
+                    2013-2014
+                  </p>
+                </div>
+              </div>
+              <div class="p-8">
+                <h3
+                  data-translate="achievement2.title"
+                  class="text-2xl font-black text-slate-900 dark:text-white mb-4 leading-tight group-hover:text-primary transition-colors"
+                >
+                  Rapatriement Volontaire des Groupes Armés
+                </h3>
+                <p
+                  data-translate="achievement2.desc"
+                  class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed"
+                >
+                  L'ICPRD a été un facilitateur clé dans les opérations de
+                  sensibilisation et de désarmement volontaire de groupes armés,
+                  notamment les FDLR, contribuant directement à réduire les
+                  tensions et les violences.
+                </p>
+                <div class="mt-8 flex items-center justify-between">
+                  <div class="flex -space-x-2">
+                    <div
+                      class="w-8 h-8 rounded-full border-2 border-slate-900 bg-slate-800 flex items-center justify-center text-[10px] font-bold"
+                    >
+                      MCC
+                    </div>
+                    <div
+                      class="w-8 h-8 rounded-full border-2 border-slate-900 bg-slate-800 flex items-center justify-center text-[10px] font-bold"
+                    >
+                      DDR
+                    </div>
+                  </div>
+                  <span
+                    data-translate="achievement2.report"
+                    class="text-primary font-black text-xs uppercase tracking-tighter cursor-pointer hover:underline"
+                    >Rapport Complet →</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              class="group relative flex flex-col bg-white dark:bg-slate-900/40 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 scroll-reveal reveal-delay-3 shadow-2xl shadow-primary/5"
+            >
+              <div class="relative h-64 overflow-hidden">
+                <img
+                  alt="Kitamba training center"
+                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_lnHCrFJL86rIrQ3A6xgURQ_is1Sz1oA58yVnvT9Ril6j-NcSDH7n_gbCdb9zOGFkpLVxw_bTWF-U60dMmrDXlQK_JdiX39L0rYIvqg7pJH6FpzwJ-KGQBWSCiEcQS2ix8g9yizcqAztalPpysv_1wkvhiUZr3194X6OioZ0bF62xERN3ibNXlO3MujD0lUi4GOiVso7pWIehI8zXiPiq_SdWGVt6MdscjEfLrYOYLlfGahGYPHKSGCtDGzcLzGBZKNM0M2GE7A_G"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"
+                ></div>
+                <div class="absolute bottom-4 left-6">
+                  <span
+                    data-translate="achievement3.category"
+                    class="bg-amber-500 px-3 py-1 rounded-full text-[10px] font-black text-white tracking-widest uppercase mb-2 inline-block"
+                    >Développement</span
+                  >
+                  <p
+                    data-translate="achievement3.status"
+                    class="text-white text-xs font-bold flex items-center gap-1.5"
+                  >
+                    <span class="material-symbols-outlined !text-sm"
+                      >calendar_today</span
+                    >
+                    Lancé en 2023
+                  </p>
+                </div>
+              </div>
+              <div class="p-8">
+                <h3
+                  data-translate="achievement3.title"
+                  class="text-2xl font-black text-slate-900 dark:text-white mb-4 leading-tight group-hover:text-primary transition-colors"
+                >
+                  Centre de Réintégration de Kitamba
+                </h3>
+                <p
+                  data-translate="achievement3.desc"
+                  class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed"
+                >
+                  Nous avons construit et équipé un centre de formation à
+                  Kitamba (Mwenga), offrant des compétences et un avenir aux
+                  démobilisés. "Le PPR est un poumon du développement", témoigne
+                  le Mwami Kalenga Riziki Lwango.
+                </p>
+                <div class="mt-8 flex items-center justify-between">
+                  <div class="flex -space-x-2">
+                    <div
+                      class="w-8 h-8 rounded-full border-2 border-slate-900 bg-slate-800 flex items-center justify-center text-[10px] font-bold"
+                    >
+                      MONUSCO
+                    </div>
+                    <div
+                      class="w-8 h-8 rounded-full border-2 border-slate-900 bg-slate-800 flex items-center justify-center text-[10px] font-bold"
+                    >
+                      ECC
+                    </div>
+                  </div>
+                  <span
+                    data-translate="achievement3.report"
+                    class="text-primary font-black text-xs uppercase tracking-tighter cursor-pointer hover:underline"
+                    >Rapport Complet →</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Enhanced Team Section -->
+      <section class="py-24 bg-white dark:bg-[#161b33]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-16">
+            <h2
+              data-translate="team.title"
+              class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4"
+            >
+              Notre Équipe de Direction
+            </h2>
+            <p
+              data-translate="team.subtitle"
+              class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg"
+            >
+              Guidée par des experts engagés, des activistes locaux et des
+              artisans de paix dévoués.
+            </p>
+          </div>
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12"
+          >
+            <!-- Team Member 1 -->
+            <div class="flex flex-col items-center group">
+              <div class="relative w-48 h-48 mb-6">
+                <div
+                  class="absolute inset-0 bg-primary/10 rounded-2xl transform rotate-6 group-hover:rotate-12 transition-transform"
+                ></div>
+                <img
+                  alt="Executive Director"
+                  class="relative w-full h-full object-cover rounded-2xl shadow-xl grayscale group-hover:grayscale-0 transition-all"
+                  data-alt="Isokelo Munyuku Fama - Executive Director headshot"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwCRfAeGcwDb9GMIoiY71ml6h3MZxqNCZOZ4h7nQFil6t0y0Gj-MYwTot8S7SjiXdmajIAQza-siTBOFgI0m_hWOG5lXhbT8Y9Ca1oYj0q1hMF7wvxi4WHXFFaM6R9I5UxmzcE9egpeIOzZ5rx8TuaU6Gru96JBX1XzPU6JG6oL6C3aO0y_OXsTM226q13cGutDkSv9BLlFwjgEthmkBJHz1D8rmPVIfT1vHjcRgkuHSVs6RWqnDCLxUKoc1sh_2v7_dLhuJVSFb2d"
+                />
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1">
+                Isokelo Munyuku Fama
+              </h3>
+              <p
+                data-translate="team.position1"
+                class="text-primary font-bold text-sm mb-4"
+              >
+                Secrétaire Exécutif
+              </p>
+              <div
+                class="flex gap-4 opacity-40 group-hover:opacity-100 transition-opacity"
+              >
+                <a
+                  class="text-slate-600 dark:text-slate-300 hover:text-primary"
+                  href="#"
+                  ><span class="material-symbols-outlined">share</span></a
+                >
+                <a
+                  class="text-slate-600 dark:text-slate-300 hover:text-primary"
+                  href="#"
+                  ><span class="material-symbols-outlined">mail</span></a
+                >
+              </div>
+            </div>
+            <!-- Team Member 2 -->
+            <div class="flex flex-col items-center group">
+              <div class="relative w-48 h-48 mb-6">
+                <div
+                  class="absolute inset-0 bg-primary/10 rounded-2xl transform rotate-6 group-hover:rotate-12 transition-transform"
+                ></div>
+                <img
+                  alt="Peace Lead"
+                  class="relative w-full h-full object-cover rounded-2xl shadow-xl grayscale group-hover:grayscale-0 transition-all"
+                  data-alt="BULAMBO Lembelembe - Secrétaire Exécutif headshot"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCj3dsvfMAhpEhiVRxRwI7Hr2swL87aUTx1a8YBPzy8jitkz_2rc04wxVpxoSv8L-jtms34uAeWIwkt6kO_jHhFjfL218V_QToJ68oPi3arCnkxuBtPxr8TqPhQ-nTaqp9bJDLHanxxXKyqlRFD2c1_dNNv_UNsU4oaPitPKhtClbMNUcem0T1_TG3LghGyzkQ_ZTJ_ajOq1VXycD6ICXsPi_Q1kduv1Y4zsKw8PdixEPZzQ7wmRSRG1Al3hC1_mU6c1ssJGpBpzbET"
+                />
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1">
+                BULAMBO Lembelembe
+              </h3>
+              <p
+                data-translate="team.position2"
+                class="text-primary font-bold text-sm mb-4"
+              >
+                Secretaire Executif
+              </p>
+              <div
+                class="flex gap-4 opacity-40 group-hover:opacity-100 transition-opacity"
+              >
+                <a
+                  class="text-slate-600 dark:text-slate-300 hover:text-primary"
+                  href="#"
+                  ><span class="material-symbols-outlined">share</span></a
+                >
+                <a
+                  class="text-slate-600 dark:text-slate-300 hover:text-primary"
+                  href="#"
+                  ><span class="material-symbols-outlined">mail</span></a
+                >
+              </div>
+            </div>
+            <!-- Team Member 3 -->
+            <div class="flex flex-col items-center group">
+              <div class="relative w-48 h-48 mb-6">
+                <div
+                  class="absolute inset-0 bg-primary/10 rounded-2xl transform rotate-6 group-hover:rotate-12 transition-transform"
+                ></div>
+                <img
+                  alt="Operations Director"
+                  class="relative w-full h-full object-cover rounded-2xl shadow-xl grayscale group-hover:grayscale-0 transition-all"
+                  data-alt="Thomas Verhoeven - Operations Director headshot"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWlFkalg3Tui2d_Fxx-r3BL9vPoYvRMEYPQGwAIFabz4Kgtx6X21bH6VxzRF1N38Pc_Sfy1GTl49RMqS8nEkU-iQmKo1F-B8elbV5JhyxemglMm-lycmzivQj6DXEyWAAoZXUKF7o9N9QjSDhuxrIaD6qgHp73D3Y0MmlkwiKcpSxMR8mZQHigTDKCRsXffCBDXNcg70PKyjTx2RVPC8amfR_MCsbTFegMU6O057ewc-5H7lQpgvT317F3GTYN1Mi9kOGSwD3Nz_DT"
+                />
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1">
+                Thomas Verhoeven
+              </h3>
+              <p
+                data-translate="team.position3"
+                class="text-primary font-bold text-sm mb-4"
+              >
+                Directeur des Opérations
+              </p>
+              <div
+                class="flex gap-4 opacity-40 group-hover:opacity-100 transition-opacity"
+              >
+                <a
+                  class="text-slate-600 dark:text-slate-300 hover:text-primary"
+                  href="#"
+                  ><span class="material-symbols-outlined">share</span></a
+                >
+                <a
+                  class="text-slate-600 dark:text-slate-300 hover:text-primary"
+                  href="#"
+                  ><span class="material-symbols-outlined">mail</span></a
+                >
+              </div>
+            </div>
+            <!-- Team Member 4 -->
+            <div class="flex flex-col items-center group">
+              <div class="relative w-48 h-48 mb-6">
+                <div
+                  class="absolute inset-0 bg-primary/10 rounded-2xl transform rotate-6 group-hover:rotate-12 transition-transform"
+                ></div>
+                <img
+                  alt="Reconciliation Specialist"
+                  class="relative w-full h-full object-cover rounded-2xl shadow-xl grayscale group-hover:grayscale-0 transition-all"
+                  data-alt="Clara Nzuzi - Coordinatrice Humanitaire headshot"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3njLqCjtisPaN4RgCcx89B2L4buAn3US5LAgqAVhBBScUL8U6163xibtHZoANHWH3jNC7EqxFGpKKCGZyZF8r18HiF1EKZeVfffM-13u_rADThETDpQHgMOv3_uNIAfpjkRdVi72zgCQism2_rDiRRbEINrPqT14CWU8XDryGn-40r0bFUg_314HLs_M_83grpw9OmXpQREcTT3ZQgzcwKTjQBQFAZ9AjvYjfujte_eE7qH-HN_AmJecxoHDe5x3XrcUoH7LSpVDe"
+                />
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1">
+                Clara Nzuzi
+              </h3>
+              <p
+                data-translate="team.position4"
+                class="text-primary font-bold text-sm mb-4"
+              >
+                Coordinatrice Humanitaire
+              </p>
+              <div
+                class="flex gap-4 opacity-40 group-hover:opacity-100 transition-opacity"
+              >
+                <a
+                  class="text-slate-600 dark:text-slate-300 hover:text-primary"
+                  href="#"
+                  ><span class="material-symbols-outlined">share</span></a
+                >
+                <a
+                  class="text-slate-600 dark:text-slate-300 hover:text-primary"
+                  href="#"
+                  ><span class="material-symbols-outlined">mail</span></a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Call to Action -->
+      <section class="py-20 bg-primary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2
+            data-translate="cta.title"
+            class="text-4xl font-black text-white mb-6"
+          >
+            Soutenez la Paix Aujourd'hui
+          </h2>
+          <p
+            data-translate="cta.desc"
+            class="text-white/80 text-xl max-w-2xl mx-auto mb-10"
+          >
+            Votre contribution finance directement nos programmes de médiation
+            communautaire, de désarmement volontaire et nos projets de
+            développement dans les zones en proie aux conflits.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              data-translate="cta.button1"
+              class="bg-white text-primary px-10 py-4 rounded-xl font-black text-lg hover:bg-slate-50 transition-all"
+            >
+              Faire un Don
+            </button>
+            <button
+              data-translate="cta.button2"
+              class="bg-primary-dark/20 text-white border-2 border-white/30 px-10 py-4 rounded-xl font-black text-lg hover:bg-white/10 transition-all"
+            >
+              Devenir Partenaire
+            </button>
+          </div>
+        </div>
+      </section>
+      <!-- Modern Blog Section -->
+      <section class="py-24 bg-background-light dark:bg-background-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div
+            class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6"
+          >
+            <div>
+              <h2
+                data-translate="blog.title"
+                class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4"
+              >
+                Derniers Rapports & Témoignages
+              </h2>
+              <p
+                data-translate="blog.subtitle"
+                class="text-slate-600 dark:text-slate-400 max-w-2xl text-lg"
+              >
+                Analyses détaillées et récits issus de nos opérations sur le
+                terrain à travers la RDC.
+              </p>
+            </div>
+            <a
+              data-translate="blog.viewall"
+              class="text-primary font-bold flex items-center gap-2 hover:gap-3 transition-all"
+              href="#"
+            >
+              Voir tous les articles
+              <span class="material-symbols-outlined">arrow_forward</span>
+            </a>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Blog Card 1 -->
+            <article
+              class="flex flex-col bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div class="relative h-56 overflow-hidden">
+                <div class="absolute top-4 left-4 z-20">
+                  <span
+                    data-translate="blog1.category"
+                    class="bg-primary text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg shadow-lg"
+                    >Paix</span
+                  >
+                </div>
+                <img
+                  alt="Peacebuilding discussion"
+                  class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                  data-alt="Sensibilisation des leaders FDLR"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_lnHCrFJL86rIrQ3A6xgURQ_is1Sz1oA58yVnvT9Ril6j-NcSDH7n_gbCdb9zOGFkpLVxw_bTWF-U60dMmrDXlQK_JdiX39L0rYIvqg7pJH6FpzwJ-KGQBWSCiEcQS2ix8g9yizcqAztalPpysv_1wkvhiUZr3194X6OioZ0bF62xERN3ibNXlO3MujD0lUi4GOiVso7pWIehI8zXiPiq_SdWGVt6MdscjEfLrYOYLlfGahGYPHKSGCtDGzcLzGBZKNM0M2GE7A_G"
+                />
+              </div>
+              <div class="p-6 flex-1 flex flex-col">
+                <h3
+                  data-translate="blog1.title"
+                  class="text-xl font-bold text-slate-900 dark:text-white mb-3 line-clamp-2 leading-snug"
+                >
+                  Le Rôle de la Sensibilisation dans le Désarmement Volontaire
+                </h3>
+                <p
+                  data-translate="blog1.desc"
+                  class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-8 line-clamp-3"
+                >
+                  Retour sur nos missions de sensibilisation à Kigogo, Burhinyi
+                  et Minova qui ont conduit au rapatriement de centaines de
+                  combattants.
+                </p>
+                <div
+                  class="mt-auto pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between"
+                >
+                  <div class="flex items-center gap-3">
+                    <img
+                      class="size-8 rounded-full"
+                      data-alt="Équipe ICPRD photo"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0YvYWN1xPSgulZYBKIJKeezVrPNcZxSCZCcNvhV9tQ1TOC8AGX5-3NSeClTsAcZdEfAy8qAfzbDusbbhfThUUL7NSo6Y4hMWEawM7EgsalIhf4BxLCtr4q2jNllLHsU6-zEbhgcn-2PL737QnvL_fIG3DV9ZkxJSlCu6SscNFVk0HzD4JVch51zriUoPZMbd0z3HxgJQL8CjH5-QCwO1LAz3MktlD9ZndaJKsT1OoKedhe7l-jEskrZdwJGembHcB7mw05lvsBXzR"
+                    />
+                    <div class="flex flex-col">
+                      <span
+                        data-translate="blog1.author"
+                        class="text-xs font-bold text-slate-900 dark:text-white"
+                        >Équipe ICPRD</span
+                      >
+                      <span
+                        data-translate="blog1.date"
+                        class="text-[10px] text-slate-500"
+                        >Il y a 2 jours</span
+                      >
+                    </div>
+                  </div>
+                  <div
+                    data-translate=""
+                    class="flex items-center gap-1.5 text-slate-500 text-xs font-medium"
+                  >
+                    <span class="material-symbols-outlined !text-base"
+                      >visibility</span
+                    >
+                    1.2k vues
+                  </div>
+                </div>
+              </div>
+            </article>
+            <!-- Blog Card 2 -->
+            <article
+              class="flex flex-col bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div class="relative h-56 overflow-hidden">
+                <div class="absolute top-4 left-4 z-20">
+                  <span
+                    data-translate="blog2.category"
+                    class="bg-emerald-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg shadow-lg"
+                    >Formation</span
+                  >
+                </div>
+                <img
+                  alt="Centre Kitamba"
+                  class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                  data-alt="Le centre de formation de Kitamba"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIBH51I5to352MBbtWf6ES6qCfGDi4iDpm4Da35m9hXwvDGee_L7_evUnYArhvpQX3wk1pECuShb5io98eLcTg0LpiXRjitSQSWRMUXzAe70W0K6lQcKrfagbl67-cNzTADgEBKUmh4wdzf6Bq8WKXYk0LvfeMOy8Mz8sHKYR0NNdU3w14cUyEWkVFqyBhYjOTgDLA52Vhf3pzX2QBb_Kss5-J8MGQKnyRAHjY0qdpiNt_JguvdOgnwOeYaRQ-WdwUuykYsgTUlkek"
+                />
+              </div>
+              <div class="p-6 flex-1 flex flex-col">
+                <h3
+                  data-translate="blog2.title"
+                  class="text-xl font-bold text-slate-900 dark:text-white mb-3 line-clamp-2 leading-snug"
+                >
+                  Kitamba : Un Centre pour l'Avenir
+                </h3>
+                <p
+                  data-translate="blog2.desc"
+                  class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-8 line-clamp-3"
+                >
+                  Comment notre centre de réintégration socio-professionnelle
+                  forme d'anciens combattants à la menuiserie, la couture et
+                  d'autres métiers pour une réinsertion réussie.
+                </p>
+                <div
+                  class="mt-auto pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between"
+                >
+                  <div class="flex items-center gap-3">
+                    <img
+                      class="size-8 rounded-full"
+                      data-alt="Mwami Kalenga photo"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8v2Bf3UCZJGkvojDhQqoDiJz4PuA2tXPMOf0M-yVwBHUqRydWDncoPKnlvO2GdlPADNVQ1QAw36Lf3lT9vHOBidCWtgHrxJjgFX0dhMYujWtxh3dZc6z3ti0ECoTecY-HsCvQsOH08-AziRXNf4lx8LPrhiRy18GuuTFVBlqEimCrUaiAbu3wzsAnSj0mRB0rXvjjMzGVy2P3l_Dyvdvw3x27MzneTRJOMd_elXecfm6XpM0UCTDOIMVvqV6w-e0QROy_ypzlwAZ9"
+                    />
+                    <div class="flex flex-col">
+                      <span
+                        data-translate="author"
+                        class="text-xs font-bold text-slate-900 dark:text-white"
+                        >Témoignage</span
+                      >
+                      <span
+                        data-translate="blog2.date"
+                        class="text-[10px] text-slate-500"
+                        >Il y a 5 jours</span
+                      >
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-1.5 text-slate-500 text-xs font-medium"
+                  >
+                    <span class="material-symbols-outlined !text-base"
+                      >visibility</span
+                    >
+                    840 vues
+                  </div>
+                </div>
+              </div>
+            </article>
+            <!-- Blog Card 3 -->
+            <article
+              class="flex flex-col bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div class="relative h-56 overflow-hidden">
+                <div class="absolute top-4 left-4 z-20">
+                  <span
+                    data-translate="blog3.category"
+                    class="bg-amber-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg shadow-lg"
+                    >Droits Humains</span
+                  >
+                </div>
+                <img
+                  alt="Atelier formation"
+                  class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                  data-alt="Atelier de formation des défenseurs des droits humains"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXBooU4razIh6JO_IQ0s1R_9GWLhmTpor62wrKwMyCMZkScd4d2_eGJjeq20pC2-19QmjIzLCUTWLtRXf2GQuL8eDMXWiUrO9RYHw-SArYtK_YUkm1CX3cFjtsU3PUsXhlI3ZgQvE_6Fyib-o95rjYQ8lKZbV6128iZyODhgVGYKut5V5Oat-k9bRbhgjXZ-776Y61lsMMk6BlZotSUC7hd_KWOoddSRSxLoUlq-h_fGIGySBrJncAEPljEWS3s88ChdpOgQH0PUyy"
+                />
+              </div>
+              <div class="p-6 flex-1 flex flex-col">
+                <h3
+                  data-translate="blog3.title"
+                  class="text-xl font-bold text-slate-900 dark:text-white mb-3 line-clamp-2 leading-snug"
+                >
+                  Formation des Défenseurs des Droits Humains
+                </h3>
+                <p
+                  data-translate="blog3.desc"
+                  class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-8 line-clamp-3"
+                >
+                  Compte-rendu de notre atelier à Bukavu sur la collecte de
+                  données pour documenter les incidents dans la chaîne de valeur
+                  de l'exploitation minière.
+                </p>
+                <div
+                  class="mt-auto pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between"
+                >
+                  <div class="flex items-center gap-3">
+                    <img
+                      class="size-8 rounded-full"
+                      data-alt="Expert UN photo"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoH0880EoeRXVQUr3e-fjGXsoplETONvtbowTdEgHMOlKBiH-nzKsYYQcLCwooIJYRjW3hhx0oPxaUmH2qWwExh5eJe9bfghUJ3bcm0A5-dqnAZxbWuBRNjKlnUTeaN4VKedycx7XH3fgJL83msDfqwlVyXGMcKbJ-lU_NpBVcW5xO-Q6i_HJoeXaiUqwIpJA7JhoavI08KZ86cgmxsObrTquLGy49kVbMc1ZcCd-OpCySoPM4N02eJqRETn9XcbUCSCGhWJxTKD7p"
+                    />
+                    <div class="flex flex-col">
+                      <span
+                        data-translate="blog3.author"
+                        class="text-xs font-bold text-slate-900 dark:text-white"
+                        >Expert UN</span
+                      >
+                      <span
+                        data-translate="blog3.date"
+                        class="text-[10px] text-slate-500"
+                        >Il y a 1 semaine</span
+                      >
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-1.5 text-slate-500 text-xs font-medium"
+                  >
+                    <span class="material-symbols-outlined !text-base"
+                      >visibility</span
+                    >
+                    2.1k vues
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="py-32 bg-primary" id="contact">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid lg:grid-cols-2 gap-20">
+            <div class="text-white">
+              <h2
+                data-translate="contact.title"
+                class="text-5xl font-black mb-8"
+              >
+                Construisons la Paix Ensemble
+              </h2>
+              <p
+                data-translate="contact.subtitle"
+                class="text-xl opacity-90 mb-12 font-light leading-relaxed"
+              >
+                Que vous souhaitiez devenir partenaire, bénévole ou soutenir nos
+                programmes, nous serions ravis d'échanger avec vous.
+              </p>
+              <div class="space-y-8">
+                <div class="flex items-center gap-6">
+                  <div
+                    class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center border border-white/20"
+                  >
+                    <span class="material-symbols-outlined"
+                      >alternate_email</span
+                    >
+                  </div>
+                  <div>
+                    <p
+                      data-translate="contact.email"
+                      class="text-xs font-black uppercase tracking-widest opacity-60"
+                    >
+                      Écrivez-nous
+                    </p>
+                    <p
+                      data-translate="contact.email_value"
+                      class="text-lg font-bold"
+                    >
+                      contact@icprd.com
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-6">
+                  <div
+                    class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center border border-white/20"
+                  >
+                    <span class="material-symbols-outlined">location_on</span>
+                  </div>
+                  <div>
+                    <p
+                      data-translate="contact.location"
+                      class="text-xs font-black uppercase tracking-widest opacity-60"
+                    >
+                      Nos bureaux
+                    </p>
+                    <p
+                      data-translate="contact.location_value"
+                      class="text-lg font-bold"
+                    >
+                      Bukavu & Goma, République Démocratique du Congo
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bg-white dark:bg-slate-900 p-12 rounded-[2.5rem] shadow-2xl"
+            >
+              <form class="space-y-6">
+                <div class="grid grid-cols-2 gap-6">
+                  <div>
+                    <label
+                      data-translate="form.name"
+                      class="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2"
+                      >Nom</label
+                    >
+                    <input
+                      data-translate="form.name_placeholder"
+                      class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary py-4"
+                      placeholder="Nom complet"
+                      type="text"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      data-translate="form.email"
+                      class="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2"
+                      >Email</label
+                    >
+                    <input
+                      data-translate="form.email_placeholder"
+                      class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary py-4"
+                      placeholder="Adresse email"
+                      type="email"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label
+                    data-translate="form.subject"
+                    class="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2"
+                    >Sujet</label
+                  >
+                  <input
+                    data-translate="form.subject_placeholder"
+                    class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary py-4"
+                    placeholder="Objet de votre message"
+                    type="text"
+                  />
+                </div>
+                <div>
+                  <label
+                    data-translate="form.message"
+                    class="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2"
+                    >Message</label
+                  >
+                  <textarea
+                    data-translate="form.message_placeholder"
+                    class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary py-4"
+                    placeholder="Comment pouvons-nous vous aider ?"
+                    rows="4"
+                  ></textarea>
+                </div>
+                <button
+                  data-translate="form.button"
+                  class="w-full bg-primary py-5 rounded-xl text-white font-black text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all"
+                >
+                  Envoyer le Message
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer
+      class="bg-background-dark text-slate-400 py-20 border-t border-slate-800"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
+          <div class="col-span-1 md:col-span-1">
+            <div class="flex items-center gap-3 text-white mb-8">
+              <div class="text-primary">
+                <svg class="size-8" fill="currentColor" viewBox="0 0 48 48">
+                  <path
+                    d="M13.8261 17.4264C16.7203 18.1174 20.2244 18.5217 24 18.5217C27.7756 18.5217 31.2797 18.1174 34.1739 17.4264C36.9144 16.7722 39.9967 15.2331 41.3563 14.1648L24.8486 40.6391C24.4571 41.267 23.5429 41.267 23.1514 40.6391L6.64374 14.1648C8.00331 15.2331 11.0856 16.7722 13.8261 17.4264Z"
+                  ></path>
+                </svg>
+              </div>
+              <span class="text-2xl font-black">ICPRD</span>
+            </div>
+            <p
+              data-translate="footer.desc"
+              class="text-sm leading-relaxed mb-8"
+            >
+              Dédiée à favoriser l'harmonie et le développement durable à
+              travers la République Démocratique du Congo depuis 2004.
+            </p>
+            <div class="flex gap-4">
+              <a
+                class="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center hover:bg-primary hover:border-primary transition-all text-white"
+                href="#"
+                ><span class="material-symbols-outlined !text-lg"
+                  >share</span
+                ></a
+              >
+              <a
+                class="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center hover:bg-primary hover:border-primary transition-all text-white"
+                href="#"
+                ><span class="material-symbols-outlined !text-lg"
+                  >group</span
+                ></a
+              >
+            </div>
+          </div>
+          <div>
+            <h4
+              data-translate="footer.org"
+              class="text-white font-black text-sm uppercase tracking-widest mb-8"
+            >
+              Organisation
+            </h4>
+            <ul class="space-y-4 text-sm font-bold">
+              <li>
+                <a
+                  data-translate="footer.org.about"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >À propos</a
+                >
+              </li>
+              <li>
+                <a
+                  data-translate="footer.org.plan"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Plan Stratégique</a
+                >
+              </li>
+              <li>
+                <a
+                  data-translate="footer.org.reports"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Rapports Annuels</a
+                >
+              </li>
+              <li>
+                <a
+                  data-translate="footer.org.join"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Rejoignez-nous</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              data-translate="footer.legal"
+              class="text-white font-black text-sm uppercase tracking-widest mb-8"
+            >
+              Légal & Confidentialité
+            </h4>
+            <ul class="space-y-4 text-sm font-bold">
+              <li>
+                <a
+                  data-translate="footer.legal.privacy"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Politique de Confidentialité</a
+                >
+              </li>
+              <li>
+                <a
+                  data-translate="footer.legal.charter"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Charte des Donateurs</a
+                >
+              </li>
+              <li>
+                <a
+                  data-translate="footer.legal.governance"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Gouvernance</a
+                >
+              </li>
+              <li>
+                <a
+                  data-translate="footer.legal.transparency"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Transparence</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              data-translate="footer.newsletter"
+              class="text-white font-black text-sm uppercase tracking-widest mb-8"
+            >
+              Newsletter
+            </h4>
+            <p data-translate="footer.newsletter.desc" class="text-sm mb-6">
+              Recevez des mises à jour du terrain et nos rapports directement
+              dans votre boîte mail.
+            </p>
+            <div class="flex gap-2">
+              <input
+                data-translate="footer.newsletter.placeholder"
+                class="bg-slate-900 border-none rounded-xl focus:ring-primary text-sm w-full py-3"
+                placeholder="Adresse email"
+                type="email"
+              />
+              <button
+                data-translate="footer.newsletter.button"
+                class="bg-primary text-white px-5 rounded-xl hover:bg-primary/90 transition-colors flex items-center justify-center"
+              >
+                <span class="material-symbols-outlined">send</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em]"
+        >
+          <p data-translate="footer.copyright">
+            © 2024 Initiative Chrétienne pour la Paix, la Réconciliation et le
+            Développement.
+          </p>
+          <div class="flex gap-10">
+            <a data-translate="footer.tagline1" class="hover:text-primary" href="#">La Paix est Possible</a>
+            <a data-translate="footer.tagline2" class="hover:text-primary" href="#">RDC Forte</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- IMPORTANT : Inclure le fichier JavaScript -->
+    <script src="main.js"></script>
+  </body>
+</html>
