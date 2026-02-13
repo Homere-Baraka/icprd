@@ -450,3 +450,446 @@ document.addEventListener('DOMContentLoaded', function() {
   
   console.log('ICPRD - Prêt! Langue:', currentLang);
 });
+
+
+// ============================================
+// ANIMATIONS GSAP POUR ICPRD
+// ============================================
+
+class ICPRDAnimations {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    // Attendre que la page soit chargée
+    window.addEventListener('load', () => {
+      this.animateHero();
+      this.animateStats();
+      this.animatePillars();
+      this.animateAchievements();
+      this.animateTeam();
+      this.animateBlog();
+      this.animateContact();
+      this.animateHeader();
+      this.initScrollAnimations();
+      this.initHoverEffects();
+    });
+  }
+
+  // 1. ANIMATION HERO SECTION (Entrée spectaculaire)
+  animateHero() {
+    const heroTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+    
+    heroTimeline
+      .fromTo('.hero-gradient',
+        { opacity: 0 },
+        { opacity: 1, duration: 1.5 }
+      )
+      .from('[data-translate="hero.badge"]', {
+        y: 50,
+        opacity: 0,
+        scale: 0.8,
+        duration: 0.8
+      }, '-=0.5')
+      .from('[data-translate="hero.title"]', {
+        y: 80,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.2
+      }, '-=0.3')
+      .from('[data-translate="hero.subtitle"]', {
+        y: 40,
+        opacity: 0,
+        duration: 0.8
+      }, '-=0.2')
+      // .from('[data-translate="hero.button1"]', {
+      //   x: -50,
+      //   opacity: 0,
+      //   duration: 0.6
+      // }, '-=0.2')
+      // .from('[data-translate="hero.button2"]', {
+      //   x: 50,
+      //   opacity: 0,
+      //   duration: 0.6
+      // }, '-=0.6');
+  }
+
+  // 2. ANIMATION DES STATISTIQUES (Compteurs)
+ animateStats() {
+  // Animation des containers de stats
+  gsap.from('.grid.grid-cols-2 > div', {
+    scrollTrigger: {
+      trigger: '.py-12.bg-white',
+      start: 'top 80%',
+      toggleActions: 'play none none reverse'
+    },
+    y: 60,
+    opacity: 0,
+    duration: 1,
+    stagger: 0.2,
+    ease: "back.out(1.7)"
+  });
+
+  // Animation des compteurs - VERSION CORRIGÉE
+  const counters = document.querySelectorAll('.grid.grid-cols-2 .text-4xl.font-black');
+  counters.forEach(counter => {
+    // Extraire seulement le nombre (ex: "20k+" -> 20)
+    const text = counter.textContent.trim();
+    const match = text.match(/(\d+)/); // Cherche uniquement les chiffres
+    const target = match ? parseInt(match[1]) : 0;
+    
+    // Sauvegarder le format original (ex: "k+", "+", etc.)
+    const suffix = text.replace(/\d+/g, ''); // Garde tout sauf les chiffres
+    
+    const obj = { value: 0 };
+    
+    gsap.to(obj, {
+      value: target,
+      duration: 2,
+      scrollTrigger: {
+        trigger: counter.closest('.grid.grid-cols-2'),
+        start: 'top 90%',
+        toggleActions: 'play none none reverse'
+      },
+      onUpdate: () => {
+        counter.textContent = Math.floor(obj.value) + suffix;
+      },
+      onComplete: () => {
+        // Assure que la valeur finale est exacte
+        counter.textContent = target + suffix;
+      },
+      ease: "power2.out"
+    });
+  });
+}
+  // 3. ANIMATION DES PILLIERS (Cartes avec effet cascade)
+  animatePillars() {
+    const cards = gsap.utils.toArray('.group.bg-white');
+    
+    cards.forEach((card, i) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        },
+        y: 100,
+        opacity: 0,
+        rotationY: i % 2 === 0 ? -15 : 15,
+        duration: 1,
+        delay: i * 0.2,
+        ease: "power3.out"
+      });
+
+      // Animation au survol
+      card.addEventListener('mouseenter', () => {
+        gsap.to(card, {
+          y: -10,
+          duration: 0.4,
+          ease: "power2.out"
+        });
+      });
+
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+          y: 0,
+          duration: 0.4,
+          ease: "power2.out"
+        });
+      });
+    });
+  }
+
+  // 4. ANIMATION DES RÉALISATIONS (Effet parallaxe)
+  animateAchievements() {
+    const achievements = gsap.utils.toArray('.group.relative.flex-col');
+    
+    achievements.forEach((achievement, i) => {
+      // Animation d'entrée
+      gsap.from(achievement, {
+        scrollTrigger: {
+          trigger: achievement,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        },
+        y: 80,
+        opacity: 0,
+        scale: 0.9,
+        duration: 1,
+        delay: i * 0.15,
+        ease: "back.out(1.7)"
+      });
+
+      // Effet parallaxe sur les images
+      const img = achievement.querySelector('img');
+      gsap.to(img, {
+        y: -30,
+        ease: "none",
+        scrollTrigger: {
+          trigger: achievement,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+    });
+  }
+
+  // 5. ANIMATION DE L'ÉQUIPE (Rotation 3D)
+  animateTeam() {
+    const teamMembers = gsap.utils.toArray('.flex.flex-col.items-center.group');
+    
+    teamMembers.forEach((member, i) => {
+      gsap.from(member, {
+        scrollTrigger: {
+          trigger: member,
+          start: 'top 90%',
+          toggleActions: 'play none none reverse'
+        },
+        y: 60,
+        opacity: 0,
+        rotationY: 20,
+        duration: 1,
+        delay: i * 0.1,
+        ease: "power3.out"
+      });
+
+      // Animation au survol des photos
+      const img = member.querySelector('img');
+      member.addEventListener('mouseenter', () => {
+        gsap.to(img, {
+          scale: 1.05,
+          filter: 'grayscale(0)',
+          duration: 0.5,
+          ease: "power2.out"
+        });
+        gsap.to(member.querySelector('.absolute.inset-0'), {
+          rotation: 12,
+          duration: 0.5,
+          ease: "power2.out"
+        });
+      });
+
+      member.addEventListener('mouseleave', () => {
+        gsap.to(img, {
+          scale: 1,
+          filter: 'grayscale(1)',
+          duration: 0.5,
+          ease: "power2.out"
+        });
+        gsap.to(member.querySelector('.absolute.inset-0'), {
+          rotation: 6,
+          duration: 0.5,
+          ease: "power2.out"
+        });
+      });
+    });
+  }
+
+  // 6. ANIMATION DES ARTICLES DE BLOG
+  animateBlog() {
+    const blogCards = gsap.utils.toArray('.flex.flex-col.bg-white');
+    
+    blogCards.forEach((card, i) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        },
+        y: 50,
+        opacity: 0,
+        rotationX: 10,
+        duration: 0.8,
+        delay: i * 0.1,
+        ease: "power2.out"
+      });
+
+      // Animation hover avec effet de profondeur
+      card.addEventListener('mouseenter', () => {
+        gsap.to(card, {
+          y: -15,
+          rotationX: 5,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+          y: 0,
+          rotationX: 0,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+    });
+  }
+
+  // 7. ANIMATION SECTION CONTACT (Formulaire)
+  animateContact() {
+    gsap.from('.text-white > h2', {
+      scrollTrigger: {
+        trigger: '#contact',
+        start: 'top 80%',
+        toggleActions: 'play none none reverse'
+      },
+      y: 50,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out"
+    });
+
+    // Animation des inputs
+    const inputs = gsap.utils.toArray('.form-input, input, textarea, button');
+    inputs.forEach((input, i) => {
+      gsap.from(input, {
+        scrollTrigger: {
+          trigger: input,
+          start: 'top 90%',
+          toggleActions: 'play none none reverse'
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.6,
+        delay: i * 0.05,
+        ease: "power2.out"
+      });
+    });
+  }
+
+  // 8. ANIMATION DU HEADER (Apparition)
+  animateHeader() {
+    gsap.from('header', {
+      y: -100,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out"
+    });
+
+    // Animation des liens de navigation
+    const navLinks = gsap.utils.toArray('nav a');
+    navLinks.forEach((link, i) => {
+      gsap.from(link, {
+        y: -20,
+        opacity: 0,
+        duration: 0.5,
+        delay: i * 0.1,
+        ease: "power2.out"
+      });
+    });
+  }
+
+  // 9. ANIMATIONS AU SCROLL (Smooth scrolling)
+  initScrollAnimations() {
+    // Smooth scroll pour les ancres
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          gsap.to(window, {
+            duration: 1,
+            scrollTo: {
+              y: targetElement,
+              offsetY: 80
+            },
+            ease: "power3.inOut"
+          });
+        }
+      });
+    });
+
+    // Animation de la sidebar mobile
+    const sidebar = document.getElementById('mobile-sidebar');
+    const overlay = document.getElementById('mobile-overlay');
+    const toggleBtn = document.getElementById('mobile-menu-toggle');
+    const closeBtn = document.getElementById('mobile-menu-close');
+
+    if (toggleBtn && sidebar) {
+      toggleBtn.addEventListener('click', () => {
+        gsap.to(sidebar, {
+          x: 0,
+          duration: 0.4,
+          ease: "power3.out"
+        });
+        gsap.to(overlay, {
+          opacity: 1,
+          duration: 0.3,
+          display: 'block'
+        });
+      });
+
+      closeBtn.addEventListener('click', () => {
+        this.closeMobileMenu();
+      });
+
+      overlay.addEventListener('click', () => {
+        this.closeMobileMenu();
+      });
+    }
+  }
+
+  closeMobileMenu() {
+    const sidebar = document.getElementById('mobile-sidebar');
+    const overlay = document.getElementById('mobile-overlay');
+    
+    gsap.to(sidebar, {
+      x: '100%',
+      duration: 0.4,
+      ease: "power3.in"
+    });
+    gsap.to(overlay, {
+      opacity: 0,
+      duration: 0.3,
+      display: 'none'
+    });
+  }
+
+  // 10. EFFETS DE SURVOL AVANCÉS
+  initHoverEffects() {
+    // Boutons avec effet de vague
+    const buttons = document.querySelectorAll('button.bg-primary');
+    buttons.forEach(button => {
+      button.addEventListener('mouseenter', (e) => {
+        const rect = button.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        gsap.to(button, {
+          '--x': x,
+          '--y': y,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+    });
+
+    // Effet de parallaxe sur les images de background
+    const bgImages = document.querySelectorAll('.absolute.inset-0.bg-cover');
+    bgImages.forEach(bg => {
+      gsap.to(bg, {
+        yPercent: 10,
+        ease: "none",
+        scrollTrigger: {
+          trigger: bg.parentElement,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+    });
+  }
+}
+
+// Initialisation
+document.addEventListener('DOMContentLoaded', () => {
+  const animations = new ICPRDAnimations();
+  
+  // Exposer globalement pour le débogage
+  window.ICPRDAnimations = animations;
+});
