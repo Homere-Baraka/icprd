@@ -77,7 +77,7 @@ const translations = {
     // Team section
     "team.title": "Our Leadership Team",
     "team.subtitle": "Guided by committed experts, local activists and dedicated peacemakers.",
-    "team.position1": "Executive Secretary",
+    "team.position1": "Project Advisor",
     "team.position2": "Executive Secretary",
     "team.position3": "Operations Director",
     "team.position4": "Humanitarian Coordinator",
@@ -94,7 +94,7 @@ const translations = {
     "blog.viewall": "View all articles",
     
     "blog1.category": "Peace",
-    "blog1.title": "The Role of Awareness in Voluntary Disarmament",
+    "blog1.title": "Community education on BDH",
     "blog1.desc": "Review of our awareness missions in Kigogo, Burhinyi and Minova that led to the repatriation of hundreds of combatants.",
     "blog1.author": "ICPRD Team",
     "blog1.date": "2 days ago",
@@ -227,7 +227,7 @@ const translations = {
     // Team section
     "team.title": "Notre Équipe de Direction",
     "team.subtitle": "Guidée par des experts engagés, des activistes locaux et des artisans de paix dévoués.",
-    "team.position1": "Secrétaire Exécutif",
+    "team.position1": "Conseillé au projet",
     "team.position2": "Secrétaire Exécutif",
     "team.position3": "Directeur des Opérations",
     "team.position4": "Coordinatrice Humanitaire",
@@ -244,7 +244,7 @@ const translations = {
     "blog.viewall": "Voir tous les articles",
     
     "blog1.category": "Paix",
-    "blog1.title": "Le Rôle de la Sensibilisation dans le Désarmement Volontaire",
+    "blog1.title": "Éducation communautaire sur le BDH",
     "blog1.desc": "Retour sur nos missions de sensibilisation à Kigogo, Burhinyi et Minova qui ont conduit au rapatriement de centaines de combattants.",
     "blog1.author": "Équipe ICPRD",
     "blog1.date": "Il y a 2 jours",
