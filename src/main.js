@@ -157,7 +157,7 @@ const translations = {
     "contact.email": "Email Us",
     "contact.email_value": "contact@icprd.com",
     "contact.location": "Visit Us",
-    "contact.location_value": "Bukavu & Goma, Democratic Republic of Congo",
+    "contact.location_value": "Av Vamaro, No 15, Com d'Ibanda Ville de Bukavu RDC",
 
     "form.name": "Name",
     "form.name_placeholder": "Full name",
@@ -349,7 +349,7 @@ const translations = {
     "contact.email": "Écrivez-nous",
     "contact.email_value": "contact@icprd.com",
     "contact.location": "Nos bureaux",
-    "contact.location_value": "Bukavu & Goma, République Démocratique du Congo",
+    "contact.location_value": "Av Vamaro, No 15, Com d'Ibanda Ville de Bukavu RDC",
 
     "form.name": "Nom",
     "form.name_placeholder": "Nom complet",
