@@ -1,0 +1,628 @@
+<!doctype html>
+<html class="dark" lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ICPRD - Building Sustainable Peace in DRC</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- GSAP CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        max-width: 100%;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+      }
+
+      :root {
+        --primary: #4a6df7;
+        --background-dark: #101322;
+      }
+
+      .hero-gradient {
+        background: linear-gradient(
+          to right,
+          rgba(16, 19, 34, 0.95) 0%,
+          rgba(16, 19, 34, 0.6) 50%,
+          transparent 100%
+        );
+      }
+
+      /* Classes d'animation initiales */
+      .gsap-fade {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .gsap-fade.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* Correction des boutons Hero */
+      .hero-buttons {
+        position: relative;
+        z-index: 100;
+      }
+
+      .hero-buttons button {
+        position: relative;
+        z-index: 101;
+        cursor: pointer;
+      }
+
+      /* Empêcher le débordement */
+      img,
+      video,
+      iframe {
+        max-width: 100%;
+      }
+
+      /* Loading spinner */
+      #loading-spinner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--background-dark);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      }
+
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(74, 109, 247, 0.3);
+        border-radius: 50%;
+        border-top-color: var(--primary);
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#4a6df7",
+              "background-light": "#f5f6f8",
+              "background-dark": "#101322",
+            },
+            fontFamily: {
+              display: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 transition-colors duration-300 overflow-x-hidden"
+  >
+    <!-- Loading Spinner -->
+    <!-- <div id="loading-spinner">
+      <div class="spinner"></div>
+    </div> -->
+
+    <!-- Header -->
+    <header
+      class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#101322]/80 backdrop-blur-md"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <div class="flex items-center gap-10">
+            <div class="flex items-center gap-3">
+              <div class="text-primary">
+                <svg
+                  class="size-10"
+                  fill="none"
+                  viewBox="0 0 48 48"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M13.8261 17.4264C16.7203 18.1174 20.2244 18.5217 24 18.5217C27.7756 18.5217 31.2797 18.1174 34.1739 17.4264C36.9144 16.7722 39.9967 15.2331 41.3563 14.1648L24.8486 40.6391C24.4571 41.267 23.5429 41.267 23.1514 40.6391L6.64374 14.1648C8.00331 15.2331 11.0856 16.7722 13.8261 17.4264Z"
+                    fill="currentColor"
+                  ></path>
+                  <path
+                    clip-rule="evenodd"
+                    d="M39.998 12.236C39.9944 12.2537 39.9875 12.2845 39.9748 12.3294C39.9436 12.4399 39.8949 12.5741 39.8346 12.7175C39.8168 12.7597 39.7989 12.8007 39.7813 12.8398C38.5103 13.7113 35.9788 14.9393 33.7095 15.4811C30.9875 16.131 27.6413 16.5217 24 16.5217C20.3587 16.5217 17.0125 16.131 14.2905 15.4811C12.0012 14.9346 9.44505 13.6897 8.18538 12.8168C8.17384 12.7925 8.16216 12.767 8.15052 12.7408C8.09919 12.6249 8.05721 12.5114 8.02977 12.411C8.00356 12.3152 8.00039 12.2667 8.00004 12.2612C8.00004 12.261 8 12.2607 8.00004 12.2612C8.00004 12.2359 8.0104 11.9233 8.68485 11.3686C9.34546 10.8254 10.4222 10.2469 11.9291 9.72276C14.9242 8.68098 19.1919 8 24 8C28.8081 8 33.0758 8.68098 36.0709 9.72276C37.5778 10.2469 38.6545 10.8254 39.3151 11.3686C39.9006 11.8501 39.9857 12.1489 39.998 12.236ZM4.95178 15.2312L21.4543 41.6973C22.6288 43.5809 25.3712 43.5809 26.5457 41.6973L43.0534 15.223C43.0709 15.1948 43.0878 15.1662 43.104 15.1371L41.3563 14.1648C43.104 15.1371 43.1038 15.1374 43.104 15.1371L43.1051 15.135L43.1065 15.1325L43.1101 15.1261L43.1199 15.1082C43.1276 15.094 43.1377 15.0754 43.1497 15.0527C43.1738 15.0075 43.2062 14.9455 43.244 14.8701C43.319 14.7208 43.4196 14.511 43.5217 14.2683C43.6901 13.8679 44 13.0689 44 12.2609C44 10.5573 43.003 9.22254 41.8558 8.2791C40.6947 7.32427 39.1354 6.55361 37.385 5.94477C33.8654 4.72057 29.133 4 24 4C18.867 4 14.1346 4.72057 10.615 5.94478C8.86463 6.55361 7.30529 7.32428 6.14419 8.27911C4.99695 9.22255 3.99999 10.5573 3.99999 12.2609C3.99999 13.1275 4.29264 13.9078 4.49321 14.3607C4.60375 14.6102 4.71348 14.8196 4.79687 14.9689C4.83898 15.0444 4.87547 15.1065 4.9035 15.1529C4.91754 15.1762 4.92954 15.1957 4.93916 15.2111L4.94662 15.223L4.95178 15.2312ZM35.9868 18.996L24 38.22L12.0131 18.996C12.4661 19.1391 12.9179 19.2658 13.3617 19.3718C16.4281 20.1039 20.0901 20.5217 24 20.5217C27.9099 20.5217 31.5719 20.1039 34.6383 19.3718C35.082 19.2658 35.5339 19.1391 35.9868 18.996Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+              <h2
+                class="text-slate-900 dark:text-white text-2xl font-black tracking-tighter"
+              >
+                ICPRD
+              </h2>
+            </div>
+            <nav class="hidden lg:flex items-center gap-8">
+              <a
+                class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+                href="#mission"
+                data-translate="nav.about"
+                >About Us</a
+              >
+              <a
+                class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+                href="#intervention"
+                data-translate="nav.what-we-do"
+                >What we do</a
+              >
+              <a
+                class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+                href="#environment"
+                data-translate="nav.environment"
+                >Environment</a
+              >
+
+              <a
+                class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+                href="#insights"
+                data-translate="nav.insights"
+                >Insights</a
+              >
+              <a
+                class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+                href="#team"
+                data-translate="nav.team"
+                >Team</a
+              >
+              <a
+                class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+                href="#contact"
+                data-translate="nav.contact"
+                >Contact</a
+              >
+            </nav>
+          </div>
+          <div class="flex items-center gap-4">
+            <div
+              class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50"
+            >
+              <span class="material-symbols-outlined text-primary !text-lg"
+                >language</span
+              >
+              <button class="text-xs font-bold text-primary" data-lang-btn="en">
+                EN
+              </button>
+              <span class="text-slate-300 dark:text-slate-700">|</span>
+              <button
+                class="text-xs font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                data-lang-btn="fr"
+              >
+                FR
+              </button>
+            </div>
+            <button
+              id="mobile-menu-toggle"
+              class="lg:hidden flex items-center border justify-center text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+              aria-label="Menu"
+            >
+              <span class="material-symbols-outlined text-4xl">menu</span>
+            </button>
+            <button
+              class="hidden lg:block bg-primary hover:bg-primary/90 text-white px-7 py-2.5 rounded-full font-bold text-sm transition-all shadow-lg shadow-primary/30"
+              data-translate="header.donate"
+            >
+              Donate Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Sidebar -->
+    <div
+      id="mobile-overlay"
+      class="fixed inset-0 z-[59] bg-black/50 hidden lg:hidden"
+    ></div>
+    <div
+      id="mobile-sidebar"
+      class="fixed inset-y-0 right-0 w-64 bg-white dark:bg-[#101322] z-[60] transform translate-x-full transition-transform duration-300 ease-in-out shadow-2xl lg:hidden"
+    >
+      <div class="flex flex-col h-full">
+        <div
+          class="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-800"
+        >
+          <div class="flex items-center gap-3">
+            <div class="text-primary">
+              <svg class="size-8" fill="currentColor" viewBox="0 0 48 48">
+                <path
+                  d="M13.8261 17.4264C16.7203 18.1174 20.2244 18.5217 24 18.5217C27.7756 18.5217 31.2797 18.1174 34.1739 17.4264C36.9144 16.7722 39.9967 15.2331 41.3563 14.1648L24.8486 40.6391C24.4571 41.267 23.5429 41.267 23.1514 40.6391L6.64374 14.1648C8.00331 15.2331 11.0856 16.7722 13.8261 17.4264Z"
+                ></path>
+              </svg>
+            </div>
+            <span class="text-xl font-black text-slate-900 dark:text-white"
+              >ICPRD</span
+            >
+          </div>
+          <button
+            id="mobile-menu-close"
+            class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+            aria-label="Fermer"
+          >
+            <span class="material-symbols-outlined text-2xl">close</span>
+          </button>
+        </div>
+        <nav class="flex-1 p-6 space-y-4 overflow-y-auto">
+          <a
+            href="#mission"
+            class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
+            data-translate="nav.about"
+            >About Us</a
+          >
+          <a
+            href="#intervention"
+            class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
+            data-translate="nav.what-we-do"
+            >What we do</a
+          >
+          <a
+            href="#environment"
+            class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
+            data-translate="nav.environment"
+            >Environment</a
+          >
+          <a
+            href="#insights"
+            class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
+            data-translate="nav.insights"
+            >Insights</a
+          >
+          <a
+            href="#team"
+            class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
+            data-translate="nav.team"
+            >Team</a
+          >
+          <a
+            href="#contact"
+            class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
+            data-translate="nav.contact"
+            >Contact</a
+          >
+        </nav>
+        <div class="p-6 border-t border-slate-200 dark:border-slate-800">
+          <button
+            class="w-full bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full font-bold text-sm transition-all mb-4 sidebar-link"
+            data-translate="header.donate"
+          >
+            Donate Now
+          </button>
+          <p class="text-xs text-slate-500 dark:text-slate-400 text-center">
+            © 2024 ICPRD
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+      <div class="absolute inset-0 bg-background-dark">
+        <div
+          class="absolute inset-0 opacity-40 bg-cover bg-center"
+          data-alt="Vue aérienne d'un paysage forestier dense en République Démocratique du Congo"
+          style="
+            background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuD_Ax_T6bsr32KsXiYh81xgyDZ_f6WBL8YxdxAGEtHLPoeE2o700Q91JLAdu4eRRNFXCVIELXreEUPS5OguaHpLBaJbciB0qo5PKolDHFoH-oUEnpWcGXM5Tf4fzfyLDaJ81FwZrzuWW91_C60Aw61ikplUOMbmmahlymBOnQqfwT9C0qIN-47jUCB7gDQOrUQ9w82jyTYvzzI4zlOr8R4zNknP7sKMR3wZma_uzWwcqRaryCrHBTWFrD44ANXIclCj62UaydgsWJAP&quot;);
+          "
+        ></div>
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-background-dark/80 via-background-dark to-background-dark"
+        ></div>
+      </div>
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1
+          class="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight mb-6"
+        >
+          Galerie Photos
+        </h1>
+        <p
+          class="max-w-2xl mx-auto text-lg sm:text-xl text-slate-400 leading-relaxed"
+        >
+          Découvrez nos actions sur le terrain à travers nos clichés. Un aperçu
+          visuel de l'impact de l'ICPRD dans les communautés de la RDC.
+        </p>
+        <div class="mt-10 flex justify-center gap-4">
+          <span
+            class="material-symbols-outlined text-primary text-4xl animate-bounce"
+            >expand_more</span
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Category Filter Bar -->
+    <section
+      class="sticky top-16 sm:top-20 z-40 bg-background-dark/95 border-y border-white/10 py-4"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="flex items-center gap-3 overflow-x-auto pb-2 sm:pb-0 no-scrollbar justify-start sm:justify-center"
+        >
+          <button
+            class="flex-none bg-primary text-white text-sm font-semibold px-6 py-2 rounded-full whitespace-nowrap"
+          >
+            Tous
+          </button>
+          <button
+            class="flex-none bg-white/5 hover:bg-white/10 text-slate-300 text-sm font-medium px-6 py-2 rounded-full whitespace-nowrap transition-colors"
+          >
+            Paix &amp; Réconciliation
+          </button>
+          <button
+            class="flex-none bg-white/5 hover:bg-white/10 text-slate-300 text-sm font-medium px-6 py-2 rounded-full whitespace-nowrap transition-colors"
+          >
+            Environnement
+          </button>
+          <button
+            class="flex-none bg-white/5 hover:bg-white/10 text-slate-300 text-sm font-medium px-6 py-2 rounded-full whitespace-nowrap transition-colors"
+          >
+            Développement Durable
+          </button>
+          <button
+            class="flex-none bg-white/5 hover:bg-white/10 text-slate-300 text-sm font-medium px-6 py-2 rounded-full whitespace-nowrap transition-colors"
+          >
+            Vie de l'ONG
+          </button>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <!-- CTA Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div
+        class="bg-gradient-to-r from-primary to-indigo-700 rounded-2xl p-8 sm:p-12 text-center text-white relative overflow-hidden group"
+      >
+        <div
+          class="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-500 bg-[url('https://placeholder.pics/svg/100/DEDEDE/555555/ICPRD')] bg-repeat"
+        ></div>
+        <div class="text-center lg:text-left">
+          <h3 class="text-3xl font-black text-white mb-4">
+            Support Our Journey
+          </h3>
+          <p class="text-slate-400 max-w-md">
+            Every photograph represents a life touched and a community
+            strengthened. Join us in making an even greater impact.
+          </p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <button
+            class="px-8 py-4 bg-primary text-white font-bold rounded-xl shadow-xl shadow-primary/20 hover:scale-105 transition-transform"
+          >
+            Become a Partner
+          </button>
+          <button
+            class="px-8 py-4 bg-slate-800 text-white font-bold rounded-xl border border-slate-700 hover:bg-slate-700 transition-all"
+          >
+            Volunteer with Us
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+      class="bg-background-dark text-slate-400 py-20 border-t border-slate-800"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
+          <div class="col-span-1 md:col-span-1">
+            <div class="flex items-center gap-3 text-white mb-8">
+              <div class="text-primary">
+                <svg class="size-8" fill="currentColor" viewBox="0 0 48 48">
+                  <path
+                    d="M13.8261 17.4264C16.7203 18.1174 20.2244 18.5217 24 18.5217C27.7756 18.5217 31.2797 18.1174 34.1739 17.4264C36.9144 16.7722 39.9967 15.2331 41.3563 14.1648L24.8486 40.6391C24.4571 41.267 23.5429 41.267 23.1514 40.6391L6.64374 14.1648C8.00331 15.2331 11.0856 16.7722 13.8261 17.4264Z"
+                  ></path>
+                </svg>
+              </div>
+              <span class="text-2xl font-black">ICPRD</span>
+            </div>
+            <p
+              data-translate="footer.desc"
+              class="text-sm leading-relaxed mb-8"
+            >
+              Dédiée à favoriser l'harmonie et le développement durable à
+              travers la République Démocratique du Congo depuis 2004.
+            </p>
+            <div class="flex gap-4">
+              <a
+                class="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center hover:bg-primary hover:border-primary transition-all text-white"
+                href="#"
+                ><span class="material-symbols-outlined !text-lg"
+                  >share</span
+                ></a
+              ><a
+                class="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center hover:bg-primary hover:border-primary transition-all text-white"
+                href="#"
+                ><span class="material-symbols-outlined !text-lg"
+                  >group</span
+                ></a
+              >
+            </div>
+          </div>
+          <div>
+            <h4
+              data-translate="footer.org"
+              class="text-white font-black text-sm uppercase tracking-widest mb-8"
+            >
+              Organisation
+            </h4>
+            <ul class="space-y-4 text-sm font-bold">
+              <li>
+                <a
+                  data-translate="footer.org.about"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >À propos</a
+                >
+              </li>
+              <li>
+                <a
+                  data-translate="footer.org.plan"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Plan Stratégique</a
+                >
+              </li>
+              <li>
+                <a
+                  data-translate="footer.org.reports"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Rapports Annuels</a
+                >
+              </li>
+              <li>
+                <a
+                  data-translate="footer.org.join"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Rejoignez-nous</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              data-translate="footer.legal"
+              class="text-white font-black text-sm uppercase tracking-widest mb-8"
+            >
+              Légal & Confidentialité
+            </h4>
+            <ul class="space-y-4 text-sm font-bold">
+              <li>
+                <a
+                  data-translate="footer.legal.privacy"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Politique de Confidentialité</a
+                >
+              </li>
+              <li>
+                <a
+                  data-translate="footer.legal.charter"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Charte des Donateurs</a
+                >
+              </li>
+              <li>
+                <a
+                  data-translate="footer.legal.governance"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Gouvernance</a
+                >
+              </li>
+              <li>
+                <a
+                  data-translate="footer.legal.transparency"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Transparence</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              data-translate="footer.newsletter"
+              class="text-white font-black text-sm uppercase tracking-widest mb-8"
+            >
+              Newsletter
+            </h4>
+            <p data-translate="footer.newsletter.desc" class="text-sm mb-6">
+              Recevez des mises à jour du terrain et nos rapports directement
+              dans votre boîte mail.
+            </p>
+            <div class="flex gap-2">
+              <input
+                data-translate="footer.newsletter.placeholder"
+                class="bg-slate-900 border-none rounded-xl focus:ring-primary text-sm w-full py-3"
+                placeholder="Adresse email"
+                type="email"
+              /><button
+                data-translate="footer.newsletter.button"
+                class="bg-primary text-white px-5 rounded-xl hover:bg-primary/90 transition-colors flex items-center justify-center"
+              >
+                <span class="material-symbols-outlined">send</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em]"
+        >
+          <p data-translate="footer.copyright">
+            © 2024 Initiative Chrétienne pour la Paix, la Réconciliation et le
+            Développement.
+          </p>
+          <div class="flex gap-10">
+            <a
+              data-translate="footer.tagline1"
+              class="hover:text-primary"
+              href="#"
+              >La Paix est Possible</a
+            ><a
+              data-translate="footer.tagline2"
+              class="hover:text-primary"
+              href="#"
+              >RDC Forte</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- IMPORTANT : Inclure le fichier JavaScript -->
+    <script src="./src/main.js"></script>
+  </body>
+</html>

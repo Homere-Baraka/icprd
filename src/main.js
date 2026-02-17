@@ -113,7 +113,7 @@ const translations = {
       "Guided by committed experts, local activists and dedicated peacemakers.",
     "team.position1": "Project Advisor",
     "team.position2": "Executive Secretary",
-    "team.position3": "Operations Director",
+    "team.position3": "Financial Administrator ICPRD",
     "team.position4": "Humanitarian Coordinator",
 
     // CTA section
@@ -305,7 +305,7 @@ const translations = {
       "Guidée par des experts engagés, des activistes locaux et des artisans de paix dévoués.",
     "team.position1": "Conseillé au projet",
     "team.position2": "Secrétaire Exécutif",
-    "team.position3": "Directeur des Opérations",
+    "team.position3": "Administrateur Financier ICPRD",
     "team.position4": "Coordinatrice Humanitaire",
 
     // CTA section
