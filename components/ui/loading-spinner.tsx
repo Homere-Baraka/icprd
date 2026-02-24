@@ -1,0 +1,6 @@
+
+export default function LoadingSpinner(){
+    return (
+        <div className="w-5 h-5 border-4 border-gray-400 border-t-white rounded-full animate-spin"></div>
+    )
+}
