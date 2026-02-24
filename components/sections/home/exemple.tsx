@@ -1,7 +1,7 @@
 export default function Exemple(){
     return(
         <div>
-            <h1>Section Exemple </h1>
+            <h1>Component exemple</h1>
         </div>
     )
 }
