@@ -120,6 +120,125 @@
           transform: rotate(360deg);
         }
       }
+
+      /* Style pour la grille de galerie */
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+      }
+
+      .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 1rem;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .gallery-item:hover {
+        transform: scale(1.02);
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .gallery-item:hover img {
+        transform: scale(1.1);
+      }
+
+      .gallery-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        display: flex;
+        align-items: flex-end;
+        padding: 1.5rem;
+      }
+
+      .gallery-item:hover .gallery-overlay {
+        opacity: 1;
+      }
+
+      .gallery-category {
+        color: white;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        background: rgba(74, 109, 247, 0.9);
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+      }
+
+      /* Tailles variées pour les éléments de la grille */
+      .gallery-item-wide {
+        grid-column: span 2;
+      }
+
+      .gallery-item-tall {
+        grid-row: span 2;
+      }
+
+      .gallery-item-large {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+
+      /* Animation de transition pour les pages */
+      .gallery-grid {
+        transition: opacity 0.3s ease;
+      }
+
+      .gallery-grid.fade-out {
+        opacity: 0;
+      }
+
+      .gallery-grid.fade-in {
+        opacity: 1;
+      }
+
+      /* Style pour le bouton de page active */
+      .pagination-btn.active {
+        background-color: var(--primary) !important;
+        color: white !important;
+        font-weight: bold !important;
+      }
+
+      /* Masonry style alternatif pour petits écrans */
+      @media (max-width: 1024px) {
+        .gallery-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 640px) {
+        .gallery-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .gallery-item-wide,
+        .gallery-item-tall,
+        .gallery-item-large {
+          grid-column: span 1;
+          grid-row: span 1;
+        }
+      }
+
+      /* Masquer la scrollbar */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
     </style>
 
     <script id="tailwind-config">
@@ -150,13 +269,13 @@
 
     <!-- Header -->
     <header
-      class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#101322]/80 backdrop-blur-md"
+      class="fixed top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#101322]/80 backdrop-blur-md"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
           <div class="flex items-center gap-10">
             <div class="flex items-center gap-3">
-              <div class="text-primary">
+              <!-- <div class="text-primary">
                 <svg
                   class="size-10"
                   fill="none"
@@ -179,49 +298,61 @@
                 class="text-slate-900 dark:text-white text-2xl font-black tracking-tighter"
               >
                 ICPRD
-              </h2>
+              </h2> -->
+              <a href="/index.html">
+              <img src="./images/logo.jpeg" class="w-14 h-14 rounded-lg object-cover" alt="ICPRD Logo">
+
+              </a>
+
             </div>
             <nav class="hidden lg:flex items-center gap-8">
               <a
                 class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
-                href="#mission"
+                href="/index.html#mission"
                 data-translate="nav.about"
                 >About Us</a
               >
               <a
                 class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
-                href="#intervention"
+                href="/index.html#intervention"
                 data-translate="nav.what-we-do"
                 >What we do</a
               >
               <a
                 class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
-                href="#environment"
+                href="/index.html#environment"
                 data-translate="nav.environment"
                 >Environment</a
               >
 
               <a
                 class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
-                href="#insights"
+                href="/index.html#blog"
                 data-translate="nav.insights"
                 >Insights</a
               >
               <a
                 class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
-                href="#team"
+                href="/index.html#team"
                 data-translate="nav.team"
                 >Team</a
               >
               <a
                 class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
-                href="#contact"
+                href="/index.html#contact"
                 data-translate="nav.contact"
                 >Contact</a
               >
             </nav>
           </div>
           <div class="flex items-center gap-4">
+            <button
+              class="gear-icon text-primary hover:text-primary/80 transition-colors p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+              title="Settings"
+              aria-label="Settings"
+            >
+              <span class="material-symbols-outlined !text-2xl">settings</span>
+            </button>
             <div
               class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50"
             >
@@ -271,7 +402,7 @@
           class="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-800"
         >
           <div class="flex items-center gap-3">
-            <div class="text-primary">
+            <!-- <div class="text-primary">
               <svg class="size-8" fill="currentColor" viewBox="0 0 48 48">
                 <path
                   d="M13.8261 17.4264C16.7203 18.1174 20.2244 18.5217 24 18.5217C27.7756 18.5217 31.2797 18.1174 34.1739 17.4264C36.9144 16.7722 39.9967 15.2331 41.3563 14.1648L24.8486 40.6391C24.4571 41.267 23.5429 41.267 23.1514 40.6391L6.64374 14.1648C8.00331 15.2331 11.0856 16.7722 13.8261 17.4264Z"
@@ -280,7 +411,12 @@
             </div>
             <span class="text-xl font-black text-slate-900 dark:text-white"
               >ICPRD</span
-            >
+            > -->
+            <a href="/index.html">
+              <img src="./images/logo.jpeg" class="w-14 h-14 rounded-lg object-cover" alt="">
+
+            </a>
+
           </div>
           <button
             id="mobile-menu-close"
@@ -292,37 +428,37 @@
         </div>
         <nav class="flex-1 p-6 space-y-4 overflow-y-auto">
           <a
-            href="#mission"
+            href="/index.html#mission"
             class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
             data-translate="nav.about"
             >About Us</a
           >
           <a
-            href="#intervention"
+            href="/index.html#intervention"
             class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
             data-translate="nav.what-we-do"
             >What we do</a
           >
           <a
-            href="#environment"
+            href="/index.html#environment"
             class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
             data-translate="nav.environment"
             >Environment</a
           >
           <a
-            href="#insights"
+            href="/index.html#blog"
             class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
             data-translate="nav.insights"
             >Insights</a
           >
           <a
-            href="#team"
+            href="/index.html#team"
             class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
             data-translate="nav.team"
             >Team</a
           >
           <a
-            href="#contact"
+            href="/index.html#contact"
             class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
             data-translate="nav.contact"
             >Contact</a
@@ -414,7 +550,76 @@
       </div>
     </section>
 
-    
+    <!-- Galerie Photos avec proportions variées -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <!-- Grille de galerie avec ID pour JavaScript -->
+      <div id="gallery-grid" class="gallery-grid">
+        <!-- Page 1 - Images 1 à 7 -->
+        <div class="gallery-item gallery-item-wide">
+          <img src="./images/4.jpeg" alt="Réunion communautaire pour la paix" class="w-full h-64 object-cover">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Paix & Réconciliation</span>
+          </div>
+        </div>
+        
+        <div class="gallery-item gallery-item-tall">
+          <img src="./images/2.jpeg" alt="Plantation d'arbres" class="w-full h-96 object-cover">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Environnement</span>
+          </div>
+        </div>
+        
+        <div class="gallery-item">
+          <img src="./images/3.jpeg" alt="Formation professionnelle" class="w-full h-64 object-cover">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Développement Durable</span>
+          </div>
+        </div>
+        
+        <div class="gallery-item">
+          <img src="./images/7.jpeg" alt="Éducation des enfants" class="w-full h-64 object-cover">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Vie de l'ONG</span>
+          </div>
+        </div>
+        
+        <div class="gallery-item gallery-item-large">
+          <img src="./images/6.jpeg" alt="Cérémonie de réconciliation" class="w-full h-80 object-cover">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Paix & Réconciliation</span>
+          </div>
+        </div>
+        
+        <div class="gallery-item">
+          <img src="./images/5.jpeg" alt="Femmes artisanes" class="w-full h-64 object-cover">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Développement Durable</span>
+          </div>
+        </div>
+        
+        <div class="gallery-item">
+          <img src="./images/1.jpeg" alt="Forêt préservée" class="w-full h-64 object-cover">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Environnement</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="mt-16 flex items-center justify-center gap-2">
+        <button id="prev-page" class="size-10 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 transition-colors">
+          <span class="material-symbols-outlined">chevron_left</span>
+        </button>
+        <button class="pagination-btn size-10 flex items-center justify-center rounded-lg bg-primary text-white font-bold" data-page="1">1</button>
+        <button class="pagination-btn size-10 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 font-medium transition-colors" data-page="2">2</button>
+        <button class="pagination-btn size-10 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 font-medium transition-colors" data-page="3">3</button>
+        <span class="text-slate-600 px-2">...</span>
+        <button class="pagination-btn size-10 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 font-medium transition-colors" data-page="12">12</button>
+        <button id="next-page" class="size-10 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 transition-colors">
+          <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+      </div>
+    </section>
 
     <!-- CTA Section -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -621,6 +826,151 @@
         </div>
       </div>
     </footer>
+
+    <!-- Script de pagination -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Données des images pour chaque page
+        const galleryData = {
+          1: [
+            { type: 'wide', category: 'Paix & Réconciliation', img: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', alt: 'Réunion communautaire pour la paix', height: 'h-64' },
+            { type: 'tall', category: 'Environnement', img: 'https://images.unsplash.com/photo-1599059813005-11265ba4b4ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Plantation d\'arbres', height: 'h-96' },
+            { type: 'normal', category: 'Développement Durable', img: 'https://images.unsplash.com/photo-1593113598335-9d5c1c7b8b7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Formation professionnelle', height: 'h-64' },
+            { type: 'normal', category: 'Vie de l\'ONG', img: 'https://images.unsplash.com/photo-1599059813005-11265ba4b4ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Éducation des enfants', height: 'h-64' },
+            { type: 'large', category: 'Paix & Réconciliation', img: 'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', alt: 'Cérémonie de réconciliation', height: 'h-80' },
+            { type: 'normal', category: 'Développement Durable', img: 'https://images.unsplash.com/photo-1599059813005-11265ba4b4ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Femmes artisanes', height: 'h-64' },
+            { type: 'normal', category: 'Environnement', img: 'https://images.unsplash.com/photo-1599059813005-11265ba4b4ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Forêt préservée', height: 'h-64' }
+          ],
+          2: [
+            { type: 'wide', category: 'Éducation', img: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', alt: 'Salle de classe', height: 'h-64' },
+            { type: 'tall', category: 'Santé', img: 'https://images.unsplash.com/photo-1584515933487-7798242938b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Centre de santé', height: 'h-96' },
+            { type: 'normal', category: 'Agriculture', img: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Champs cultivés', height: 'h-64' },
+            { type: 'normal', category: 'Eau potable', img: 'https://images.unsplash.com/photo-1538300342682-cf57afb97285?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Point d\'eau', height: 'h-64' },
+            { type: 'large', category: 'Construction', img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', alt: 'Chantier participatif', height: 'h-80' },
+            { type: 'normal', category: 'Formation', img: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Atelier pratique', height: 'h-64' },
+            { type: 'normal', category: 'Culture', img: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Festival local', height: 'h-64' }
+          ],
+          3: [
+            { type: 'wide', category: 'Réfugiés', img: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', alt: 'Camp de réfugiés', height: 'h-64' },
+            { type: 'tall', category: 'Aide humanitaire', img: 'https://images.unsplash.com/photo-1544027993-37dbfe43562a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Distribution de nourriture', height: 'h-96' },
+            { type: 'normal', category: 'Micro-crédit', img: 'https://images.unsplash.com/photo-1579621970588-a35d0e7ab9b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Femmes entrepreneurs', height: 'h-64' },
+            { type: 'normal', category: 'Justice', img: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Médiation communautaire', height: 'h-64' },
+            { type: 'large', category: 'Enfance', img: 'https://images.unsplash.com/photo-1594604436214-8ed3e6b65b23?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', alt: 'Aide aux enfants', height: 'h-80' },
+            { type: 'normal', category: 'Énergie', img: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Installation solaire', height: 'h-64' },
+            { type: 'normal', category: 'Biodiversité', img: 'https://images.unsplash.com/photo-1546182990-dffeafbe841d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Réserve naturelle', height: 'h-64' }
+          ]
+        };
+
+        const galleryGrid = document.getElementById('gallery-grid');
+        const paginationBtns = document.querySelectorAll('.pagination-btn');
+        const prevBtn = document.getElementById('prev-page');
+        const nextBtn = document.getElementById('next-page');
+        
+        let currentPage = 1;
+
+        // Fonction pour générer le HTML d'un élément de galerie
+        function createGalleryItem(item) {
+          let typeClass = '';
+          switch(item.type) {
+            case 'wide':
+              typeClass = 'gallery-item-wide';
+              break;
+            case 'tall':
+              typeClass = 'gallery-item-tall';
+              break;
+            case 'large':
+              typeClass = 'gallery-item-large';
+              break;
+            default:
+              typeClass = '';
+          }
+          
+          return `
+            <div class="gallery-item ${typeClass}">
+              <img src="${item.img}" alt="${item.alt}" class="w-full ${item.height} object-cover">
+              <div class="gallery-overlay">
+                <span class="gallery-category">${item.category}</span>
+              </div>
+            </div>
+          `;
+        }
+
+        // Fonction pour mettre à jour la galerie
+        function updateGallery(page) {
+          // Effet de transition
+          galleryGrid.classList.add('fade-out');
+          
+          setTimeout(() => {
+            const pageData = galleryData[page];
+            if (pageData) {
+              let html = '';
+              pageData.forEach(item => {
+                html += createGalleryItem(item);
+              });
+              galleryGrid.innerHTML = html;
+            }
+            
+            galleryGrid.classList.remove('fade-out');
+            galleryGrid.classList.add('fade-in');
+            
+            setTimeout(() => {
+              galleryGrid.classList.remove('fade-in');
+            }, 300);
+          }, 300);
+        }
+
+        // Fonction pour mettre à jour l'état actif des boutons de pagination
+        function updateActivePage(page) {
+          paginationBtns.forEach(btn => {
+            const btnPage = parseInt(btn.getAttribute('data-page'));
+            if (btnPage === page) {
+              btn.classList.add('active');
+              btn.classList.remove('bg-white/5', 'text-slate-400');
+              btn.classList.add('bg-primary', 'text-white', 'font-bold');
+            } else {
+              btn.classList.remove('active', 'bg-primary', 'text-white', 'font-bold');
+              btn.classList.add('bg-white/5', 'text-slate-400');
+            }
+          });
+          
+          currentPage = page;
+        }
+
+        // Gestionnaires d'événements pour les boutons de pagination
+        paginationBtns.forEach(btn => {
+          btn.addEventListener('click', function() {
+            const page = parseInt(this.getAttribute('data-page'));
+            if (galleryData[page]) {
+              updateGallery(page);
+              updateActivePage(page);
+            }
+          });
+        });
+
+        // Gestionnaire pour le bouton précédent
+        prevBtn.addEventListener('click', function() {
+          let prevPage = currentPage - 1;
+          if (prevPage < 1) prevPage = 3; // Boucle vers la dernière page
+          if (galleryData[prevPage]) {
+            updateGallery(prevPage);
+            updateActivePage(prevPage);
+          }
+        });
+
+        // Gestionnaire pour le bouton suivant
+        nextBtn.addEventListener('click', function() {
+          let nextPage = currentPage + 1;
+          if (nextPage > 3) nextPage = 1; // Boucle vers la première page
+          if (galleryData[nextPage]) {
+            updateGallery(nextPage);
+            updateActivePage(nextPage);
+          }
+        });
+
+        // Initialiser la première page comme active
+        updateActivePage(1);
+      });
+    </script>
 
     <!-- IMPORTANT : Inclure le fichier JavaScript -->
     <script src="./src/main.js"></script>

@@ -1,0 +1,1120 @@
+<!doctype html>
+
+<html class="dark" lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ICPRD - Paix et Richesse Durable au Congo</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#4a6df7",
+              "background-light": "#f5f6f8",
+              "background-dark": "#101322",
+            },
+            fontFamily: {
+              display: ["Inter", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 transition-colors duration-300"
+  >
+    <!-- Header / Navbar -->
+     <header
+      class="fixed top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#101322]/80 backdrop-blur-md"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <div class="flex items-center gap-10">
+            <div class="flex items-center gap-3">
+              <!-- <div class="text-primary">
+                <svg
+                  class="size-10"
+                  fill="none"
+                  viewBox="0 0 48 48"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M13.8261 17.4264C16.7203 18.1174 20.2244 18.5217 24 18.5217C27.7756 18.5217 31.2797 18.1174 34.1739 17.4264C36.9144 16.7722 39.9967 15.2331 41.3563 14.1648L24.8486 40.6391C24.4571 41.267 23.5429 41.267 23.1514 40.6391L6.64374 14.1648C8.00331 15.2331 11.0856 16.7722 13.8261 17.4264Z"
+                    fill="currentColor"
+                  ></path>
+                  <path
+                    clip-rule="evenodd"
+                    d="M39.998 12.236C39.9944 12.2537 39.9875 12.2845 39.9748 12.3294C39.9436 12.4399 39.8949 12.5741 39.8346 12.7175C39.8168 12.7597 39.7989 12.8007 39.7813 12.8398C38.5103 13.7113 35.9788 14.9393 33.7095 15.4811C30.9875 16.131 27.6413 16.5217 24 16.5217C20.3587 16.5217 17.0125 16.131 14.2905 15.4811C12.0012 14.9346 9.44505 13.6897 8.18538 12.8168C8.17384 12.7925 8.16216 12.767 8.15052 12.7408C8.09919 12.6249 8.05721 12.5114 8.02977 12.411C8.00356 12.3152 8.00039 12.2667 8.00004 12.2612C8.00004 12.261 8 12.2607 8.00004 12.2612C8.00004 12.2359 8.0104 11.9233 8.68485 11.3686C9.34546 10.8254 10.4222 10.2469 11.9291 9.72276C14.9242 8.68098 19.1919 8 24 8C28.8081 8 33.0758 8.68098 36.0709 9.72276C37.5778 10.2469 38.6545 10.8254 39.3151 11.3686C39.9006 11.8501 39.9857 12.1489 39.998 12.236ZM4.95178 15.2312L21.4543 41.6973C22.6288 43.5809 25.3712 43.5809 26.5457 41.6973L43.0534 15.223C43.0709 15.1948 43.0878 15.1662 43.104 15.1371L41.3563 14.1648C43.104 15.1371 43.1038 15.1374 43.104 15.1371L43.1051 15.135L43.1065 15.1325L43.1101 15.1261L43.1199 15.1082C43.1276 15.094 43.1377 15.0754 43.1497 15.0527C43.1738 15.0075 43.2062 14.9455 43.244 14.8701C43.319 14.7208 43.4196 14.511 43.5217 14.2683C43.6901 13.8679 44 13.0689 44 12.2609C44 10.5573 43.003 9.22254 41.8558 8.2791C40.6947 7.32427 39.1354 6.55361 37.385 5.94477C33.8654 4.72057 29.133 4 24 4C18.867 4 14.1346 4.72057 10.615 5.94478C8.86463 6.55361 7.30529 7.32428 6.14419 8.27911C4.99695 9.22255 3.99999 10.5573 3.99999 12.2609C3.99999 13.1275 4.29264 13.9078 4.49321 14.3607C4.60375 14.6102 4.71348 14.8196 4.79687 14.9689C4.83898 15.0444 4.87547 15.1065 4.9035 15.1529C4.91754 15.1762 4.92954 15.1957 4.93916 15.2111L4.94662 15.223L4.95178 15.2312ZM35.9868 18.996L24 38.22L12.0131 18.996C12.4661 19.1391 12.9179 19.2658 13.3617 19.3718C16.4281 20.1039 20.0901 20.5217 24 20.5217C27.9099 20.5217 31.5719 20.1039 34.6383 19.3718C35.082 19.2658 35.5339 19.1391 35.9868 18.996Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+              <h2
+                class="text-slate-900 dark:text-white text-2xl font-black tracking-tighter"
+              >
+                ICPRD
+              </h2> -->
+              <img src="./images/logo.jpeg" class="w-14 h-14 rounded-lg object-cover" alt="">
+            </div>
+            <nav class="hidden lg:flex items-center gap-8">
+              <a
+                class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+                href="#mission"
+                data-translate="nav.about"
+                >About Us</a
+              >
+              <a
+                class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+                href="#intervention"
+                data-translate="nav.what-we-do"
+                >What we do</a
+              >
+              <a
+                class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+                href="#environment"
+                data-translate="nav.environment"
+                >Environment</a
+              >
+
+              <a
+                class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+                href="#insights"
+                data-translate="nav.insights"
+                >Insights</a
+              >
+              <a
+                class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+                href="#team"
+                data-translate="nav.team"
+                >Team</a
+              >
+              <a
+                class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+                href="#contact"
+                data-translate="nav.contact"
+                >Contact</a
+              >
+            </nav>
+          </div>
+          <div class="flex items-center gap-4">
+            <div
+              class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50"
+            >
+              <span class="material-symbols-outlined text-primary !text-lg"
+                >language</span
+              >
+              <button class="text-xs font-bold text-primary" data-lang-btn="en">
+                EN
+              </button>
+              <span class="text-slate-300 dark:text-slate-700">|</span>
+              <button
+                class="text-xs font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                data-lang-btn="fr"
+              >
+                FR
+              </button>
+            </div>
+            <button
+              id="mobile-menu-toggle"
+              class="lg:hidden flex items-center border justify-center text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+              aria-label="Menu"
+            >
+              <span class="material-symbols-outlined text-4xl">menu</span>
+            </button>
+            <button
+              class="hidden lg:block bg-primary hover:bg-primary/90 text-white px-7 py-2.5 rounded-full font-bold text-sm transition-all shadow-lg shadow-primary/30"
+              data-translate="header.donate"
+            >
+              Donate Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Sidebar -->
+    <div
+      id="mobile-overlay"
+      class="fixed inset-0 z-[59] bg-black/50 hidden lg:hidden"
+    ></div>
+    <div
+      id="mobile-sidebar"
+      class="fixed inset-y-0 right-0 w-64 bg-white dark:bg-[#101322] z-[60] transform translate-x-full transition-transform duration-300 ease-in-out shadow-2xl lg:hidden"
+    >
+      <div class="flex flex-col h-full">
+        <div
+          class="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-800"
+        >
+          <div class="flex items-center gap-3">
+            <!-- <div class="text-primary">
+              <svg class="size-8" fill="currentColor" viewBox="0 0 48 48">
+                <path
+                  d="M13.8261 17.4264C16.7203 18.1174 20.2244 18.5217 24 18.5217C27.7756 18.5217 31.2797 18.1174 34.1739 17.4264C36.9144 16.7722 39.9967 15.2331 41.3563 14.1648L24.8486 40.6391C24.4571 41.267 23.5429 41.267 23.1514 40.6391L6.64374 14.1648C8.00331 15.2331 11.0856 16.7722 13.8261 17.4264Z"
+                ></path>
+              </svg>
+            </div>
+            <span class="text-xl font-black text-slate-900 dark:text-white"
+              >ICPRD</span
+            > -->
+              <img src="./images/logo.jpeg" class="w-14 h-14 rounded-lg object-cover" alt="">
+          </div>
+          <button
+            id="mobile-menu-close"
+            class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+            aria-label="Fermer"
+          >
+            <span class="material-symbols-outlined text-2xl">close</span>
+          </button>
+        </div>
+        <nav class="flex-1 p-6 space-y-4 overflow-y-auto">
+          <a
+            href="#mission"
+            class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
+            data-translate="nav.about"
+            >About Us</a
+          >
+          <a
+            href="#intervention"
+            class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
+            data-translate="nav.what-we-do"
+            >What we do</a
+          >
+          <a
+            href="#environment"
+            class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
+            data-translate="nav.environment"
+            >Environment</a
+          >
+          <a
+            href="#insights"
+            class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
+            data-translate="nav.insights"
+            >Insights</a
+          >
+          <a
+            href="#team"
+            class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
+            data-translate="nav.team"
+            >Team</a
+          >
+          <a
+            href="#contact"
+            class="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
+            data-translate="nav.contact"
+            >Contact</a
+          >
+        </nav>
+        <div class="p-6 border-t border-slate-200 dark:border-slate-800">
+          <button
+            class="w-full bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full font-bold text-sm transition-all mb-4 sidebar-link"
+            data-translate="header.donate"
+          >
+            Donate Now
+          </button>
+          <p class="text-xs text-slate-500 dark:text-slate-400 text-center">
+            © 2024 ICPRD
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+    <main>
+      <!-- Hero Section -->
+      <section
+        class="relative w-full h-[60vh] min-h-[400px] flex items-end md:h-[70vh]"
+      >
+        <div class="absolute inset-0 z-0">
+          <img
+            alt="Article Hero"
+            class="w-full h-full object-cover"
+            data-alt="Social development project in Congo landscape"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXYTDd2PdTL8diMG1PcuAnX7MTNMK04GQNz1_AtRwKsSseMMtS8-W9Ik-_T38DlqCCkG_QyO2XfkPHv12YaR8-K4EcEuOdD9X-QiM64EIVsDfDVNmWkVBzfB7u1rTltxJaf2IX-7P0a4ivRCH9Afw7G-WvtoWgZ_26kZkjzyVxuKvXmMhR-MzZCbcnGwckOgo7Ytud2DYfJIBKA-yKL3pcwRMXxObmNzIJw_f6xysqZmkD_kTaL5YtW7Ng_funRv1sS62EqlhMPcJP"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent"
+          ></div>
+        </div>
+        <div
+          class="relative z-10 max-w-4xl mx-auto px-4 pb-12 w-full text-center md:text-left"
+        >
+          <div
+            class="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-wider uppercase bg-primary text-white rounded"
+          >
+            Initiatives de Paix
+          </div>
+          <h1
+            class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6 tracking-tight"
+          >
+            Paix et Richesse Durable : Notre Vision Stratégique 2025
+          </h1>
+          <!-- Metadata -->
+          <div
+            class="flex flex-wrap items-center justify-center md:justify-start gap-6"
+          >
+            <div class="flex items-center gap-3">
+              <img
+                alt="Author"
+                class="size-12 rounded-full border-2 border-primary object-cover"
+                data-alt="Portrait of Jean-Marc Kabila author"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA58f9zRUJCvmC-DI-jTSmWU5_Pt0P6bv9mHeI781oTLv2YN1hq6-hQ02BlUT-0HXTEy5b8osuwT3STZ_xKnnAh2s8vFWdOSnHuTIS5Nulib0v7AFdtrzYU_A5p7KNCsFnF8gSN6AJcPCvVGoqfQ_0zrdDoNY9xi_ns8D_VjRi6inShnCDMRBuZV66KoXbA-NurRvkCpYe4llVYkO4oAT_SFvEhjzIomuc7AsLM9QGGJhVmMc_wmWcRazgEn91mSeCeQnrENqz2Kz3Z"
+              />
+              <div class="text-left">
+                <p class="text-white font-semibold text-sm">Jean-Marc Kabila</p>
+                <p class="text-slate-400 text-xs">Directeur des Programmes</p>
+              </div>
+            </div>
+            <div class="h-8 w-px bg-slate-700 hidden sm:block"></div>
+            <div class="flex items-center gap-2 text-slate-300 text-sm">
+              <span class="material-symbols-outlined text-lg"
+                >calendar_today</span
+              >
+              <span>15 Mai 2024</span>
+            </div>
+            <div class="flex items-center gap-2 text-slate-300 text-sm">
+              <span class="material-symbols-outlined text-lg">schedule</span>
+              <span>8 min de lecture</span>
+            </div>
+            <div class="flex items-center gap-2 text-slate-300 text-sm">
+              <span class="material-symbols-outlined text-lg">visibility</span>
+              <span>1,240 vues</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Article Content -->
+      <article
+        class="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:py-24"
+      >
+        <!-- Main Column -->
+        <div class="lg:col-span-8">
+          <div
+            class="prose prose-invert prose-xl max-w-none text-slate-300 leading-relaxed"
+          >
+            <p class="text-xl leading-relaxed text-slate-200 mb-8 font-medium">
+              L'Initiative Congolaise pour la Paix et la Richesse Durable
+              (ICPRD) s'engage activement dans la transformation des zones de
+              conflit en pôles de développement économique. Notre approche
+              repose sur la synergie entre la sécurité locale et
+              l'autonomisation financière des communautés rurales.
+            </p>
+            <h2 class="text-3xl font-bold text-white mt-12 mb-6">
+              Le nexus entre Paix et Prospérité
+            </h2>
+            <p class="mb-6">
+              Depuis plus de deux décennies, les provinces de l'est de la
+              République Démocratique du Congo font face à des défis
+              sécuritaires majeurs. Pourtant, ces mêmes terres regorgent d'un
+              potentiel agricole et minéral sans égal. À l'ICPRD, nous croyons
+              fermement que la paix ne peut être durable sans une base
+              économique solide qui offre des alternatives viables aux
+              populations locales.
+            </p>
+            <blockquote
+              class="border-l-4 border-primary bg-primary/10 p-8 my-10 rounded-r-xl"
+            >
+              <p class="text-2xl italic font-display text-white mb-4">
+                "La véritable richesse du Congo ne réside pas seulement dans son
+                sous-sol, mais dans la résilience de son peuple."
+              </p>
+              <cite class="text-primary font-bold not-italic text-sm"
+                >— Jean-Marc Kabila, Forum de Kinshasa 2024</cite
+              >
+            </blockquote>
+            <h3 class="text-2xl font-bold text-white mt-10 mb-4">
+              Nos piliers stratégiques pour 2025
+            </h3>
+            <p class="mb-6">
+              Notre vision 2025 s'articule autour de trois axes fondamentaux :
+              la médiation communautaire, la formation aux métiers de demain et
+              l'accès au micro-crédit pour les coopératives agricoles. En 2023,
+              nos programmes ont déjà permis à plus de 500 familles de retrouver
+              une stabilité financière.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-10">
+              <img
+                alt="Cooperative"
+                class="rounded-xl w-full h-64 object-cover"
+                data-alt="Local agricultural cooperative meeting"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDunTi07taH1jOvkAqpt3RSQSv65Ec_ng3-jKR6jttD29iNK4l0A8hHiUgPTiK8Wys4SfM_SasHFg8oMCq-OrBlAksEbiT3O11iwn9b6GmjVDskxt3JxV7XJPDCoWIM91mGqGQqYW05mi0_fQh7d5C1ghIWtlnUP1hGE0oc9sOANdOrivJAJ0q5OFIVk3nEKdV-q3LkdTxMNKbp_ygCxP7s2iwFq-81UACsllNcWQcGlU7x61DVIEaghszLm-EDyfqvvfdee6if_i3N"
+              />
+              <img
+                alt="Development"
+                class="rounded-xl w-full h-64 object-cover"
+                data-alt="Solar energy installation in rural area"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA54PKnOSKy5QCCg-uTAHd5SSovclC8rt9_Z4KNaP0_wp1LcYnDjhROFvFra2woKWupDrB3ZBQCoorXx5lXybTzFtR7C4Wik4F9UJABHcxeVLYXBTv7wGjXzIhrg-VgGu1G5jfAL92LuqEl8AvRvncuR7Ngw_-cFxssjivTEawDD7synfrhO6xy7bnEhnc81r7Lo9ymUHi4eaZJCzqaaGQLoeMDGU7oOU_OxwI4DeVe50Iwz_MTl-lOV5z_vow-cz9XhqlIa4lH45qe"
+              />
+            </div>
+            <p>
+              L'avenir se construit aujourd'hui. Par l'intégration des
+              technologies vertes et de la finance décentralisée, nous créons un
+              écosystème où chaque citoyen devient acteur de son propre destin
+              et gardien de la paix dans sa région.
+            </p>
+          </div>
+          <!-- Social Share -->
+          <div
+            class="mt-16 pt-8 border-t border-slate-800 flex items-center justify-between"
+          >
+            <div class="flex items-center gap-4">
+              <span
+                class="text-sm font-semibold uppercase tracking-wider text-slate-500"
+                >Partager</span
+              >
+              <div class="flex gap-2">
+                <button
+                  class="size-10 rounded-full bg-slate-800 hover:bg-primary transition-colors flex items-center justify-center"
+                >
+                  <span class="material-symbols-outlined text-lg text-white"
+                    >share</span
+                  >
+                </button>
+                <button
+                  class="size-10 rounded-full bg-slate-800 hover:bg-[#1DA1F2] transition-colors flex items-center justify-center"
+                >
+                  <svg
+                    class="size-5 fill-current text-white"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <span
+                class="inline-flex items-center px-3 py-1 rounded-full bg-slate-800 text-xs font-medium text-slate-400"
+                >#Congo</span
+              >
+              <span
+                class="inline-flex items-center px-3 py-1 rounded-full bg-slate-800 text-xs font-medium text-slate-400"
+                >#Peace</span
+              >
+              <span
+                class="inline-flex items-center px-3 py-1 rounded-full bg-slate-800 text-xs font-medium text-slate-400"
+                >#Development</span
+              >
+            </div>
+          </div>
+          <section class="mt-20 border-t border-slate-800 pt-16">
+            <div class="flex items-center gap-3 mb-12">
+              <h3 class="text-2xl font-bold text-white">Commentaires</h3>
+              <span
+                class="px-3 py-1 bg-slate-800 text-slate-400 text-sm font-bold rounded-full"
+                >24</span
+              >
+            </div>
+            <!-- Comment Input Form -->
+            <div class="flex gap-4 mb-16">
+              <div
+                class="size-12 rounded-full bg-slate-800 flex-shrink-0 flex items-center justify-center border border-slate-700"
+              >
+                <span class="material-symbols-outlined text-slate-500"
+                  >person</span
+                >
+              </div>
+              <div class="flex-1">
+                <textarea
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl p-4 text-slate-300 focus:ring-2 focus:ring-primary focus:border-transparent transition-all min-h-[120px] mb-4"
+                  placeholder="Partagez votre réflexion sur cet article..."
+                ></textarea>
+                <div class="flex justify-end">
+                  <button
+                    class="px-6 py-2.5 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-all shadow-lg shadow-primary/20 text-sm"
+                  >
+                    Publier le commentaire
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Comments List -->
+            <div class="space-y-10">
+              <!-- Comment 1 -->
+              <div class="flex gap-4">
+                <img
+                  alt="Avatar"
+                  class="size-10 rounded-full object-cover"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuA58f9zRUJCvmC-DI-jTSmWU5_Pt0P6bv9mHeI781oTLv2YN1hq6-hQ02BlUT-0HXTEy5b8osuwT3STZ_xKnnAh2s8vFWdOSnHuTIS5Nulib0v7AFdtrzYU_A5p7KNCsFnF8gSN6AJcPCvVGoqfQ_0zrdDoNY9xi_ns8D_VjRi6inShnCDMRBuZV66KoXbA-NurRvkCpYe4llVYkO4oAT_SFvEhjzIomuc7AsLM9QGGJhVmMc_wmWcRazgEn91mSeCeQnrENqz2Kz3Z"
+                />
+                <div
+                  class="flex-1 bg-slate-900/40 p-5 rounded-2xl border border-slate-800"
+                >
+                  <div class="flex justify-between items-start mb-2">
+                    <h4 class="font-bold text-white text-sm">
+                      Patrick Mutombo
+                    </h4>
+                    <span class="text-xs text-slate-500">Il y a 2 heures</span>
+                  </div>
+                  <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                    Une analyse très pertinente. L'approche de l'ICPRD sur le
+                    nexus paix-prospérité est exactement ce dont le Kivu a
+                    besoin pour sortir de ce cycle de violence.
+                  </p>
+                  <div class="flex items-center gap-6">
+                    <button
+                      class="flex items-center gap-2 text-xs text-slate-400 hover:text-primary transition-colors font-medium"
+                    >
+                      <span class="material-symbols-outlined text-sm"
+                        >thumb_up</span
+                      >
+                      12
+                    </button>
+                    <button
+                      class="flex items-center gap-2 text-xs text-slate-400 hover:text-primary transition-colors font-medium"
+                    >
+                      <span class="material-symbols-outlined text-sm"
+                        >reply</span
+                      >
+                      Répondre
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- Comment 2 with nested reply -->
+              <div class="space-y-6">
+                <div class="flex gap-4">
+                  <div
+                    class="size-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold"
+                  >
+                    SK
+                  </div>
+                  <div
+                    class="flex-1 bg-slate-900/40 p-5 rounded-2xl border border-slate-800"
+                  >
+                    <div class="flex justify-between items-start mb-2">
+                      <h4 class="font-bold text-white text-sm">
+                        Sarah Kasongo
+                      </h4>
+                      <span class="text-xs text-slate-500"
+                        >Il y a 5 heures</span
+                      >
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                      Comment puis-je m'impliquer concrètement dans les
+                      programmes de formation mentionnés ? Je suis ingénieur
+                      agronome et j'aimerais partager mes compétences.
+                    </p>
+                    <div class="flex items-center gap-6">
+                      <button
+                        class="flex items-center gap-2 text-xs text-slate-400 hover:text-primary transition-colors font-medium"
+                      >
+                        <span class="material-symbols-outlined text-sm"
+                          >thumb_up</span
+                        >
+                        8
+                      </button>
+                      <button
+                        class="flex items-center gap-2 text-xs text-slate-400 hover:text-primary transition-colors font-medium"
+                      >
+                        <span class="material-symbols-outlined text-sm"
+                          >reply</span
+                        >
+                        Répondre
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <!-- Nested Reply -->
+                <div class="flex gap-4 ml-12">
+                  <img
+                    alt="Admin"
+                    class="size-8 rounded-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuA58f9zRUJCvmC-DI-jTSmWU5_Pt0P6bv9mHeI781oTLv2YN1hq6-hQ02BlUT-0HXTEy5b8osuwT3STZ_xKnnAh2s8vFWdOSnHuTIS5Nulib0v7AFdtrzYU_A5p7KNCsFnF8gSN6AJcPCvVGoqfQ_0zrdDoNY9xi_ns8D_VjRi6inShnCDMRBuZV66KoXbA-NurRvkCpYe4llVYkO4oAT_SFvEhjzIomuc7AsLM9QGGJhVmMc_wmWcRazgEn91mSeCeQnrENqz2Kz3Z"
+                  />
+                  <div
+                    class="flex-1 bg-primary/5 p-4 rounded-xl border border-primary/20"
+                  >
+                    <div class="flex justify-between items-start mb-1">
+                      <div class="flex items-center gap-2">
+                        <h4 class="font-bold text-white text-sm">
+                          Jean-Marc Kabila
+                        </h4>
+                        <span
+                          class="px-2 py-0.5 bg-primary/20 text-primary text-[10px] font-bold rounded uppercase"
+                          >Auteur</span
+                        >
+                      </div>
+                      <span class="text-xs text-slate-500"
+                        >Il y a 3 heures</span
+                      >
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                      Bonjour Sarah, c'est formidable. Veuillez nous contacter
+                      via l'adresse mail dans le pied de page, notre équipe de
+                      recrutement vous répondra rapidement.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- Comment 3 -->
+              <div class="flex gap-4">
+                <div
+                  class="size-10 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold"
+                >
+                  AM
+                </div>
+                <div
+                  class="flex-1 bg-slate-900/40 p-5 rounded-2xl border border-slate-800"
+                >
+                  <div class="flex justify-between items-start mb-2">
+                    <h4 class="font-bold text-white text-sm">Alain Mpunga</h4>
+                    <span class="text-xs text-slate-500">Il y a 1 jour</span>
+                  </div>
+                  <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                    Le rapport de 2023 était déjà impressionnant. La vision 2025
+                    semble encore plus ambitieuse. Bravo pour le travail abattu
+                    sur le terrain.
+                  </p>
+                  <div class="flex items-center gap-6">
+                    <button
+                      class="flex items-center gap-2 text-xs text-slate-400 hover:text-primary transition-colors font-medium"
+                    >
+                      <span class="material-symbols-outlined text-sm"
+                        >thumb_up</span
+                      >
+                      15
+                    </button>
+                    <button
+                      class="flex items-center gap-2 text-xs text-slate-400 hover:text-primary transition-colors font-medium"
+                    >
+                      <span class="material-symbols-outlined text-sm"
+                        >reply</span
+                      >
+                      Répondre
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- Comment 4 -->
+              <div class="flex gap-4">
+                <div
+                  class="size-10 rounded-full bg-slate-700 flex items-center justify-center text-white font-bold"
+                >
+                  EL
+                </div>
+                <div
+                  class="flex-1 bg-slate-900/40 p-5 rounded-2xl border border-slate-800"
+                >
+                  <div class="flex justify-between items-start mb-2">
+                    <h4 class="font-bold text-white text-sm">
+                      Emmanuel Luvumbu
+                    </h4>
+                    <span class="text-xs text-slate-500">Il y a 2 jours</span>
+                  </div>
+                  <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                    Est-ce que l'accès au micro-crédit est ouvert aux jeunes
+                    entrepreneurs urbains également ou seulement aux
+                    coopératives rurales ?
+                  </p>
+                  <div class="flex items-center gap-6">
+                    <button
+                      class="flex items-center gap-2 text-xs text-slate-400 hover:text-primary transition-colors font-medium"
+                    >
+                      <span class="material-symbols-outlined text-sm"
+                        >thumb_up</span
+                      >
+                      4
+                    </button>
+                    <button
+                      class="flex items-center gap-2 text-xs text-slate-400 hover:text-primary transition-colors font-medium"
+                    >
+                      <span class="material-symbols-outlined text-sm"
+                        >reply</span
+                      >
+                      Répondre
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- Comment 5 -->
+              <div class="flex gap-4">
+                <div
+                  class="size-10 rounded-full bg-amber-600 flex items-center justify-center text-white font-bold"
+                >
+                  MB
+                </div>
+                <div
+                  class="flex-1 bg-slate-900/40 p-5 rounded-2xl border border-slate-800"
+                >
+                  <div class="flex justify-between items-start mb-2">
+                    <h4 class="font-bold text-white text-sm">Marie Bakole</h4>
+                    <span class="text-xs text-slate-500">Il y a 3 jours</span>
+                  </div>
+                  <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                    La résilience du peuple congolais est en effet notre plus
+                    grande force. Cet article donne beaucoup d'espoir pour le
+                    futur.
+                  </p>
+                  <div class="flex items-center gap-6">
+                    <button
+                      class="flex items-center gap-2 text-xs text-slate-400 hover:text-primary transition-colors font-medium"
+                    >
+                      <span class="material-symbols-outlined text-sm"
+                        >thumb_up</span
+                      >
+                      21
+                    </button>
+                    <button
+                      class="flex items-center gap-2 text-xs text-slate-400 hover:text-primary transition-colors font-medium"
+                    >
+                      <span class="material-symbols-outlined text-sm"
+                        >reply</span
+                      >
+                      Répondre
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- Comment 6 with nested reply -->
+              <div class="space-y-6">
+                <div class="flex gap-4">
+                  <div
+                    class="size-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold"
+                  >
+                    JN
+                  </div>
+                  <div
+                    class="flex-1 bg-slate-900/40 p-5 rounded-2xl border border-slate-800"
+                  >
+                    <div class="flex justify-between items-start mb-2">
+                      <h4 class="font-bold text-white text-sm">Justin Ngoy</h4>
+                      <span class="text-xs text-slate-500">Il y a 4 jours</span>
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                      Quelles technologies vertes utilisez-vous spécifiquement
+                      dans vos projets ?
+                    </p>
+                    <div class="flex items-center gap-6">
+                      <button
+                        class="flex items-center gap-2 text-xs text-slate-400 hover:text-primary transition-colors font-medium"
+                      >
+                        <span class="material-symbols-outlined text-sm"
+                          >thumb_up</span
+                        >
+                        3
+                      </button>
+                      <button
+                        class="flex items-center gap-2 text-xs text-slate-400 hover:text-primary transition-colors font-medium"
+                      >
+                        <span class="material-symbols-outlined text-sm"
+                          >reply</span
+                        >
+                        Répondre
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <!-- Nested Reply -->
+                <div class="flex gap-4 ml-12">
+                  <img
+                    alt="Admin"
+                    class="size-8 rounded-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuA58f9zRUJCvmC-DI-jTSmWU5_Pt0P6bv9mHeI781oTLv2YN1hq6-hQ02BlUT-0HXTEy5b8osuwT3STZ_xKnnAh2s8vFWdOSnHuTIS5Nulib0v7AFdtrzYU_A5p7KNCsFnF8gSN6AJcPCvVGoqfQ_0zrdDoNY9xi_ns8D_VjRi6inShnCDMRBuZV66KoXbA-NurRvkCpYe4llVYkO4oAT_SFvEhjzIomuc7AsLM9QGGJhVmMc_wmWcRazgEn91mSeCeQnrENqz2Kz3Z"
+                  />
+                  <div
+                    class="flex-1 bg-primary/5 p-4 rounded-xl border border-primary/20"
+                  >
+                    <div class="flex justify-between items-start mb-1">
+                      <div class="flex items-center gap-2">
+                        <h4 class="font-bold text-white text-sm">
+                          Equipe ICPRD
+                        </h4>
+                        <span
+                          class="px-2 py-0.5 bg-primary/20 text-primary text-[10px] font-bold rounded uppercase"
+                          >Staff</span
+                        >
+                      </div>
+                      <span class="text-xs text-slate-500">Il y a 4 jours</span>
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                      Nous nous concentrons sur le pompage solaire pour
+                      l'irrigation et les systèmes de biogaz domestiques pour
+                      réduire la déforestation.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- Comment 7 -->
+              <div class="flex gap-4">
+                <div
+                  class="size-10 rounded-full bg-rose-600 flex items-center justify-center text-white font-bold"
+                >
+                  FN
+                </div>
+                <div
+                  class="flex-1 bg-slate-900/40 p-5 rounded-2xl border border-slate-800"
+                >
+                  <div class="flex justify-between items-start mb-2">
+                    <h4 class="font-bold text-white text-sm">Florence Nyira</h4>
+                    <span class="text-xs text-slate-500">Il y a 1 semaine</span>
+                  </div>
+                  <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                    Une source d'inspiration pour tous les Congolais de la
+                    diaspora. Nous vous soutenons de loin !
+                  </p>
+                  <div class="flex items-center gap-6">
+                    <button
+                      class="flex items-center gap-2 text-xs text-slate-400 hover:text-primary transition-colors font-medium"
+                    >
+                      <span class="material-symbols-outlined text-sm"
+                        >thumb_up</span
+                      >
+                      34
+                    </button>
+                    <button
+                      class="flex items-center gap-2 text-xs text-slate-400 hover:text-primary transition-colors font-medium"
+                    >
+                      <span class="material-symbols-outlined text-sm"
+                        >reply</span
+                      >
+                      Répondre
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- See More Button -->
+            <div class="mt-12 flex justify-center">
+              <button
+                class="px-8 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl transition-all border border-slate-700"
+              >
+                Voir plus de commentaires
+              </button>
+            </div>
+          </section>
+        </div>
+        <!-- Sidebar -->
+        <aside class="lg:col-span-4 space-y-12">
+          <!-- Newsletter -->
+          <div class="bg-primary/5 border border-primary/20 rounded-2xl p-8">
+            <h4 class="text-xl font-bold text-white mb-4">Restez informé</h4>
+            <p class="text-slate-400 text-sm mb-6">
+              Inscrivez-vous pour recevoir nos rapports d'impact et les
+              dernières nouvelles du terrain.
+            </p>
+            <div class="space-y-3">
+              <input
+                class="w-full bg-background-dark border-slate-700 rounded-lg text-sm px-4 py-3 focus:ring-primary focus:border-primary"
+                placeholder="votre@email.com"
+                type="email"
+              />
+              <button
+                class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 rounded-lg transition-colors"
+              >
+                S'abonner
+              </button>
+            </div>
+          </div>
+          <!-- Recommended Articles -->
+          <div>
+            <h4
+              class="text-xl font-bold text-white mb-6 flex items-center gap-2"
+            >
+              <span class="material-symbols-outlined text-primary"
+                >article</span
+              >
+              Articles suggérés
+            </h4>
+            <div class="space-y-6">
+              <a class="group flex gap-4" href="#">
+                <img
+                  alt="Thumbnail"
+                  class="size-20 rounded-lg object-cover flex-shrink-0 group-hover:opacity-80 transition-opacity"
+                  data-alt="Children in a community school classroom"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCskyqBRi4VlwiwxFgHRBMRkGAVpKUfMq2vwo7isdhRY4mkBcHVfbWfILp-bq7LBncsd-w-MXUE7TLKp2ZD1NF3tqAUnwoWGcmOndbOLFY8RkNHVpe4MzNHRTQ_BrJkaKmRDzqYtj6Ju7bhixKu428IEmub-czPBUsXwnbdx3l6fOqXE9HvucJV1zGMQF14hxAo7hJi-Xv3kZbDjwXCOe1rEWcVIeXKim5Mf0wyV8-sCSSpxS_XaGpAdfLL4uuPRPfebSZWvOUV2fMa"
+                />
+                <div>
+                  <h5
+                    class="text-sm font-bold group-hover:text-primary transition-colors line-clamp-2"
+                  >
+                    L'éducation comme rempart contre la violence armée
+                  </h5>
+                  <p class="text-xs text-slate-500 mt-1">12 Mai 2024</p>
+                </div>
+              </a>
+              <a class="group flex gap-4" href="#">
+                <img
+                  alt="Thumbnail"
+                  class="size-20 rounded-lg object-cover flex-shrink-0 group-hover:opacity-80 transition-opacity"
+                  data-alt="Global charity and help concept hands"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8JsRBhD3YhGvyXg_rCRERX4c36-mCHLKhfsRd5xDweXEOWnKdn8wfxKXKUy8wqLmqxGdAB0V_UsqeoUEEXuLlQN1FV0bAC1cj_PXGYBWn3bfHBmyuQu4sSety9dVDLHO-ZnFSiHDVnJCcXe9nFHwYN5dgym-MJyGYUSxKLUHDs_OU8AKk-SH0RPLvwF2HaYHXBi20CNBWMUlkYfut1ELQQ6hRyDe4SZdorHlwO5ZGYZFHOoLTUaPrNsp96ZHXXS_3FmYEJeAth6ez"
+                />
+                <div>
+                  <h5
+                    class="text-sm font-bold group-hover:text-primary transition-colors line-clamp-2"
+                  >
+                    Comment vos dons transforment les villages du Kivu
+                  </h5>
+                  <p class="text-xs text-slate-500 mt-1">08 Mai 2024</p>
+                </div>
+              </a>
+              <a class="group flex gap-4" href="#">
+                <img
+                  alt="Thumbnail"
+                  class="size-20 rounded-lg object-cover flex-shrink-0 group-hover:opacity-80 transition-opacity"
+                  data-alt="Business planning strategy session"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHYn1reuVU-18mlFzsvll6bfUE5TVyx-QhFwoTyzZWlrgvsMZBWa1-O05EN2CKT3T_MejL5CqGhmKxpmmF3f_9DRGtbyf6wog2xt0of-bZM_MieZCdI2H2sUfwSl2ifOrR2tjUXatI3kTeXkPsBEGPXxq10WuSVpYr8jG-b2mcbK9a2KGpl2V4e9qCHxDk1otENZ-zjK7-f8bRIIrmC5g0q8HgLoLQspY7SoAvQgHxLuUTYNlkHEXLPwvm9bZ9m8YyTSZU9WWP32bC"
+                />
+                <div>
+                  <h5
+                    class="text-sm font-bold group-hover:text-primary transition-colors line-clamp-2"
+                  >
+                    Rapport annuel 2023 : Transparence et Impact
+                  </h5>
+                  <p class="text-xs text-slate-500 mt-1">01 Mai 2024</p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <!-- Call to Action -->
+          <div
+            class="relative overflow-hidden bg-slate-900 rounded-2xl p-8 border border-slate-800"
+          >
+            <div
+              class="absolute -top-12 -right-12 size-32 bg-primary/20 rounded-full blur-3xl"
+            ></div>
+            <h4 class="text-2xl font-bold text-white mb-4">Faites un don</h4>
+            <p class="text-slate-400 text-sm mb-6">
+              Chaque contribution, petite ou grande, nous aide à financer des
+              projets de paix concrets.
+            </p>
+            <button
+              class="w-full flex items-center justify-center gap-2 bg-white text-slate-900 font-extrabold py-3 rounded-lg hover:bg-slate-200 transition-colors"
+            >
+              <span class="material-symbols-outlined">favorite</span>
+              Donner maintenant
+            </button>
+          </div>
+        </aside>
+      </article>
+      <!-- CTA Section Bottom -->
+      <section class="py-20 bg-primary/10 border-y border-primary/20">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+            Rejoignez le mouvement pour un Congo plus fort
+          </h2>
+          <p class="text-slate-300 text-lg mb-10">
+            Que vous soyez un donateur, un bénévole ou un partenaire potentiel,
+            votre engagement fait la différence.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              class="px-8 py-4 bg-primary text-white rounded-xl font-bold text-lg hover:bg-primary/90 shadow-xl shadow-primary/20 transition-all"
+            >
+              Devenir Partenaire
+            </button>
+            <button
+              class="px-8 py-4 bg-slate-800 text-white rounded-xl font-bold text-lg hover:bg-slate-700 transition-all border border-slate-700"
+            >
+              Lire nos Rapports
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Footer -->
+    <footer
+      class="bg-background-dark text-slate-400 py-20 border-t border-slate-800"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
+          <div class="col-span-1 md:col-span-1">
+            <div class="flex items-center gap-3 text-white mb-8">
+              <!-- <div class="text-primary">
+                <svg class="size-8" fill="currentColor" viewBox="0 0 48 48">
+                  <path
+                    d="M13.8261 17.4264C16.7203 18.1174 20.2244 18.5217 24 18.5217C27.7756 18.5217 31.2797 18.1174 34.1739 17.4264C36.9144 16.7722 39.9967 15.2331 41.3563 14.1648L24.8486 40.6391C24.4571 41.267 23.5429 41.267 23.1514 40.6391L6.64374 14.1648C8.00331 15.2331 11.0856 16.7722 13.8261 17.4264Z"
+                  ></path>
+                </svg>
+              </div>
+              <span class="text-2xl font-black">ICPRD</span> -->
+              <img src="./images/logo.jpeg" class="w-14 h-14 rounded-lg object-cover" alt="">
+            </div>
+            <p
+              data-translate="footer.desc"
+              class="text-sm leading-relaxed mb-8"
+            >
+              Dédiée à favoriser l'harmonie et le développement durable à
+              travers la République Démocratique du Congo depuis 2004.
+            </p>
+            <div class="flex gap-4">
+              <a
+                class="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center hover:bg-primary hover:border-primary transition-all text-white"
+                href="#"
+                ><span class="material-symbols-outlined !text-lg"
+                  >share</span
+                ></a
+              ><a
+                class="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center hover:bg-primary hover:border-primary transition-all text-white"
+                href="#"
+                ><span class="material-symbols-outlined !text-lg"
+                  >group</span
+                ></a
+              >
+            </div>
+          </div>
+          <div>
+            <h4
+              data-translate="footer.org"
+              class="text-white font-black text-sm uppercase tracking-widest mb-8"
+            >
+              Organisation
+            </h4>
+            <ul class="space-y-4 text-sm font-bold">
+              <li>
+                <a
+                  data-translate="footer.org.about"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >À propos</a
+                >
+              </li>
+              <li>
+                <a
+                  data-translate="footer.org.plan"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Plan Stratégique</a
+                >
+              </li>
+              <li>
+                <a
+                  data-translate="footer.org.reports"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Rapports Annuels</a
+                >
+              </li>
+              <li>
+                <a
+                  data-translate="footer.org.join"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Rejoignez-nous</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              data-translate="footer.legal"
+              class="text-white font-black text-sm uppercase tracking-widest mb-8"
+            >
+              Légal & Confidentialité
+            </h4>
+            <ul class="space-y-4 text-sm font-bold">
+              <li>
+                <a
+                  data-translate="footer.legal.privacy"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Politique de Confidentialité</a
+                >
+              </li>
+              <li>
+                <a
+                  data-translate="footer.legal.charter"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Charte des Donateurs</a
+                >
+              </li>
+              <li>
+                <a
+                  data-translate="footer.legal.governance"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Gouvernance</a
+                >
+              </li>
+              <li>
+                <a
+                  data-translate="footer.legal.transparency"
+                  class="hover:text-primary transition-colors"
+                  href="#"
+                  >Transparence</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              data-translate="footer.newsletter"
+              class="text-white font-black text-sm uppercase tracking-widest mb-8"
+            >
+              Newsletter
+            </h4>
+            <p data-translate="footer.newsletter.desc" class="text-sm mb-6">
+              Recevez des mises à jour du terrain et nos rapports directement
+              dans votre boîte mail.
+            </p>
+            <div class="flex gap-2">
+              <input
+                data-translate="footer.newsletter.placeholder"
+                class="bg-slate-900 border-none rounded-xl focus:ring-primary text-sm w-full py-3"
+                placeholder="Adresse email"
+                type="email"
+              /><button
+                data-translate="footer.newsletter.button"
+                class="bg-primary text-white px-5 rounded-xl hover:bg-primary/90 transition-colors flex items-center justify-center"
+              >
+                <span class="material-symbols-outlined">send</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em]"
+        >
+          <p data-translate="footer.copyright">
+            © 2024 Initiative Chrétienne pour la Paix, la Réconciliation et le
+            Développement.
+          </p>
+          <div class="flex gap-10">
+            <a
+              data-translate="footer.tagline1"
+              class="hover:text-primary"
+              href="#"
+              >La Paix est Possible</a
+            ><a
+              data-translate="footer.tagline2"
+              class="hover:text-primary"
+              href="#"
+              >RDC Forte</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
