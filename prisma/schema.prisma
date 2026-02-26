@@ -36,6 +36,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
+  teams         Team? @relation("UserTeam")
+
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
   deleted_at    DateTime?
@@ -45,6 +47,8 @@ model User {
 
 enum Role{
   USER
+  MEMBER
+  CONTRIBUTOR
   ADMIN
 }
 
@@ -69,9 +73,9 @@ model Account {
 
 model Session {
   id            String   @id @default(uuid(7)) @db.Uuid
-  user          User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId        String @db.Uuid
-  sessionToken String @unique
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String   @db.Uuid
+  sessionToken  String   @unique
   expires       DateTime
 
   @@map("session")
@@ -88,11 +92,146 @@ model VerificationToken {
 
 model Profile {
   id         String   @id @default(uuid(7)) @db.Uuid
-  user       User @relation(fields: [userId], references: [id])
+
   userId     String @unique @db.Uuid
+  user       User @relation(fields: [userId], references: [id])
+  
   phone      String?
   bio        String?
   date_bith  String?
 
   @@map("profile")
+}
+
+
+/// ================
+/// Data models for the ICPRD website: Team, Posts, Testimonials
+/// ================
+
+model Team {
+  id          String   @id @default(uuid(7)) @db.Uuid
+  firstName   String
+  lastName    String
+  role        String
+  bio         String?
+  email       String?    @unique
+  imageUrl    String?
+  socialLinks Json?
+
+  userId    String @unique  @db.Uuid
+  user      User   @relation("UserTeam", fields: [userId], references: [id])
+  
+  posts        Post[]
+  testimonials Testimonial[]
+  achievements Achievement[]
+  gallery      Gallery[]
+  partner      Partner[]
+
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@map("team")
+}
+
+model Achievement {
+  id          String   @id @default(uuid(7)) @db.Uuid
+  title       String
+  description String
+  imageUrl    String?
+  date        DateTime
+  category    String?
+
+  teamId    String @db.Uuid
+  author      Team   @relation(fields: [teamId], references: [id])
+
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@map("achievement")
+}
+
+model Post {
+  id          String   @id @default(uuid(7)) @db.Uuid
+  title       String
+  content     String
+  excerpt     String?
+  imageUrl    String?
+  category    String?
+
+  teamId    String @db.Uuid
+  team      Team   @relation(fields: [teamId], references: [id])
+
+  publishedAt DateTime   @default(now())
+  views       Int        @default(0)
+
+  testimonials Testimonial[]
+
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@map("post")
+}
+
+model Testimonial {
+  id          String   @id @default(uuid(7)) @db.Uuid
+  name        String
+  role        String?
+  content     String
+  imageUrl    String?
+
+  postId      String?    @unique  @db.Uuid
+  post        Post?      @relation(fields: [postId], references: [id])
+  teamId    String    @unique  @db.Uuid
+  author      Team      @relation(fields: [teamId], references: [id])
+
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@map("testimonial")
+}
+
+model Gallery {
+  id          String   @id @default(uuid(7)) @db.Uuid
+  title       String?
+  description String?
+  imageUrl    String
+  category    String?
+
+  teamId      String @unique @db.Uuid
+  author      Team   @relation(fields: [teamId], references: [id])
+
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@map("gallery")
+}
+
+model Partner {
+  id          String   @id @default(uuid(7)) @db.Uuid
+  name        String
+  logoUrl     String?
+  websiteUrl  String?
+  description String?
+
+  teamId      String @unique @db.Uuid
+  author      Team?   @relation(fields: [teamId], references: [id])
+
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@map("partner")
+}
+
+model ContactMessage {
+  id        String   @id @default(uuid(7)) @db.Uuid
+  name      String
+  email     String
+  subject   String
+  message   String
+  read      Boolean   @default(false)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("contactmessage")
 }
