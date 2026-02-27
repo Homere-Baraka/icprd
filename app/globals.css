@@ -1,10 +1,8 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* @tailwind base;
 @tailwind components;
 @tailwind utilities; */
-
-
 
 :root {
     --background: #f4f6f8;
@@ -46,7 +44,6 @@
     scrollbar-width: thin;
     scrollbar-color: var(--card-border);
 }
-
 
 /* SCROLL BAR STYLE */
 
@@ -101,12 +98,11 @@
 /* BASE STYLE */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: 'Inter', system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
-
 
 .wrapper {
     max-width: 1400px;

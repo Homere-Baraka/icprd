@@ -35,7 +35,11 @@ export async function adminLoginAction(data: unknown) {
         return {
             success: true,
             message: 'Admin logged in successfully',
-            admin: { id: admin.id, email: admin.email, username: admin.username },
+            admin: {
+                id: admin.id,
+                email: admin.email,
+                username: admin.username,
+            },
         };
     } catch (error) {
         console.error('[ADMIN_LOGIN_ERROR]', error);

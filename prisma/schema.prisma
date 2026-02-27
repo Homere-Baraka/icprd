@@ -36,6 +36,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
+  password_resets  PasswordReset? @relation("UserPasswordReset")
+
   teams         Team? @relation("UserTeam")
 
   created_at    DateTime @default(now())
@@ -101,6 +103,22 @@ model Profile {
   date_bith  String?
 
   @@map("profile")
+}
+
+/// ================
+/// Password Recovery
+/// ================
+
+model PasswordReset {
+  id        String   @id @default(uuid(7)) @db.Uuid
+  token     String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  userId    String  @unique  @db.Uuid
+  user User @relation("UserPasswordReset", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("password_reset")
 }
 
 

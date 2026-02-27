@@ -1,38 +1,51 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
-import { Lock, LockOpen, Mail, ArrowRight, BookOpenText } from 'lucide-react';
-import { useUserLoginValidationForm } from '@/hooks/use-validation-form';
 import LoadingSpinner from '@/components/ui/loading-spinner';
+import { signIn } from 'next-auth/react';
+import {
+    Lock,
+    LockOpen,
+    Mail,
+    ArrowRight,
+    BookOpenText,
+    User,
+} from 'lucide-react';
+import { adminRegisterAction } from '@/actions/auth/admin-account/register';
+import { useUserRegisterValidationForm } from '@/hooks/use-validation-form';
 
 export default function AdminSignIn() {
     const router = useRouter();
-    const [isPending, setIsPending] = useState(false);
+    const [isPending, startTransition] = useTransition();
     const [error, setError] = useState<string | undefined | null>(null);
     const [passwordVisible, setIsPasswordVisible] = useState(false);
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useUserLoginValidationForm();
+    } = useUserRegisterValidationForm();
 
     const onSubmit = async (data: any) => {
-        setIsPending(true);
-        const result = await signIn('credentials', {
-            email: data.email,
-            password: data.password,
-            redirect: false,
-        });
+        startTransition(async () => {
+            const result = await adminRegisterAction(data);
 
-        if (result?.error) {
-            setError('Les informations fournies ne sont pas valides.');
-            setIsPending(false);
-        } else {
-            window.location.href = '/admin-1001';
-        }
+            if (result.success) {
+                const loginResult = await signIn('credentials', {
+                    email: data.email,
+                    password: data.password,
+                    redirect: false,
+                });
+                console.log('ResultLogin : ', loginResult);
+                if (loginResult?.ok) {
+                    window.location.href = '/admin';
+                }
+            } else {
+                console.log('loginError: ', result.errors || result.message);
+                setError(result.message);
+            }
+        });
     };
 
     return (
@@ -58,10 +71,33 @@ export default function AdminSignIn() {
                     className="space-y-5"
                 >
                     {error && (
-                        <div className="border-l-2 border-red-500 p-3 bg-card text-red-600">
+                        <div className="border-l-2 border-red-500 p-3 bg-red-100 text-red-600">
                             {error}
                         </div>
                     )}
+
+                    <div>
+                        <label className="block text-sm font-medium text-text-muted mb-2">
+                            Name
+                        </label>
+                        <div className="relative">
+                            <User
+                                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                                size={18}
+                            />
+                            <input
+                                type="text"
+                                {...register('username')}
+                                placeholder="username"
+                                className="w-full pl-12 pr-4 py-3 bg-card border border-card-border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all outline-none"
+                            />
+                        </div>
+                        {errors.username && (
+                            <small className="text-red-500 pt-0.5 font-semibold">
+                                {errors.username.message}
+                            </small>
+                        )}
+                    </div>
 
                     <div>
                         <label className="block text-sm font-medium text-text-muted mb-2">
@@ -91,34 +127,26 @@ export default function AdminSignIn() {
                             <label className="text-sm font-medium text-text-muted">
                                 Mot de passe
                             </label>
-                            <a
-                                href="#"
-                                className="text-xs text-indigo-600 hover:underline"
-                            >
-                                Oublié ?
-                            </a>
                         </div>
                         <div className="relative">
                             {passwordVisible ? (
                                 <LockOpen
                                     onClick={() =>
-                                        setIsPasswordVisible((p) => !p)
+                                        setIsPasswordVisible((p) => p != true)
                                     }
                                     className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                                     size={18}
                                 />
                             ) : (
                                 <Lock
-                                    onClick={() =>
-                                        setIsPasswordVisible((p) => !p)
-                                    }
+                                    onClick={() => setIsPasswordVisible(true)}
                                     className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                                     size={18}
                                 />
                             )}
 
                             <input
-                                type={`${passwordVisible ? 'text' : 'password'}`}
+                                type={` ${passwordVisible ? 'text' : 'password'}`}
                                 {...register('password')}
                                 placeholder="••••••••"
                                 className="w-full pl-12 pr-4 py-3 bg-card border border-card-border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all outline-none"
@@ -131,11 +159,32 @@ export default function AdminSignIn() {
                         )}
                     </div>
 
+                    <div>
+                        <label className="block text-sm font-medium text-text-muted mb-2">
+                            Role
+                        </label>
+                        <div className="relative">
+                            <select
+                                {...register('role')}
+                                className="w-full pl-4 pr-4 py-3 bg-card border border-card-border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all outline-none"
+                            >
+                                <option value="USER">User</option>
+                                <option value="MEMBER">Member</option>
+                                <option value="ADMIN">Admin</option>
+                            </select>
+                        </div>
+                        {errors.role && (
+                            <small className="text-red-500 pt-0.5 font-semibold">
+                                {errors.role.message}
+                            </small>
+                        )}
+                    </div>
+
                     <button
                         disabled={isPending}
                         className={`w-full mt-10 py-3 rounded-lg font-semibold flex items-center justify-center gap-2
                             ${isPending ? 'bg-indigo-700 text-gray-400 cursor-not-allowed' : 'bg-indigo-900 text-white hover:bg-slate-800'}
-                            transition-all group`}
+                            transition-all group cursor-pointer`}
                     >
                         {isPending ? (
                             <>
@@ -153,6 +202,16 @@ export default function AdminSignIn() {
                         )}
                     </button>
                 </form>
+
+                <div className="mt-8 pt-8 border-t border-card-border text-center text-sm text-slate-600">
+                    Nouveau sur la plateforme ?{' '}
+                    <Link
+                        href="/auth/accounts/signin"
+                        className="text-indigo-600 font-bold hover:underline"
+                    >
+                        Se connecter
+                    </Link>
+                </div>
             </div>
         </div>
     );
