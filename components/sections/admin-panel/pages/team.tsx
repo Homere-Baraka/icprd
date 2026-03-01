@@ -52,7 +52,7 @@ export default function Teams() {
                 {isLoading ? (
                     <TeamSkeletton />
                 ) : isError ? (
-                    <ErrorState onRetry={refetch} message={error?.message} />
+                    <ErrorState onRetry={refetch} message={error.message} />
                 ) : teamMembers?.data && teamMembers.data.length > 0 ? (
                     teamMembers.data.map((member: any) => (
                         <div

@@ -23,6 +23,7 @@ export default function Posts() {
 
     return (
         <div className="min-h-screen bg-background p-8 font-sans text-text-main">
+            
             {/* Header Section */}
             <div className="flex justify-between items-start mb-8">
                 <div>
@@ -30,7 +31,7 @@ export default function Posts() {
                         Articles de blog
                     </h1>
                     <p className="text-text-muted mt-1">
-                        Manage your blog articles and publications.
+                        Gérez vos articles de blog et vos publications.
                     </p>
                 </div>
                 <button
@@ -40,6 +41,82 @@ export default function Posts() {
                     <Plus size={18} />
                     Créer une post
                 </button>
+            </div>
+
+            {/* Card section */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div className="bg-card border border-card-border p-6 rounded-2xl shadow-sm relative overflow-hidden group">
+                    <div className="flex items-center gap-4">
+                        <div className="p-3 bg-emerald-50/10 text-emerald-600 rounded-xl">
+                            <PlusCircle size={24} />
+                        </div>
+                        <div>
+                            <p className="text-sm font-bold text-text-muted uppercase tracking-wider">
+                                Publiés
+                            </p>
+                            <h3 className="text-2xl font-black text-text-main">
+                                {isLoading
+                                    ? '...'
+                                    : posts?.data?.filter(
+                                          (p: any) => p.publishedAt,
+                                      ).length || 0}
+                            </h3>
+                        </div>
+                    </div>
+                    <div className="absolute -right-2 -bottom-2 opacity-5 group-hover:scale-110 transition-transform">
+                        <PlusCircle size={80} />
+                    </div>
+                </div>
+
+                <div className="bg-card border border-card-border p-6 rounded-2xl shadow-sm relative overflow-hidden group">
+                    <div className="flex items-center gap-4">
+                        <div className="p-3 bg-amber-50/10 text-amber-600 rounded-xl">
+                            <Filter size={24} />
+                        </div>
+                        <div>
+                            <p className="text-sm font-bold text-text-muted uppercase tracking-wider">
+                                Brouillons
+                            </p>
+                            <h3 className="text-2xl font-black text-text-main">
+                                {isLoading
+                                    ? '...'
+                                    : posts?.data?.filter(
+                                          (p: any) => !p.publishedAt,
+                                      ).length || 0}
+                            </h3>
+                        </div>
+                    </div>
+                    <div className="absolute -right-2 -bottom-2 opacity-5 group-hover:scale-110 transition-transform">
+                        <Filter size={80} />
+                    </div>
+                </div>
+
+                <div className="bg-card border border-card-border p-6 rounded-2xl shadow-sm relative overflow-hidden group">
+                    <div className="flex items-center gap-4">
+                        <div className="p-3 bg-blue-50/10 text-blue-600 rounded-xl">
+                            <Eye size={24} />
+                        </div>
+                        <div>
+                            <p className="text-sm font-bold text-text-muted uppercase tracking-wider">
+                                Vues total
+                            </p>
+                            <h3 className="text-2xl font-black text-text-main">
+                                {isLoading
+                                    ? '...'
+                                    : posts?.data
+                                          ?.reduce(
+                                              (acc: number, post: any) =>
+                                                  acc + (post.views || 0),
+                                              0,
+                                          )
+                                          .toLocaleString() || 0}
+                            </h3>
+                        </div>
+                    </div>
+                    <div className="absolute -right-2 -bottom-2 opacity-5 group-hover:scale-110 transition-transform">
+                        <Eye size={80} />
+                    </div>
+                </div>
             </div>
 
             {/* Main Card */}

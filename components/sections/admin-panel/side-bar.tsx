@@ -36,7 +36,7 @@ export default function Sidebar() {
         },
         {
             icon: Trophy,
-            label: 'Achievements',
+            label: 'Réalisations',
             href: '/admin/achievements',
         },
         // {
