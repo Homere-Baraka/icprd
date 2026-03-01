@@ -1,49 +1,42 @@
-import React from 'react';
-import { Search, Plus, Filter, Download, MoreVertical } from 'lucide-react';
+'use client';
+
+import React, { useEffect, useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
+import ActionMenu from '@/components/action-menu';
+import { usePostsQuery } from '@/lib/query/post.query';
+import EmptyState from '@/components/ui/empty-state';
+import ErrorState from '@/components/ui/error-state';
+import PostSkeleton from '@/components/ui/post-skeletton';
+import {
+    Search,
+    Plus,
+    Filter,
+    Download,
+    MoreVertical,
+    PlusCircle,
+    Eye,
+} from 'lucide-react';
 
 export default function Posts() {
-    const posts = [
-        {
-            id: 1,
-            title: '10 Tips for Better Design',
-            author: 'Jane Doe',
-            status: 'Published',
-            date: '2024-05-12',
-        },
-        {
-            id: 2,
-            title: 'Understanding React Hooks',
-            author: 'John Smith',
-            status: 'Draft',
-            date: '2024-05-10',
-        },
-        {
-            id: 3,
-            title: 'The Future of Web Development',
-            author: 'Alice Johnson',
-            status: 'Published',
-            date: '2024-05-08',
-        },
-        {
-            id: 4,
-            title: 'Mastering Tailwind CSS',
-            author: 'Jane Doe',
-            status: 'Published',
-            date: '2024-05-01',
-        },
-    ];
+    const router = useRouter();
+    const { data: posts, isLoading, error, isError, refetch } = usePostsQuery();
 
     return (
         <div className="min-h-screen bg-background p-8 font-sans text-text-main">
             {/* Header Section */}
             <div className="flex justify-between items-start mb-8">
                 <div>
-                    <h1 className="text-3xl font-bold text-text-main">Posts</h1>
+                    <h1 className="text-3xl font-bold text-text-main">
+                        Articles de blog
+                    </h1>
                     <p className="text-text-muted mt-1">
                         Manage your blog articles and publications.
                     </p>
                 </div>
-                <button className="flex items-center gap-2 bg-primary hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg font-medium transition-colors shadow-sm">
+                <button
+                    onClick={() => router.push('/admin/posts/new')}
+                    className="flex items-center gap-2 bg-primary hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg font-medium transition-colors shadow-sm"
+                >
                     <Plus size={18} />
                     Créer une post
                 </button>
@@ -98,38 +91,66 @@ export default function Posts() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-card-border text-text-muted">
-                            {posts.map((post) => (
-                                <tr
-                                    key={post.id}
-                                    className="hover:bg-slate-50/5 transition-colors group"
-                                >
-                                    <td className="px-6 py-5 font-semibold text-text-muted">
-                                        {post.title}
-                                    </td>
-                                    <td className="px-6 py-5 text-text-subtle">
-                                        {post.author}
-                                    </td>
-                                    <td className="px-6 py-5">
-                                        <span
-                                            className={`px-3 py-1 rounded-full text-xs font-medium ${
-                                                post.status === 'Published'
-                                                    ? 'bg-emerald-100 text-emerald-700'
-                                                    : 'bg-slate-100 text-slate-600'
-                                            }`}
-                                        >
-                                            {post.status}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-5 text-slate-400">
-                                        {post.date}
-                                    </td>
-                                    <td className="px-6 py-5 text-right">
-                                        <button className="p-1 hover:bg-background rounded-md transition-colors text-slate-400">
-                                            <MoreVertical size={20} />
-                                        </button>
-                                    </td>
+                            {isLoading ? (
+                                <PostSkeleton />
+                            ) : isError ? (
+                                <tr>
+                                    <dt>
+                                        <ErrorState
+                                            onRetry={refetch}
+                                            message={error?.message}
+                                        />
+                                    </dt>
                                 </tr>
-                            ))}
+                            ) : posts?.data && posts.data.length > 0 ? (
+                                posts.data.map((post: any) => (
+                                    <tr
+                                        key={post.id}
+                                        className="hover:bg-slate-50/5 transition-colors group"
+                                    >
+                                        <td className="px-6 py-5 font-semibold text-text-muted">
+                                            {post.title}
+                                        </td>
+                                        <td className="px-6 py-5 text-text-subtle">
+                                            {post?.team?.user?.username}{' '}
+                                            {post?.team?.user?.first_name}
+                                        </td>
+                                        <td className="px-6 py-5">
+                                            <span
+                                                className={`px-3 py-1 rounded-full text-xs font-medium ${
+                                                    post.publishedAt
+                                                        ? 'bg-emerald-100 text-emerald-700'
+                                                        : 'bg-slate-100 text-slate-600'
+                                                }`}
+                                            >
+                                                {post.publishedAt
+                                                    ? 'Publié'
+                                                    : 'Brouillon'}
+                                            </span>
+                                        </td>
+                                        <td className="px-6 py-5 text-slate-400">
+                                            {new Date(
+                                                post?.createdAt,
+                                            ).toLocaleDateString('fr-FR', {
+                                                day: '2-digit',
+                                                month: 'long',
+                                                year: 'numeric',
+                                            })}
+                                        </td>
+                                        <td className="px-6 py-5 text-right">
+                                            <ActionMenu postId={post.id} />
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <EmptyState
+                                    title="Votre catalogue est vide"
+                                    description="
+                                        Commencez à bâtir votre empire de blog en
+                                        créant votre tout premier blog premium."
+                                    copy=" C'est parti !"
+                                />
+                            )}
                         </tbody>
                     </table>
                 </div>

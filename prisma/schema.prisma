@@ -32,13 +32,11 @@ model User {
   role          Role   @default(USER)
   is_active     Boolean @default(true)
   
-  profile       Profile?
+  teams         Team? @relation("UserTeam")
   accounts      Account[]
   sessions      Session[]
 
   password_resets  PasswordReset? @relation("UserPasswordReset")
-
-  teams         Team? @relation("UserTeam")
 
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
@@ -92,18 +90,6 @@ model VerificationToken {
   @@map("verificationtoken")
 }
 
-model Profile {
-  id         String   @id @default(uuid(7)) @db.Uuid
-
-  userId     String @unique @db.Uuid
-  user       User @relation(fields: [userId], references: [id])
-  
-  phone      String?
-  bio        String?
-  date_bith  String?
-
-  @@map("profile")
-}
 
 /// ================
 /// Password Recovery
@@ -128,13 +114,12 @@ model PasswordReset {
 
 model Team {
   id          String   @id @default(uuid(7)) @db.Uuid
-  firstName   String
-  lastName    String
-  role        String
+  role        String?
   bio         String?
-  email       String?    @unique
   imageUrl    String?
   socialLinks Json?
+  phone      String?
+  date_bith  String?
 
   userId    String @unique  @db.Uuid
   user      User   @relation("UserTeam", fields: [userId], references: [id])
@@ -179,7 +164,7 @@ model Post {
   teamId    String @db.Uuid
   team      Team   @relation(fields: [teamId], references: [id])
 
-  publishedAt DateTime   @default(now())
+  publishedAt DateTime?   @default(now())
   views       Int        @default(0)
 
   testimonials Testimonial[]

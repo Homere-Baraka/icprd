@@ -20,15 +20,6 @@ export default function Achievement() {
             iconBg: 'bg-blue-50',
         },
         {
-            id: 2,
-            label: 'Awards Won',
-            value: '24',
-            subtext: 'Industry Awards',
-            trend: '3 new this month',
-            icon: <Trophy className="text-amber-500" size={24} />,
-            iconBg: 'bg-amber-50',
-        },
-        {
             id: 3,
             label: 'Revenue Growth',
             value: '$4.2M',
@@ -67,7 +58,7 @@ export default function Achievement() {
             </div>
 
             {/* Metrics Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
                 {metrics.map((item) => (
                     <div
                         key={item.id}

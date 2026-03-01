@@ -2,14 +2,14 @@
 
 import bcrypt from 'bcryptjs';
 import { prisma } from '@/lib/prisma';
-import { UserLoginSchema } from '@/lib/prisma-schema';
+import { userLoginSchema } from '@/lib/prisma-schema';
 // import { requireAdmin } from '@/lib/auth/admin-guard';
 
 export async function adminLoginAction(data: unknown) {
     try {
         // await requireAdmin();
 
-        const validated = UserLoginSchema.safeParse(data);
+        const validated = userLoginSchema.safeParse(data);
 
         if (!validated.success) {
             return {

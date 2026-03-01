@@ -1,182 +1,190 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import QuickActionModal from '@/components/quick-action-modal';
 import {
-    Plus,
-    CheckCircle2,
-    AlertCircle,
-    ArrowUpRight,
-    TrendingUp,
+    FileText,
     Users,
-    BookOpenCheck,
+    Handshake,
+    Trophy,
+    Image as ImageIcon,
+    ArrowRight,
+    Plus,
+    ExternalLink,
 } from 'lucide-react';
+import { getDashboardStatsAction } from '@/actions/admin/statistic';
 
-const initialPosts = [
-    {
-        id: 1,
-        title: 'Nouvelle fonctionnalité',
-        author: 'Alice',
-        status: 'Brouillon',
-        views: 120,
-    },
-    {
-        id: 2,
-        title: 'Mise à jour système',
-        author: 'Bob',
-        status: 'Publié',
-        views: 45,
-    },
-    {
-        id: 3,
-        title: 'Annonce événement',
-        author: 'Charlie',
-        status: 'Brouillon',
-        views: 300,
-    },
-];
+export default function Dashboard() {
+    const [isActionModalOpen, setIsActionModalOpen] = useState(false);
+    const [counts, setCounts] = useState({
+        posts: 0,
+        members: 0,
+        partners: 0,
+        achievements: 0,
+        gallery: 0,
+    });
+    const [isLoading, setIsLoading] = useState(true);
 
-export default function PostsSection() {
-    const [posts, setPosts] = useState(initialPosts);
-    const [search, setSearch] = useState('');
+    useEffect(() => {
+        async function fetchStats() {
+            const result = await getDashboardStatsAction();
+            if (result.success && result.data) {
+                setCounts(result.data);
+            }
+            setIsLoading(false);
+        }
+        fetchStats();
+    }, []);
 
-    const handlePublish = (id: number) => {
-        setPosts(
-            posts.map((p) => (p.id === id ? { ...p, status: 'Publié' } : p)),
-        );
-    };
-
-    const handleDelete = (id: number) => {
-        setPosts(posts.filter((p) => p.id !== id));
-    };
-
-    const filteredPosts = posts.filter((p) =>
-        p.title.toLowerCase().includes(search.toLowerCase()),
-    );
+    const stats = [
+        {
+            id: 'posts',
+            label: 'Articles de Blog',
+            count: counts.posts,
+            subtext: '8 publiés ce mois',
+            icon: <FileText className="text-blue-600" size={28} />,
+            color: 'bg-blue-50/10',
+            link: '/admin/posts',
+            borderColor: 'hover:border-blue-200',
+        },
+        {
+            id: 'team',
+            label: "Membres d'Équipe",
+            count: counts.members,
+            subtext: '4 départements',
+            icon: <Users className="text-emerald-600" size={28} />,
+            color: 'bg-emerald-50/10',
+            link: '/admin/teams',
+            borderColor: 'hover:border-emerald-200',
+        },
+        {
+            id: 'partners',
+            label: 'Partenaires',
+            count: counts.partners,
+            subtext: '2 en attente',
+            icon: <Handshake className="text-amber-600" size={28} />,
+            color: 'bg-amber-50/10',
+            link: '/admin/partners',
+            borderColor: 'hover:border-amber-200',
+        },
+        {
+            id: 'achievements',
+            label: 'Succès & Stats',
+            count: counts.achievements,
+            subtext: '+12% de croissance',
+            icon: <Trophy className="text-purple-600" size={28} />,
+            color: 'bg-purple-50/10',
+            link: '/admin/achievements',
+            borderColor: 'hover:border-purple-200',
+        },
+        {
+            id: 'gallery',
+            label: 'Médiathèque',
+            count: counts.gallery,
+            subtext: 'Images & Vidéos',
+            icon: <ImageIcon className="text-rose-600" size={28} />,
+            color: 'bg-rose-50/10',
+            link: '/admin/gallery',
+            borderColor: 'hover:border-cyan-200',
+        },
+    ];
 
     return (
-        <div className="p-8 bg-gray-100 min-h-screen">
-            {/* Header + Actions */}
-            <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-                <h1 className="text-3xl font-bold">Gestion des Posts</h1>
-                <div className="flex gap-3 w-full md:w-auto">
-                    <input
-                        type="text"
-                        placeholder="Rechercher un post..."
-                        className="px-4 py-2 rounded-lg border border-gray-300 flex-1"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                    />
-                    <button className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 transition">
-                        <Plus size={16} /> Créer
-                    </button>
+        <div className="relative min-h-screen bg-background p-10 font-sans text-text-main">
+            {/* Header avec un look très "Clean Organization" */}
+            <div className="max-w-6xl mx-auto mb-12 flex justify-between items-end">
+                <div>
+                    <h1 className="text-4xl font-black tracking-tight">
+                        Overview <span className="text-blue-600">.</span>
+                    </h1>
+                    <p className="text-text-muted font-medium mt-2">
+                        Bienvenue dans votre centre de gestion d'organisation.
+                    </p>
+                </div>
+                <div className="text-right hidden sm:block">
+                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">
+                        Dernière mise à jour
+                    </p>
+                    <p className="font-bold text-text-muted">
+                        Aujourd'hui, 14:30
+                    </p>
                 </div>
             </div>
 
-            {/* Mini-Statistiques */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div className="bg-white rounded-xl p-6 shadow flex items-center justify-between">
-                    <div>
-                        <p className="text-gray-500 text-sm">Posts Publiés</p>
-                        <h2 className="text-xl font-bold">
-                            {posts.filter((p) => p.status === 'Publié').length}
-                        </h2>
-                    </div>
-                    <CheckCircle2 size={32} className="text-green-500" />
-                </div>
-                <div className="bg-white rounded-xl p-6 shadow flex items-center justify-between">
-                    <div>
-                        <p className="text-gray-500 text-sm">Posts Brouillon</p>
-                        <h2 className="text-xl font-bold">
-                            {
-                                posts.filter((p) => p.status === 'Brouillon')
-                                    .length
-                            }
-                        </h2>
-                    </div>
-                    <BookOpenCheck size={32} className="text-purple-500" />
-                </div>
-                <div className="bg-white rounded-xl p-6 shadow flex items-center justify-between">
-                    <div>
-                        <p className="text-gray-500 text-sm">Vues Totales</p>
-                        <h2 className="text-xl font-bold">
-                            {posts.reduce((acc, p) => acc + p.views, 0)}
-                        </h2>
-                    </div>
-                    <TrendingUp size={32} className="text-emerald-500" />
-                </div>
-            </div>
-
-            {/* Tableau Interactif */}
-            <div className="bg-white rounded-xl shadow overflow-hidden">
-                <table className="w-full text-left">
-                    <thead className="bg-gray-200 text-gray-600">
-                        <tr>
-                            <th className="px-4 py-2">Titre</th>
-                            <th className="px-4 py-2">Auteur</th>
-                            <th className="px-4 py-2">Vues</th>
-                            <th className="px-4 py-2">Status</th>
-                            <th className="px-4 py-2">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-200">
-                        {filteredPosts.map((post) => (
-                            <tr
-                                key={post.id}
-                                className="hover:bg-gray-50 transition"
+            {/* Grid de Navigation */}
+            <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {stats.map((item) => (
+                    <div
+                        key={item.id}
+                        className={`group bg-card p-8 rounded-2xl border border-card-border shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${item.borderColor}`}
+                    >
+                        <div className="flex justify-between items-start mb-6">
+                            <div
+                                className={`w-16 h-16 ${item.color} rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 duration-300`}
                             >
-                                <td className="px-4 py-2">{post.title}</td>
-                                <td className="px-4 py-2">{post.author}</td>
-                                <td className="px-4 py-2">{post.views}</td>
-                                <td className="px-4 py-2">
-                                    <span
-                                        className={`px-2 py-1 rounded-full text-xs font-bold ${
-                                            post.status === 'Publié'
-                                                ? 'bg-green-100 text-green-700'
-                                                : 'bg-gray-100 text-gray-700'
-                                        }`}
-                                    >
-                                        {post.status}
-                                    </span>
-                                </td>
-                                <td className="px-4 py-2 flex gap-2">
-                                    {post.status !== 'Publié' && (
-                                        <button
-                                            onClick={() =>
-                                                handlePublish(post.id)
-                                            }
-                                            className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-500 transition"
-                                        >
-                                            Publier
-                                        </button>
-                                    )}
-                                    <button
-                                        onClick={() => handleDelete(post.id)}
-                                        className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500 transition"
-                                    >
-                                        Supprimer
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                                {item.icon}
+                            </div>
 
-            {/* Placeholder mini-chart */}
-            <div className="mt-8 bg-white rounded-xl p-6 shadow">
-                <h2 className="text-lg font-bold mb-4">
-                    Activité des Posts (24h)
-                </h2>
-                <div className="h-48 bg-gradient-to-t from-blue-600/10 to-transparent rounded-xl flex items-end gap-2 px-4">
-                    {[40, 70, 45, 90, 65, 80, 30, 50].map((h, i) => (
-                        <div
-                            key={i}
-                            style={{ height: `${h}%` }}
-                            className="w-6 bg-blue-600 rounded-t-md transition hover:bg-blue-500"
-                        />
-                    ))}
+                            <button
+                                onClick={() =>
+                                    (window.location.href = item.link)
+                                }
+                                className="p-2.5 text-text-muted rounded-xl hover:bg-card-border hover:text-text-main transition-all shadow-sm cursor-pointer"
+                                title={`Gérer les ${item.label}`}
+                            >
+                                <ExternalLink size={20} />
+                            </button>
+                        </div>
+
+                        <div className="space-y-1">
+                            <h3 className="text-slate-500 font-bold text-sm uppercase tracking-wider">
+                                {item.label}
+                            </h3>
+                            <div className="flex items-baseline gap-2">
+                                <span className="text-5xl font-black text-text-main">
+                                    {item.count}
+                                </span>
+                                <span className="text-text-muted font-medium">
+                                    total
+                                </span>
+                            </div>
+                            <p className="text-slate-400 text-sm italic pt-2">
+                                {item.subtext}
+                            </p>
+                        </div>
+
+                        {/* Barre de progression décorative ou footer */}
+                        <div className="mt-8 flex items-center justify-between text-primary font-bold text-sm group-hover:gap-2 transition-all">
+                            <span className="opacity-0 group-hover:opacity-100 transition-opacity">
+                                Accéder à la gestion
+                            </span>
+                            <ArrowRight
+                                size={20}
+                                className="group-hover:translate-x-1 transition-transform"
+                            />
+                        </div>
+                    </div>
+                ))}
+
+                {/* Quick Action */}
+                <div
+                    onClick={() => setIsActionModalOpen(true)}
+                    className="bg-card border border-card-border p-8 rounded-2xl shadow-xl flex flex-col justify-center items-center text-center text-white group cursor-pointer hover:bg-primary transition-colors"
+                >
+                    <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-4 group-hover:rotate-90 transition-transform duration-500">
+                        <Plus size={32} />
+                    </div>
+                    <h3 className="text-xl font-bold">Action Rapide</h3>
+                    <p className="text-white/60 text-sm mt-2">
+                        Ajouter un nouvel élément à n'importe quelle section.
+                    </p>
                 </div>
             </div>
+
+            <QuickActionModal
+                isOpen={isActionModalOpen}
+                onClose={() => setIsActionModalOpen(false)}
+            />
         </div>
     );
 }

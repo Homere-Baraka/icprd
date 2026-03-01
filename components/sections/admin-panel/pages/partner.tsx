@@ -54,18 +54,18 @@ export default function Partners() {
     ];
 
     return (
-        <div className="min-h-screen bg-slate-50 p-10 font-sans text-[#1a202c]">
+        <div className="min-h-screen p-10 font-sans text-text-main">
             {/* Header Section */}
             <div className="flex justify-between items-start mb-10">
                 <div>
                     <h1 className="text-3xl font-bold">Partners</h1>
-                    <p className="text-slate-500 mt-1">
+                    <p className="text-text-muted mt-1">
                         Manage your partner network and sponsors.
                     </p>
                 </div>
-                <button className="flex items-center gap-2 bg-[#2563eb] hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-medium transition-all shadow-md">
+                <button className="flex items-center gap-2 bg-primary hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg font-medium transition-all shadow-md">
                     <Plus size={20} />
-                    Add Partner
+                    Ajouter un partenaire
                 </button>
             </div>
 
@@ -74,10 +74,10 @@ export default function Partners() {
                 {partners.map((partner) => (
                     <div
                         key={partner.id}
-                        className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all group"
+                        className="bg-card p-8 rounded-xl border border-card-border shadow-sm hover:shadow-md transition-all group"
                     >
                         {/* Logo Placeholder / Avatar */}
-                        <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6">
+                        <div className="w-16 h-16 bg-blue-50/10 rounded-2xl flex items-center justify-center mb-6">
                             <span className="text-2xl font-bold text-blue-600">
                                 {partner.initial}
                             </span>
@@ -85,16 +85,16 @@ export default function Partners() {
 
                         {/* Partner Info */}
                         <div className="mb-6">
-                            <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                            <h3 className="text-xl font-bold text-text-main group-hover:text-blue-600 transition-colors">
                                 {partner.name}
                             </h3>
-                            <p className="text-slate-500 font-medium">
+                            <p className="text-text-muted font-medium">
                                 {partner.role}
                             </p>
                         </div>
 
                         {/* Divider */}
-                        <div className="h-[1px] bg-slate-100 w-full mb-6" />
+                        <div className="h-[1px] bg-card-border w-full mb-6" />
 
                         {/* Footer with Link and Status */}
                         <div className="flex justify-between items-center">

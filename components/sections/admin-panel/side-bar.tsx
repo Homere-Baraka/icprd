@@ -4,12 +4,12 @@ import {
     LayoutDashboard,
     BookOpen,
     Users,
-    GraduationCap,
-    FileCode,
+    Trophy,
+    Handshake,
     Settings,
-    Plus,
+    ImageIcon,
     LogOut,
-    BarChart3,
+    MessageSquareQuote,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -21,44 +21,43 @@ export default function Sidebar() {
         {
             icon: LayoutDashboard,
             label: 'Tableau de bord',
-            href: '/admin-1001',
+            href: '/admin',
             active: true,
         },
         {
-            icon: LayoutDashboard,
+            icon: Users,
             label: 'Équipes',
-            href: '/admin/team',
-            active: true,
+            href: '/admin/teams',
         },
         {
             icon: BookOpen,
-            label: 'Publications',
+            label: 'Articles',
             href: '/admin/posts',
         },
         {
-            icon: Users,
+            icon: Trophy,
             label: 'Achievements',
             href: '/admin/achievements',
         },
-        {
-            icon: Users,
-            label: 'Testimonials',
-            href: '/admin/testimonials',
-        },
-        {
-            icon: FileCode,
-            label: 'Galleries',
-            href: '/admin/gallery',
-        },
-        {
-            icon: FileCode,
-            label: 'Partenaires',
-            href: '/admin/partners',
-        },
+        // {
+        //     icon: MessageSquareQuote,
+        //     label: 'Testimonials',
+        //     href: '/admin/testimonials',
+        // },
+        // {
+        //     icon: ImageIcon,
+        //     label: 'Galleries',
+        //     href: '/admin/gallery',
+        // },
+        // {
+        //     icon: Handshake,
+        //     label: 'Partenaires',
+        //     href: '/admin/partners',
+        // },
         {
             icon: Settings,
             label: 'Paramétres',
-            href: '#',
+            href: '/admin/settings',
         },
     ];
 
@@ -80,7 +79,7 @@ export default function Sidebar() {
                 {menuItems.map((item) => {
                     const isActive =
                         pathname === item.href ||
-                        (item.href !== '/admin-1001' &&
+                        (item.href !== '/admin' &&
                             pathname.startsWith(item.href));
 
                     return (
