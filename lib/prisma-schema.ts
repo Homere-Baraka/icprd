@@ -41,7 +41,7 @@ export const userRegisterSchema = z.object({
 });
 export type userRegisterInput = z.infer<typeof userRegisterSchema>;
 
-// Login validation
+// LOGIN VALIDATION
 export const userLoginSchema = z.object({
     email: z
         .string()
@@ -75,9 +75,50 @@ export const postSchema = z.object({
         z.string().optional().or(z.literal('')),
     ),
 
-    category: z.string().min(1, 'Veuillez choisir une catégorie').optional(),
+    category: z
+        .string()
+        .min(1, 'Veuillez choisir une catégorie de votre blog')
+        .optional(),
     views: z.number().int().default(0),
 });
 
 export type postFormValues = z.infer<typeof postSchema>;
 export const updatePostSchema = postSchema.partial();
+
+// ACHIEVEMENT FORM VALIDATION
+export const AchievementEnum = z.enum(['PENDING', 'FINISHED', 'CANCELED']);
+export const achievementSchema = z.object({
+    title: z
+        .string()
+        .min(4, 'Le titre est trop court (min 4 caractères)')
+        .max(100, 'Le titre est trop long (max 100)'),
+
+    content: z.string().min(15, 'Le contenu doit faire au moins 15 caractères'),
+
+    excerpt: z.string().optional().or(z.literal('')),
+
+    date: z.coerce
+        .date()
+        .refine((d) => !isNaN(d.getTime()), {
+            message: 'Veuillez sélectionner une date valide',
+        })
+        .refine((d) => d <= new Date(), {
+            message: 'La date ne peut pas être dans le futur',
+        })
+        .optional()
+        .or(z.literal('')),
+
+    imageUrl: z.preprocess(
+        (val) => (val === null ? '' : val),
+        z.string().optional().or(z.literal('')),
+    ),
+
+    category: z
+        .string()
+        .min(1, 'Veuillez choisir une catégorie de votre réalisation')
+        .optional(),
+    status: AchievementEnum.default('PENDING'),
+});
+
+export type achievementFormValues = z.infer<typeof achievementSchema>;
+export const updateAchievementSchema = achievementSchema.partial();

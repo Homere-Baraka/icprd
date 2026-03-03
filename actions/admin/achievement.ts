@@ -4,9 +4,9 @@ import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { authOptions } from '@/lib/auth/options';
 import { getServerSession } from 'next-auth';
-import { postSchema } from '@/lib/prisma-schema';
+import { achievementSchema } from '@/lib/prisma-schema';
 
-export async function createPostAction(
+export async function createAchievementAction(
     data: unknown,
     actionType: 'draft' | 'publish',
 ) {
@@ -16,7 +16,7 @@ export async function createPostAction(
         return { success: false, error: 'Vous devez être connecté.' };
     }
 
-    const validation = postSchema.safeParse(data);
+    const validation = achievementSchema.safeParse(data);
 
     if (!validation.success) {
         return {
@@ -25,8 +25,9 @@ export async function createPostAction(
         };
     }
 
-    const { title, content, excerpt, category, imageUrl, views } =
+    const { title, content, excerpt, date, category, imageUrl, status } =
         validation.data;
+
     const publishedAt = actionType === 'publish' ? new Date() : null;
 
     const teamMember = await prisma.team.findUnique({
@@ -41,21 +42,22 @@ export async function createPostAction(
     }
 
     try {
-        const post = await prisma.post.create({
+        const achievement = await prisma.achievement.create({
             data: {
                 title,
                 content,
                 excerpt,
+                date,
                 category,
                 imageUrl,
                 publishedAt,
-                views,
+                status,
                 teamId: teamMember.id,
             },
         });
 
-        revalidatePath('/admin/posts');
-        revalidatePath('/blogs');
+        revalidatePath('/admin/achievements');
+        revalidatePath('/achievements');
 
         return {
             success: true,
@@ -72,9 +74,9 @@ export async function createPostAction(
     }
 }
 
-export async function getPostsAction() {
+export async function getAchievementsAction() {
     try {
-        const posts = await prisma.post.findMany({
+        const achievements = await prisma.achievement.findMany({
             orderBy: { createdAt: 'desc' },
             include: {
                 author: {
@@ -93,19 +95,19 @@ export async function getPostsAction() {
 
         return {
             success: true,
-            data: posts,
+            data: achievements,
         };
     } catch (error) {
-        console.error('[POSTS_ERROR]:', error);
+        console.error('[ACHIEVEMENT_ERROR]:', error);
         return {
             success: false,
-            message: 'Error while fetching data.',
+            message: 'Eerror while fetching data',
         };
     }
 }
 
-export async function updatePostAction(
-    postId: string,
+export async function updateAchievementAction(
+    achievementId: string,
     data: unknown,
     actionType: 'draft' | 'publish',
 ) {
@@ -116,7 +118,7 @@ export async function updatePostAction(
             return { success: false, error: 'Vous devez être connecté.' };
         }
 
-        const validated = postSchema.safeParse(data);
+        const validated = achievementSchema.safeParse(data);
 
         if (!validated.success) {
             return {
@@ -125,8 +127,9 @@ export async function updatePostAction(
             };
         }
 
-        const { title, content, excerpt, category, imageUrl, views } =
+        const { title, content, excerpt, date, category, imageUrl, status } =
             validated.data;
+
         const publishedAt = actionType === 'publish' ? new Date() : null;
 
         const teamMember = await prisma.team.findUnique({
@@ -140,25 +143,26 @@ export async function updatePostAction(
             };
         }
 
-        const updatedPost = await prisma.post.update({
-            where: { id: postId },
+        const updatedAchievement = await prisma.achievement.update({
+            where: { id: achievementId },
             data: {
                 title,
                 content,
                 excerpt,
+                date,
                 category,
                 imageUrl,
                 publishedAt,
-                views,
+                status,
                 teamId: teamMember.id,
             },
         });
 
-        revalidatePath(`/admin/posts`);
-        revalidatePath(`/admin/posts/${postId}`);
-        revalidatePath(`/blog`);
+        revalidatePath(`/admin/achievements`);
+        revalidatePath(`/admin/achievements/${achievementId}`);
+        revalidatePath(`/achievements`);
 
-        return { success: true, data: updatedPost };
+        return { success: true, data: updatedAchievement };
     } catch (error: any) {
         console.error('[ACHIEVEMENT_PATCH_ACTION]', error);
         return {
@@ -168,10 +172,10 @@ export async function updatePostAction(
     }
 }
 
-export async function getPostByIdAction(postId: string) {
+export async function getAchievementByIdAction(achievementId: string) {
     try {
-        const post = await prisma.post.findUnique({
-            where: { id: postId },
+        const achievement = await prisma.achievement.findUnique({
+            where: { id: achievementId },
             include: {
                 author: {
                     include: { user: true },
@@ -179,13 +183,13 @@ export async function getPostByIdAction(postId: string) {
             },
         });
 
-        if (!post) {
-            return { success: false, message: 'Post not found' };
+        if (!achievement) {
+            return { success: false, message: 'Achievement not found non.' };
         }
 
-        return { success: true, data: post };
+        return { success: true, data: achievement };
     } catch (error) {
-        console.error('[POST_GET_ACTION]', error);
+        console.error('[ACHIEVEMENT_GET_ACTION]', error);
         return { success: false, message: 'Error while fetching data.' };
     }
 }

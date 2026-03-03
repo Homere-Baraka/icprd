@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import DropdownLink from './ui/drop-down';
 import { MoreVertical, Eye, PlusCircle } from 'lucide-react';
 
-export default function ActionMenu({ postId }: any) {
+export default function ActionMenu({ link1, link2 }: any) {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +23,7 @@ export default function ActionMenu({ postId }: any) {
     }, [isOpen]);
 
     return (
-        <div className="" ref={dropdownRef}>
+        <div className="inline-block" ref={dropdownRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="p-1 hover:bg-background rounded-md transition-colors text-slate-400"
@@ -32,14 +32,14 @@ export default function ActionMenu({ postId }: any) {
             </button>
 
             {isOpen && (
-                <div className="absolute right-12 mt-2 w-56 bg-card border border-card-border rounded-xl shadow-xl z-50 py-2 animate-in fade-in zoom-in duration-200">
+                <div className="absolute right-1 mt-1 w-56 bg-card border border-card-border rounded-xl shadow-xl z-50 py-2 animate-in fade-in zoom-in duration-200">
                     <DropdownLink
-                        href={`/admin/posts/${postId}`}
+                        href={link1}
                         icon={<Eye size={16} />}
                         label="Voir le détail"
                     />
                     <DropdownLink
-                        href={`/admin/posts/${postId}/edit`}
+                        href={link2}
                         icon={<PlusCircle size={16} />}
                         label="Editer la publication"
                     />

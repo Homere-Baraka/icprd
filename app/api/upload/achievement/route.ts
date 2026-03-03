@@ -16,7 +16,10 @@ export async function POST(request: Request) {
 
         const buffer = Buffer.from(await file.arrayBuffer());
         const filename = Date.now() + '_' + file.name.replace(/\s+/g, '_');
-        const uploadDir = path.join(process.cwd(), 'public/uploads');
+        const uploadDir = path.join(
+            process.cwd(),
+            'public/uploads/achievements',
+        );
 
         await mkdir(uploadDir, { recursive: true });
 
@@ -24,12 +27,12 @@ export async function POST(request: Request) {
 
         return NextResponse.json({
             success: true,
-            url: `/uploads/${filename}`,
+            url: `/achievements/${filename}`,
         });
     } catch (error) {
-        console.error('Erreur Upload:', error);
+        console.error('[ACHIEVEMENT_UPLOAD_ERROR]:', error);
         return NextResponse.json(
-            { error: "Erreur lors de l'upload" },
+            { error: 'Error while upload file.' },
             { status: 500 },
         );
     }

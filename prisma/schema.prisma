@@ -139,12 +139,20 @@ model Team {
 model Achievement {
   id          String   @id @default(uuid(7)) @db.Uuid
   title       String
-  description String
+  content     String
+  excerpt     String?
   imageUrl    String?
+  video       String?
   date        DateTime
   category    String?
+  revenue     Float? @default(0.0)
+  province    Int?   @default(0)
+  countries   Int?   @default(0)
 
-  teamId    String @db.Uuid
+  status      AchievementStaus @default(PENDING)
+  publishedAt DateTime?   @default(now())
+
+  teamId      String @db.Uuid
   author      Team   @relation(fields: [teamId], references: [id])
 
   createdAt   DateTime   @default(now())
@@ -153,16 +161,23 @@ model Achievement {
   @@map("achievement")
 }
 
+enum AchievementStaus{
+  PENDING
+  FINISHED
+  CANCELED
+}
+
 model Post {
   id          String   @id @default(uuid(7)) @db.Uuid
   title       String
   content     String
   excerpt     String?
   imageUrl    String?
+  video       String?
   category    String?
 
   teamId    String @db.Uuid
-  team      Team   @relation(fields: [teamId], references: [id])
+  author      Team   @relation(fields: [teamId], references: [id])
 
   publishedAt DateTime?   @default(now())
   views       Int        @default(0)

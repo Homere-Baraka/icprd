@@ -146,12 +146,12 @@ export default function AddMemberForm() {
                             </div>
 
                             <div className="space-y-1">
-                                <label className="text-xs font-bold text-slate-400 uppercase tracking-tighter ml-1">
+                                <label className="text-xs font-bold text-text-muted uppercase tracking-tighter ml-1">
                                     Rôle Système
                                 </label>
                                 <div className="relative">
                                     <Shield
-                                        className="absolute left-3 top-3 text-slate-400"
+                                        className="absolute left-3 top-3 text-text-muted"
                                         size={16}
                                     />
                                     <select
@@ -171,7 +171,7 @@ export default function AddMemberForm() {
                         </div>
                     </div>
 
-                    {/* Informations personnelles */}
+                    {/* Persnal informations */}
                     <div className="md:col-span-2 p-6 rounded-xl border border-card-border shadow-sm">
                         <h2 className="text-xs font-black uppercase tracking-widest text-text-muted flex items-center gap-2 mb-4">
                             Profil (Optionnel)

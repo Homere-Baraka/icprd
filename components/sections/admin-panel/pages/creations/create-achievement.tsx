@@ -3,12 +3,14 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import useNotification from '@/hooks/use-taost';
-import { useUser } from '@/hooks/use-user';
-import { usePostValidation } from '@/hooks/use-validation-form';
-import { createPostAction, updatePostAction } from '@/actions/admin/post';
+import { useAchievementValidation } from '@/hooks/use-validation-form';
 import LoadingSpinner from '@/components/ui/loading-spinner';
-import { getPostByIdAction } from '@/actions/admin/post';
-import { uploadBlogImage } from '@/lib/upload';
+import {
+    getAchievementByIdAction,
+    createAchievementAction,
+    updateAchievementAction,
+} from '@/actions/admin/achievement';
+import { uploadAchievementImage } from '@/lib/upload';
 import {
     Save,
     Edit2,
@@ -18,17 +20,22 @@ import {
     Layout,
     Send,
     X,
+    Shield,
     Plus,
 } from 'lucide-react';
 
-export default function CreatePost({ postId }: { postId?: string }) {
+export default function CreateAchievement({
+    achievementId,
+}: {
+    achievementId?: string;
+}) {
     const router = useRouter();
     const { notifyError, notifySuccess } = useNotification();
     const [previewImage, setPreviewImage] = useState<any | null>(null);
     const [isSubmitting, setIsSubmitting] = useState<
         'draft' | 'publish' | null
     >(null);
-    const [isInitialLoading, setIsInitialLoading] = useState(!!postId);
+    const [isInitialLoading, setIsInitialLoading] = useState(!!achievementId);
     const [isUploading, setIsUploading] = useState(false);
 
     const {
@@ -37,14 +44,15 @@ export default function CreatePost({ postId }: { postId?: string }) {
         formState: { errors },
         setValue,
         reset,
-    } = usePostValidation();
+    } = useAchievementValidation();
 
     useEffect(() => {
         const loadPostData = async () => {
-            if (!postId) return;
+            if (!achievementId) return;
             setIsInitialLoading(true);
+
             try {
-                const result = await getPostByIdAction(postId);
+                const result = await getAchievementByIdAction(achievementId);
                 if (result.success) {
                     reset(result.data as any);
 
@@ -62,33 +70,37 @@ export default function CreatePost({ postId }: { postId?: string }) {
             }
         };
         loadPostData();
-    }, [postId, reset]);
+    }, [achievementId, reset]);
 
-    const isEditing = !!postId;
+    const isEditing = !!achievementId;
 
     const onSubmit = async (data: any, actionType: 'draft' | 'publish') => {
         setIsSubmitting(actionType);
 
         try {
             let result;
-            if (isEditing && postId) {
-                result = await updatePostAction(postId, data, actionType);
+            if (isEditing && achievementId) {
+                result = await updateAchievementAction(
+                    achievementId,
+                    data,
+                    actionType,
+                );
             } else {
-                result = await createPostAction(data, actionType);
+                result = await createAchievementAction(data, actionType);
             }
 
             if (result.success) {
                 const message = isEditing
                     ? actionType === 'publish'
-                        ? 'Publication mise à jour !'
+                        ? 'Réalisation mise à jour !'
                         : 'Brouillon mis à jour !'
                     : actionType === 'publish'
-                      ? 'Article créé avec succès !'
+                      ? 'Réalisation créé avec succès !'
                       : 'Brouillon enregistré !';
 
                 notifySuccess(message);
 
-                router.push('/admin/posts');
+                router.push('/admin/achievements');
                 router.refresh();
             } else {
                 console.error('Une erreur survenue: ', result.error);
@@ -120,11 +132,11 @@ export default function CreatePost({ postId }: { postId?: string }) {
                         </button>
                         <div>
                             <h1 className="text-3xl font-black tracking-tight">
-                                Créer un post{' '}
+                                Créer une réalisations{' '}
                                 <span className="text-blue-600">.</span>
                             </h1>
                             <p className="text-text-muted font-medium text-sm">
-                                Rédigez et publiez votre prochain article.
+                                Rédigez et publiez votre prochain réalisations.
                             </p>
                         </div>
                     </div>
@@ -184,12 +196,12 @@ export default function CreatePost({ postId }: { postId?: string }) {
                             ) : isEditing ? (
                                 <>
                                     <Edit2 size={18} />
-                                    Modifier le blog
+                                    Modifier la réalisation
                                 </>
                             ) : (
                                 <>
                                     <Save size={18} />
-                                    Publier un blog
+                                    Publier une réalisation
                                 </>
                             )}
                         </button>
@@ -310,7 +322,9 @@ export default function CreatePost({ postId }: { postId?: string }) {
 
                                             try {
                                                 const result =
-                                                    await uploadBlogImage(file);
+                                                    await uploadAchievementImage(
+                                                        file,
+                                                    );
 
                                                 if (result.success) {
                                                     setValue(
@@ -344,24 +358,69 @@ export default function CreatePost({ postId }: { postId?: string }) {
                             </div>
                         </div>
 
-                        {/* Section Paramètres de Publication - Version Corrigée */}
+                        {/* Post paramters */}
                         <div className="p-8 rounded-xl border border-card-border shadow-sm space-y-6">
-                            <div className="space-y-2">
-                                <label className="text-xs font-bold text-text-muted uppercase tracking-widest ml-1">
-                                    Catégorie
-                                </label>
-                                <input
-                                    type="text"
-                                    {...register('category')}
-                                    placeholder="Catégorie du post."
-                                    className="w-full text-sm font-bold p-3 bg-card border border-card-border focus:border-primary rounded-lg outline-none transition-all placeholder:text-text-muted"
-                                />
+                            <div>
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold text-text-muted uppercase tracking-widest ml-1">
+                                        Date de l'accomplissement
+                                    </label>
+                                    <input
+                                        type="date"
+                                        {...register('date')}
+                                        className="w-full text-sm font-bold p-3 bg-card border border-card-border focus:border-primary rounded-lg outline-none transition-all placeholder:text-text-muted"
+                                    />
+                                </div>
+                                {errors.date && (
+                                    <p className="text-red-500 text-xs mt-1">
+                                        {errors.date.message}
+                                    </p>
+                                )}
                             </div>
-                            {errors.category && (
-                                <p className="text-red-500 text-xs mt-1">
-                                    {errors.category.message}
-                                </p>
-                            )}
+                            <div>
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold text-text-muted uppercase tracking-widest ml-1">
+                                        Catégorie de l'accomplissement
+                                    </label>
+                                    <input
+                                        type="text"
+                                        {...register('category')}
+                                        placeholder="Santé, sport, developpement, ..."
+                                        className="w-full text-sm font-bold p-3 bg-card border border-card-border focus:border-primary rounded-lg outline-none transition-all placeholder:text-text-muted"
+                                    />
+                                </div>
+                                {errors.category && (
+                                    <p className="text-red-500 text-xs mt-1">
+                                        {errors.category.message}
+                                    </p>
+                                )}
+                            </div>
+
+                            <div className="space-y-1">
+                                <label className="text-xs font-bold text-text-muted uppercase tracking-tighter ml-1">
+                                    Rôle Système
+                                </label>
+                                <div className="relative">
+                                    <Shield
+                                        className="absolute left-3 top-3 text-text-muted"
+                                        size={16}
+                                    />
+                                    <select
+                                        {...register('status')}
+                                        className="w-full pl-10 pr-4 py-3 bg-card border border-card-border rounded-lg outline-none focus:border-primary text-sm font-bold appearance-none"
+                                    >
+                                        <option value="PENDING">
+                                            Réalisation en cours
+                                        </option>
+                                        <option value="FINISHED">
+                                            Réalisation terminée
+                                        </option>
+                                        <option value="CANCELED">
+                                            Réalisation abandonnée
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

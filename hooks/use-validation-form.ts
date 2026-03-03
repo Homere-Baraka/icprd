@@ -9,6 +9,8 @@ import {
     userRegisterSchema,
     postSchema,
     postFormValues,
+    achievementFormValues,
+    achievementSchema,
 } from '@/lib/prisma-schema';
 
 /*====== ADMIN AUTH VALIDATION =======*/
@@ -30,10 +32,18 @@ export const useUserLoginValidationForm = () => {
 };
 
 /*====== POST VALIDATION =======*/
-
 export const usePostValidation = () => {
     const form = useForm<postFormValues>({
         resolver: zodResolver(postSchema),
+    });
+
+    return form;
+};
+
+/*====== ACHIEVEMENT VALIDATION =======*/
+export const useAchievementValidation = () => {
+    const form = useForm<achievementFormValues>({
+        resolver: zodResolver(achievementSchema),
     });
 
     return form;

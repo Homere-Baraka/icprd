@@ -4,16 +4,13 @@ import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { Search, Bell, Sun, Moon, Command } from 'lucide-react';
-import { useUserQuery } from '@/lib/query/user.query';
+import { useUser } from '@/hooks/use-user';
 import { useSession } from 'next-auth/react';
 
 export default function TopBar() {
     const { theme, setTheme } = useTheme();
-    const { data: session, status } = useSession();
     const [mounted, setMounted] = useState(false);
-
-    const userId = session?.user?.id;
-    const { data, isLoading, error } = useUserQuery(userId as string);
+    const { user, isLoading} = useUser();
 
     useEffect(() => {
         setMounted(true);
@@ -69,7 +66,7 @@ export default function TopBar() {
                 </div>
 
                 {/* User Profile */}
-                {isLoading || status === 'loading' ? (
+                {isLoading ? (
                     <div className="flex items-center gap-3 animate-pulse">
                         <div className="flex flex-col items-end gap-2">
                             <div className="h-3 w-20 bg-text-subtle rounded-full" />
@@ -80,20 +77,19 @@ export default function TopBar() {
                         </div>
                     </div>
                 ) : (
-                    data && (
+                    user && (
                         <div className="flex items-center gap-3">
                             <div className="text-right">
                                 <p className="text-sm font-bold text-text-main leading-none">
-                                    {data?.user?.username}{' '}
-                                    {data?.user?.last_name}
+                                    {user?.username}{' '}
                                 </p>
                                 <p className="text-[10px] text-text-subtle font-bold mt-1 tracking-tighter">
-                                    {data?.user?.email}
+                                    {user?.email}
                                 </p>
                             </div>
                             <div className="w-10 h-10 rounded-full border-2 border-blue-500/20 p-0.5">
                                 <img
-                                    src={data.user?.image || '/images/user.jpg'}
+                                    src={user?.image || '/images/user.jpg'}
                                     alt="Avatar"
                                     className="rounded-full w-full h-full object-cover"
                                 />

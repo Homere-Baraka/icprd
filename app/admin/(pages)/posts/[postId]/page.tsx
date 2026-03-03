@@ -4,7 +4,7 @@ import React, { use } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { usePostQuery } from '@/lib/query/post.query';
+import { usePostQuery } from '@/lib/query/query';
 import MainLayout from '@/components/sections/admin-panel/main-layout';
 import {
     Edit3,

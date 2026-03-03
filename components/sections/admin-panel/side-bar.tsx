@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Logo from '@/components/ui/logo';
 
 export default function Sidebar() {
     const pathname = usePathname();
@@ -54,19 +55,17 @@ export default function Sidebar() {
         //     label: 'Partenaires',
         //     href: '/admin/partners',
         // },
-        {
-            icon: Settings,
-            label: 'Paramétres',
-            href: '/admin/settings',
-        },
+        // {
+        //     icon: Settings,
+        //     label: 'Paramétres',
+        //     href: '/admin/settings',
+        // },
     ];
 
     return (
         <aside className="w-64 h-screen bg-card border-r border-card-border flex flex-col p-6">
             <div className="flex items-center gap-3 mb-10 px-2">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
-                    <BookOpen className="text-white size-6" strokeWidth={2.5} />
-                </div>
+                <Logo />
                 <div>
                     <h1 className="text-text-main font-bold leading-tight tracking-tight">
                         ICPRD
@@ -108,7 +107,7 @@ export default function Sidebar() {
                 })}
             </nav>
 
-            <div className="mt-auto pt-6 space-y-4">
+            {/* <div className="mt-auto pt-6 space-y-4">
                 <button className="flex items-center gap-3 px-4 py-2 text-gray-500 hover:text-red-400 transition-colors w-full group">
                     <LogOut
                         size={18}
@@ -116,7 +115,7 @@ export default function Sidebar() {
                     />
                     <span className="text-sm font-medium">Déconnexion</span>
                 </button>
-            </div>
+            </div> */}
         </aside>
     );
 }
