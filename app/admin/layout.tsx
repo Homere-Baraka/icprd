@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { ThemeProvider } from '@/hooks/theme-provider';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth/options';
+import { AuthClientGuard } from '@/components/auth/auth-client-guard';
 
 export default async function AdminLayout({
     children,
@@ -30,7 +31,9 @@ export default async function AdminLayout({
             enableSystem={false}
             // forcedTheme="dark"
         >
-            <div className="min-h-screen">{children}</div>
+            <AuthClientGuard>
+                <div className="min-h-screen">{children}</div>
+            </AuthClientGuard>
         </ThemeProvider>
     );
 }

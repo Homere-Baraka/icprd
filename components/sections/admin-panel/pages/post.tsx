@@ -17,7 +17,6 @@ import {
     PlusCircle,
     ExternalLink,
 } from 'lucide-react';
-import { tr } from 'zod/v4/locales';
 
 export default function Posts() {
     const router = useRouter();

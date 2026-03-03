@@ -4,7 +4,7 @@ import React, { use } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { usePostQuery } from '@/lib/query/query';
+import { useAchievementQuery } from '@/lib/query/query';
 import MainLayout from '@/components/sections/admin-panel/main-layout';
 import {
     Edit3,
@@ -19,21 +19,23 @@ import {
 } from 'lucide-react';
 import LoadingSpinner from '@/components/ui/loading-spinner';
 
-export default function PostDetailsAdminPage({
+export default function AchievementDetailsAdminPage({
     params,
 }: {
-    params: Promise<{ postId: string }>;
+    params: Promise<{ achievementId: string }>;
 }) {
     const router = useRouter();
     const resolvedParams = use(params);
-    const { data: post, isLoading } = usePostQuery(resolvedParams.postId);
+    const { data: achievement, isLoading } = useAchievementQuery(
+        resolvedParams.achievementId,
+    );
 
-    const postData = post?.data;
-    const isPublished = !!postData?.publishedAt;
+    const achievementData = achievement?.data;
+    const isPublished = !!achievementData?.publishedAt;
 
     return (
         <MainLayout>
-            {isLoading || !postData ? (
+            {isLoading || !achievementData ? (
                 <div className="p-10 mt-10 flex justify-center">
                     <LoadingSpinner />
                 </div>
@@ -71,14 +73,14 @@ export default function PostDetailsAdminPage({
 
                         <div className="flex items-center gap-3">
                             <Link
-                                href={`/blog/${postData?.id}`}
+                                href={`/admin/achievements`}
                                 target="_blank"
                                 className="flex items-center gap-2 px-4 py-2 bg-card border border-card-border rounded-lg text-sm font-semibold hover:bg-card-border transition-all"
                             >
                                 <ExternalLink size={16} /> Voir sur le site
                             </Link>
                             <Link
-                                href={`/admin/posts/${postData?.id}/edit`}
+                                href={`/admin/achievements/${achievementData?.id}/edit`}
                                 className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 shadow-sm transition-all cursor-pointer"
                             >
                                 <Edit3 size={16} /> Modifier l'article
@@ -101,7 +103,7 @@ export default function PostDetailsAdminPage({
                                             Titre
                                         </label>
                                         <p className="text-xl font-bold text-text-main">
-                                            {postData?.title}
+                                            {achievementData?.title}
                                         </p>
                                     </div>
                                     <div>
@@ -109,7 +111,7 @@ export default function PostDetailsAdminPage({
                                             Extrait (Excerpt)
                                         </label>
                                         <p className="text-slate-600 leading-relaxed bg-card p-4 rounded-lg border border-card-border">
-                                            {postData?.excerpt ||
+                                            {achievementData?.excerpt ||
                                                 'Aucun extrait rédigé.'}
                                         </p>
                                     </div>
@@ -118,7 +120,7 @@ export default function PostDetailsAdminPage({
                                             Corps de l'article
                                         </label>
                                         <div className="text-text-main prose prose-sm max-w-none">
-                                            {postData?.content
+                                            {achievementData?.content
                                                 .split('\n')
                                                 .map((p: string, i: number) => (
                                                     <p key={i} className="mb-4">
@@ -143,7 +145,7 @@ export default function PostDetailsAdminPage({
                                     <div className="relative aspect-video rounded-lg overflow-hidden border border-card-border">
                                         <Image
                                             src={
-                                                postData?.imageUrl ||
+                                                achievementData?.imageUrl ||
                                                 '/placeholder.jpg'
                                             }
                                             alt="Preview"
@@ -168,8 +170,8 @@ export default function PostDetailsAdminPage({
                                             <User size={14} /> Auteur
                                         </span>
                                         <span className="text-sm font-bold">
-                                            {postData?.author?.user?.username ||
-                                                'Admin'}
+                                            {achievementData?.author?.user
+                                                ?.username || 'Admin'}
                                         </span>
                                     </div>
                                     <div className="flex justify-between items-center py-2 border-b border-card-border">
@@ -178,7 +180,7 @@ export default function PostDetailsAdminPage({
                                         </span>
                                         <span className="text-sm font-bold">
                                             {new Date(
-                                                postData?.createdAt,
+                                                achievementData?.createdAt,
                                             ).toLocaleDateString()}
                                         </span>
                                     </div>
@@ -187,7 +189,7 @@ export default function PostDetailsAdminPage({
                                             <Eye size={14} /> Vues
                                         </span>
                                         <span className="text-sm font-bold">
-                                            {postData?.views || 0}
+                                            {achievementData?.views || 0}
                                         </span>
                                     </div>
                                     <div className="flex justify-between items-center py-2">
@@ -195,7 +197,7 @@ export default function PostDetailsAdminPage({
                                             Catégorie
                                         </span>
                                         <span className="px-2 py-0.5 bg-blue-50/20 text-text-main text-[11px] font-bold rounded uppercase">
-                                            {postData?.category}
+                                            {achievementData?.category}
                                         </span>
                                     </div>
                                 </div>
@@ -204,7 +206,6 @@ export default function PostDetailsAdminPage({
                     </div>
                 </div>
             )}
-            ;
         </MainLayout>
     );
 }
