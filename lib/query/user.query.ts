@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query';
 import {
     getTeamsAction,
@@ -7,7 +6,6 @@ import {
     getUsersAction,
 } from '@/actions/admin/user';
 import { useSession } from 'next-auth/react';
-
 
 export function useUserByIdQuery(userId: string) {
     return useQuery({

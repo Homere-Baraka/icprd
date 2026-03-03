@@ -13,7 +13,7 @@ export default function EmptyState({
     icon?: any;
 }) {
     return (
-        <div className="py-24 text-center bg-background rounded-[3rem] border border-dashed border-white/10">
+        <div className="w-full py-24 text-center bg-background rounded-[3rem] border border-dashed border-white/10">
             <div className="size-24 bg-indigo-500/10 rounded-full flex items-center justify-center mx-auto mb-6 text-indigo-500">
                 {icon ? icon : <BookOpen size={48} strokeWidth={1.5} />}
             </div>

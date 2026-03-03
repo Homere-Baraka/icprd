@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import {
     Plus,
     Users,
@@ -28,9 +28,11 @@ export default function Achievement() {
         refetch,
     } = useAchievementsQuery();
 
+    const [searchQuery, setSearchQuery] = useState('');
+    const [activeTab, setActiveTab] = useState('Tous');
+
     const achievementsData = achievements?.data || [];
 
-    // Calcul des metrics en temps réel
     const totalRevenue = achievementsData.reduce(
         (acc: number, curr: any) => acc + (curr.revenue || 0),
         0,
@@ -102,6 +104,31 @@ export default function Achievement() {
         }
     };
 
+    const filteredAchievements = useMemo(() => {
+        if (!achievements?.data) return [];
+
+        return achievements.data.filter((achievement: any) => {
+            const matchesSearch =
+                achievement.title
+                    ?.toLowerCase()
+                    .includes(searchQuery.toLowerCase()) ||
+                achievement?.author?.user?.username
+                    ?.toLowerCase()
+                    .includes(searchQuery.toLowerCase());
+
+            const isPublished = Boolean(achievement.publishedAt);
+            const status = achievement.status;
+            const matchesTab =
+                activeTab === 'Tous' ||
+                (activeTab === 'En cours' && status === 'PENDING') ||
+                (activeTab === 'Finis' && status === 'FINISHED') ||
+                (activeTab === 'Publié' && isPublished) ||
+                (activeTab === 'Brouillon' && !isPublished);
+
+            return matchesSearch && matchesTab;
+        });
+    }, [achievements?.data, searchQuery, activeTab]);
+
     return (
         <div className="min-h-screen bg-background p-10 font-sans">
             {/* Header Section */}
@@ -172,6 +199,8 @@ export default function Achievement() {
                             />
                             <input
                                 type="text"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
                                 placeholder="Rechercher une pépite..."
                                 className="w-full pl-12 pr-4 py-3 bg-black/20 border border-white/5 rounded-2xl text-sm font-medium focus:outline-none focus:border-primary/50 transition-all placeholder:text-text-muted/30"
                             />
@@ -189,8 +218,9 @@ export default function Achievement() {
                             ].map((tab, i) => (
                                 <button
                                     key={tab}
+                                    onClick={() => setActiveTab(tab)}
                                     className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all ${
-                                        i === 0
+                                        activeTab === tab
                                             ? 'bg-primary text-white shadow-lg'
                                             : 'text-text-muted hover:text-text-main'
                                     }`}
@@ -201,7 +231,7 @@ export default function Achievement() {
                         </div>
 
                         <button
-                            className="px-3 py-2 rounded-xl bg-white/[0.03] border border-white/10 text-text-muted hover:text-text-main hover:bg-white/[0.08] transition-all"
+                            className="px-3 py-2 rounded-gl bg-white/[0.03] border border-white/10 text-text-muted hover:text-text-main hover:bg-white/[0.08] transition-all"
                             title="Voir le profil public"
                         >
                             <ExternalLink size={18} />
@@ -246,9 +276,9 @@ export default function Achievement() {
                                         />
                                     </dt>
                                 </tr>
-                            ) : achievements?.data &&
-                              achievements.data.length > 0 ? (
-                                achievements.data.map((achievement: any) => (
+                            ) : filteredAchievements &&
+                              filteredAchievements.length > 0 ? (
+                                filteredAchievements.map((achievement: any) => (
                                     <tr
                                         key={achievement.id}
                                         className="hover:bg-slate-50/5 transition-colors group"
@@ -314,16 +344,23 @@ export default function Achievement() {
                                     </tr>
                                 ))
                             ) : (
-                                <EmptyState
-                                    title="Vos Accomplissements"
-                                    description="
-                                        Retrouvez ici l'ensemble de vos succès et leur évolution.
-                                        Nous préparons une chronologie visuelle pour retracer votre
-                                        parcours : restez connectés !"
-                                    icon={
-                                        <Trophy strokeWidth={1.5} size={32} />
-                                    }
-                                />
+                                <tr>
+                                    <td>
+                                        <EmptyState
+                                            title="Vos Accomplissements"
+                                            description="
+                                                Retrouvez ici l'ensemble de vos succès et leur évolution.
+                                                Nous préparons une chronologie visuelle pour retracer votre
+                                                parcours : restez connectés !"
+                                            icon={
+                                                <Trophy
+                                                    strokeWidth={1.5}
+                                                    size={32}
+                                                />
+                                            }
+                                        />
+                                    </td>
+                                </tr>
                             )}
                         </tbody>
                     </table>

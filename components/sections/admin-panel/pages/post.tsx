@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import ActionMenu from '@/components/action-menu';
 import { usePostsQuery } from '@/lib/query/query';
@@ -17,10 +17,33 @@ import {
     PlusCircle,
     ExternalLink,
 } from 'lucide-react';
+import { tr } from 'zod/v4/locales';
 
 export default function Posts() {
     const router = useRouter();
     const { data: posts, isLoading, error, isError, refetch } = usePostsQuery();
+
+    const [searchQuery, setSearchQuery] = useState('');
+    const [activeTab, setActiveTab] = useState('Tous');
+
+    const filteredPosts = useMemo(() => {
+        if (!posts?.data) return [];
+
+        return posts.data.filter((post: any) => {
+            const matchesSearch =
+                post.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                post?.author?.user?.username
+                    .toLowerCase()
+                    .includes(searchQuery.toLowerCase());
+
+            const matchesTab =
+                activeTab === 'Tous' ||
+                (activeTab === 'Publié' && !!post.publishedAt) ||
+                (activeTab === 'Brouillon' && !post.publishedAt);
+
+            return matchesSearch && matchesTab;
+        });
+    }, [posts?.data, searchQuery, activeTab]);
 
     return (
         <div className="min-h-screen bg-background p-8 font-sans text-text-main">
@@ -129,7 +152,9 @@ export default function Posts() {
                                 size={18}
                             />
                             <input
-                                type="text"
+                                type="search"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
                                 placeholder="Rechercher..."
                                 className="w-full pl-12 pr-4 py-3 bg-black/20 border border-white/5 rounded-2xl text-sm font-medium focus:outline-none focus:border-primary/50 transition-all placeholder:text-text-muted/30"
                             />
@@ -141,8 +166,9 @@ export default function Posts() {
                             {['Tous', 'Brouillon', 'Publié'].map((tab, i) => (
                                 <button
                                     key={tab}
+                                    onClick={() => setActiveTab(tab)}
                                     className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all ${
-                                        i === 0
+                                        activeTab === tab
                                             ? 'bg-primary text-white shadow-lg'
                                             : 'text-text-muted hover:text-text-main'
                                     }`}
@@ -195,8 +221,8 @@ export default function Posts() {
                                         />
                                     </dt>
                                 </tr>
-                            ) : posts?.data && posts.data.length > 0 ? (
-                                posts.data.map((post: any) => (
+                            ) : filteredPosts && filteredPosts.length > 0 ? (
+                                filteredPosts.map((post: any) => (
                                     <tr
                                         key={post.id}
                                         className="hover:bg-slate-50/5 transition-colors group"
@@ -239,13 +265,17 @@ export default function Posts() {
                                     </tr>
                                 ))
                             ) : (
-                                <EmptyState
-                                    title="Votre catalogue est vide"
-                                    description="
-                                        Commencez à bâtir votre empire de blog en
-                                        créant votre tout premier blog premium."
-                                    copy=" C'est parti !"
-                                />
+                                <tr>
+                                    <td>
+                                        <EmptyState
+                                            title="Votre catalogue est vide"
+                                            description="
+                                                Commencez à bâtir votre empire de blog en
+                                                créant votre tout premier blog premium."
+                                            copy=" C'est parti !"
+                                        />
+                                    </td>
+                                </tr>
                             )}
                         </tbody>
                     </table>

@@ -10,7 +10,7 @@ import { useSession } from 'next-auth/react';
 export default function TopBar() {
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
-    const { user, isLoading} = useUser();
+    const { user, isLoading } = useUser();
 
     useEffect(() => {
         setMounted(true);
@@ -20,7 +20,7 @@ export default function TopBar() {
 
     return (
         <header className="h-20 border-b border-card-border bg-card backdrop-blur-md flex items-center justify-between px-8 sticky top-0 z-10">
-            <div className="relative w-1/3">
+            {/* <div className="relative w-1/3">
                 <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
                     <Search className="text-gray-500 size-4" />
                 </div>
@@ -34,7 +34,7 @@ export default function TopBar() {
                         <Command size={10} /> K
                     </span>
                 </div>
-            </div>
+            </div> */}
 
             {/* Right Actions */}
             <div className="flex items-center gap-6">
@@ -81,7 +81,7 @@ export default function TopBar() {
                         <div className="flex items-center gap-3">
                             <div className="text-right">
                                 <p className="text-sm font-bold text-text-main leading-none">
-                                    {user?.username}{' '}
+                                    {user?.name}{' '}
                                 </p>
                                 <p className="text-[10px] text-text-subtle font-bold mt-1 tracking-tighter">
                                     {user?.email}
