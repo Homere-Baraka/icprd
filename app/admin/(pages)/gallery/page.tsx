@@ -1,5 +1,5 @@
-import MainLayout from '@/components/sections/admin-panel/main-layout';
-import Gallery from '@/components/sections/admin-panel/pages/gallery';
+import MainLayout from '@/components/admin-panel/main-layout';
+import Gallery from '@/components/admin-panel/pages/gallery';
 
 export default function GalleryPage() {
     return (

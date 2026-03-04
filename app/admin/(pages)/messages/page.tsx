@@ -1,5 +1,5 @@
-import MainLayout from '@/components/sections/admin-panel/main-layout';
-import Messages from '@/components/sections/admin-panel/pages/message';
+import MainLayout from '@/components/admin-panel/main-layout';
+import Messages from '@/components/admin-panel/pages/message';
 
 export default function AchievementPage() {
     return (

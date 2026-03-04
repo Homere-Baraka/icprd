@@ -13,7 +13,7 @@ import {
 import { signIn } from 'next-auth/react';
 import useNotification from '@/hooks/use-taost';
 import { adminRegisterAction } from '@/actions/auth/admin-account/register';
-import MainLayout from '@/components/sections/admin-panel/main-layout';
+import MainLayout from '@/components/admin-panel/main-layout';
 import { useUserRegisterValidationForm } from '@/hooks/use-validation-form';
 import LoadingSpinner from '@/components/ui/loading-spinner';
 

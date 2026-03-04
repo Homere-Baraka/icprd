@@ -1,5 +1,5 @@
-import MainLayout from '@/components/sections/admin-panel/main-layout';
-import CreatePost from '@/components/sections/admin-panel/pages/creations/create-post';
+import MainLayout from '@/components/admin-panel/main-layout';
+import CreatePost from '@/components/admin-panel/pages/creations/create-post';
 
 export default async function PostUpdatePage({
     params,

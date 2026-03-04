@@ -1,5 +1,5 @@
-import MainLayout from '@/components/sections/admin-panel/main-layout';
-import Achievements from '@/components/sections/admin-panel/pages/achievement';
+import MainLayout from '@/components/admin-panel/main-layout';
+import Achievements from '@/components/admin-panel/pages/achievement';
 
 export default function AchievementPage() {
     return (
