@@ -110,3 +110,24 @@ body {
     width: 90%;
     margin-inline: auto;
 }
+
+/* EDITORJS STYLE */
+
+/* Cibler spécifiquement l'éditeur Tiptap */
+.tiptap .is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    color: #9ca3af; /* Gris Tailwind text-gray-400 */
+    pointer-events: none;
+    height: 0;
+    font-style: italic;
+}
+
+/* Si tu veux que ça marche aussi quand tu crées un nouveau bloc vide */
+.tiptap .is-empty::before {
+    content: attr(data-placeholder);
+    float: left;
+    color: #9ca3af;
+    pointer-events: none;
+    height: 0;
+}

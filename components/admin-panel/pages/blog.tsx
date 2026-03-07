@@ -57,10 +57,13 @@ export default function Posts() {
                     </p>
                 </div>
                 <button
-                    onClick={() => router.push('/admin/posts/new')}
-                    className="flex items-center gap-2 bg-primary hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg font-medium transition-colors shadow-sm"
+                    onClick={() => router.push('/admin/blogs/new')}
+                    className="group flex items-center gap-3 bg-primary text-white px-6 py-4 rounded-full hover:pr-8 transition-all duration-300 cursor-pointer"
                 >
-                    <Plus size={18} />
+                    <Plus
+                        size={18}
+                        className="group-hover:rotate-90 transition-transform"
+                    />
                     Créer une post
                 </button>
             </div>
@@ -220,7 +223,29 @@ export default function Posts() {
                                         />
                                     </dt>
                                 </tr>
-                            ) : filteredPosts && filteredPosts.length > 0 ? (
+                            ) : posts?.data?.length == 0 ? (
+                                <tr>
+                                    <td>
+                                        <EmptyState
+                                            title="Votre catalogue est vide"
+                                            description="
+                                                Commencez à bâtir votre empire de blog en
+                                                créant votre tout premier blog premium."
+                                            link="/admin/blogs/new"
+                                            copy=" C'est parti !"
+                                        />
+                                    </td>
+                                </tr>
+                            ) : filteredPosts.length == 0 ? (
+                                <tr>
+                                    <td>
+                                        <div className="text-center p-6 text-text-muted text-xl">
+                                            Aucun résultat
+                                        </div>
+                                    </td>
+                                </tr>
+                            ) : (
+                                (filteredPosts && filteredPosts.length) > 0 &&
                                 filteredPosts.map((post: any) => (
                                     <tr
                                         key={post.id}
@@ -263,18 +288,6 @@ export default function Posts() {
                                         </td>
                                     </tr>
                                 ))
-                            ) : (
-                                <tr>
-                                    <td>
-                                        <EmptyState
-                                            title="Votre catalogue est vide"
-                                            description="
-                                                Commencez à bâtir votre empire de blog en
-                                                créant votre tout premier blog premium."
-                                            copy=" C'est parti !"
-                                        />
-                                    </td>
-                                </tr>
                             )}
                         </tbody>
                     </table>

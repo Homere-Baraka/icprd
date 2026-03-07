@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { signOut } from 'next-auth/react';
 import { useTheme } from 'next-themes';
 import { useEffect, useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
+import { useContactMessagesQuery } from '@/lib/query/query';
 import {
     Search,
     User,
@@ -17,11 +19,17 @@ import {
 import { useUser } from '@/hooks/use-user';
 
 export default function TopBar() {
+    const router = useRouter();
     const { theme, setTheme } = useTheme();
     const menuRef = useRef<HTMLDivElement>(null);
     const [mounted, setMounted] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { user, isLoading } = useUser();
+    const { data: messages } = useContactMessagesQuery();
+    const [lastSeenCount, setLastSeenCount] = useState<number>(0);
+
+    const currentUnreadCount =
+        messages?.data?.filter((msg: any) => !msg.read).length || 0;
 
     useEffect(() => {
         setMounted(true);
@@ -39,35 +47,46 @@ export default function TopBar() {
             document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    useEffect(() => {
+        const savedCount = localStorage.getItem('notifications_seen_count');
+        if (savedCount) {
+            setLastSeenCount(parseInt(savedCount, 10));
+        }
+    }, []);
+
+    const showBadge = currentUnreadCount > lastSeenCount;
+    const displayCount = currentUnreadCount - lastSeenCount;
+
     const isDark = theme === 'dark';
 
     return (
-        <header className="h-20 border-b border-card-border bg-card backdrop-blur-md flex items-center justify-between px-8 sticky top-0 z-10">
-            <div className="relative w-1/3">
-                <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-                    <Search className="text-gray-500 size-4" />
-                </div>
-                <input
-                    type="text"
-                    placeholder="Predictive system search"
-                    className="w-full bg-card border border-card-border rounded-xl py-2.5 pl-11 pr-16 text-sm text-text-main focus:outline-none focus:border-primary transition-all"
-                />
-                <div className="absolute inset-y-0 right-3 flex items-center gap-1">
-                    <span className="bg-gray-800 text-gray-400 px-1.5 py-0.5 rounded text-[10px] flex items-center gap-0.5">
-                        <Command size={10} /> K
-                    </span>
-                </div>
-            </div>
-
+        <header className="h-20 border-b border-card-border bg-card backdrop-blur-md flex items-center justify-end px-8 sticky top-0 z-10">
             {/* Right Actions */}
-            <div className="flex items-center gap-6">
+            <div className="flex justify-end items-end gap-6">
                 <div className="flex items-center gap-3 pr-6 border-r border-gray-800">
-                    <Link
-                        href="/admin/messages"
-                        className="p-2.5 bg-[#161B22] border border-gray-700 rounded-xl text-gray-400 hover:text-white transition-colors"
+                    <button
+                        onClick={() => {
+                            setLastSeenCount(currentUnreadCount);
+                            localStorage.setItem(
+                                'notifications_seen_count',
+                                currentUnreadCount.toString(),
+                            );
+                            router.push('/admin/messages');
+                        }}
+                        className="relative p-2.5 bg-[#161B22] border border-gray-700 rounded-xl text-gray-400 hover:text-white transition-colors"
                     >
                         <Bell size={18} />
-                    </Link>
+
+                        {showBadge && (
+                            <span className="absolute top-3 right-0.5 flex h-5 w-5 items-center justify-center">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+
+                                <span className="relative flex justify-center items-center rounded-full h-4 w-4 bg-red-500 text-[10px] font-bold text-white">
+                                    {displayCount > 9 ? '9+' : displayCount}
+                                </span>
+                            </span>
+                        )}
+                    </button>
                     <button
                         onClick={() => setTheme(isDark ? 'light' : 'dark')}
                         className="size-10 flex items-center justify-center rounded-xl bg-primary-light dark:bg-card-hover text-primary dark:text-accent transition-all duration-300 hover:scale-110"
@@ -134,12 +153,12 @@ export default function TopBar() {
                                         </p>
                                     </div>
 
-                                    <Link
+                                    {/* <Link
                                         href="/admin/profile"
                                         className="flex items-center gap-3 px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
                                     >
                                         <User size={16} /> Voir le profil
-                                    </Link>
+                                    </Link> */}
 
                                     <Link
                                         href="/admin/settings"

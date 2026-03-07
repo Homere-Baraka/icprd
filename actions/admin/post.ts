@@ -41,7 +41,7 @@ export async function createPostAction(
     }
 
     try {
-        const post = await prisma.post.create({
+        await prisma.post.create({
             data: {
                 title,
                 content,
@@ -67,7 +67,7 @@ export async function createPostAction(
     } catch (error: any) {
         return {
             success: false,
-            error: 'Une erreur est survenue lors de la création.',
+            error: 'An error was encountered during the creation process.',
         };
     }
 }

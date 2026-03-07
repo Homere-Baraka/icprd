@@ -4,11 +4,13 @@ import { BookOpen } from 'lucide-react';
 export default function EmptyState({
     title,
     description,
+    link,
     copy,
     icon,
 }: {
     title: string;
     description?: string;
+    link?: string;
     copy?: string;
     icon?: any;
 }) {
@@ -21,12 +23,14 @@ export default function EmptyState({
             <p className="text-slate-500 max-w-sm mx-auto mb-10 leading-relaxed font-medium">
                 {description}
             </p>
-            <Link
-                href="/admin-1001/cours/add"
-                className="bg-white text-black px-10 py-4 rounded-2xl font-black hover:bg-indigo-500 hover:text-white transition-all"
-            >
-                {copy}
-            </Link>
+            {link && (
+                <Link
+                    href={link}
+                    className="bg-white text-black px-10 py-4 rounded-2xl font-black hover:bg-indigo-500 hover:text-white transition-all"
+                >
+                    {copy}
+                </Link>
+            )}
         </div>
     );
 }

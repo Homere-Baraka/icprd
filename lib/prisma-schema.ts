@@ -122,3 +122,28 @@ export const achievementSchema = z.object({
 
 export type achievementFormValues = z.infer<typeof achievementSchema>;
 export const updateAchievementSchema = achievementSchema.partial();
+
+// CONTACT VALIDATION
+export const contactMessageSchema = z.object({
+    name: z
+        .string()
+        .min(2, 'Le nom doit contenir au moins 2 caractères')
+        .max(50, 'Le nom est trop long')
+        .trim(),
+
+    email: z.string().email("Format d'email invalide").trim().toLowerCase(),
+
+    subject: z
+        .string()
+        .min(3, "L'objet doit contenir au moins 3 caractères")
+        .max(100, "L'objet est trop long")
+        .trim(),
+
+    message: z
+        .string()
+        .min(10, 'Le message est trop court (min. 10 caractères)')
+        .max(2000, 'Le message ne peut pas dépasser 2000 caractères')
+        .trim(),
+});
+
+export type contactMessageInput = z.infer<typeof contactMessageSchema>;

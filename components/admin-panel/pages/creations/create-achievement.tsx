@@ -235,7 +235,7 @@ export default function CreateAchievement({
                                     EXTRAIT (Résumé)
                                 </label>
                                 <textarea
-                                    rows="3"
+                                    rows={3}
                                     {...register('excerpt')}
                                     placeholder="Description courte de l'article pour les cartes de prévisualisation..."
                                     className="w-full p-4 bg-card border border-card-border focus:border-primary rounded-md outline-none transition-all resize-none placeholder:text-text-muted"

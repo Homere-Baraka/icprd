@@ -11,6 +11,8 @@ import {
     postFormValues,
     achievementFormValues,
     achievementSchema,
+    contactMessageInput,
+    contactMessageSchema,
 } from '@/lib/prisma-schema';
 
 /*====== ADMIN AUTH VALIDATION =======*/
@@ -45,6 +47,13 @@ export const useAchievementValidation = () => {
     const form = useForm<achievementFormValues>({
         resolver: zodResolver(achievementSchema),
     });
+    return form;
+};
 
+/*======= CONTACT VALIDATION ======*/
+export const useContactValidation = () => {
+    const form = useForm<contactMessageInput>({
+        resolver: zodResolver(contactMessageSchema),
+    });
     return form;
 };

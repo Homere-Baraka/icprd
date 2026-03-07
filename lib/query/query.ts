@@ -6,6 +6,10 @@ import {
     getAchievementsAction,
     getAchievementByIdAction,
 } from '@/actions/admin/achievement';
+import {
+    getContactMessagesAction,
+    getContactMessageByIdAction,
+} from '@/actions/admin/contact';
 
 /*====== BLOG QUERY =======*/
 export function usePostsQuery() {
@@ -40,6 +44,25 @@ export function useAchievementQuery(achievementId: string) {
     return useQuery({
         queryKey: ['achievement'],
         queryFn: () => getPostByIdAction(achievementId),
+        retry: 3,
+        staleTime: 100 * 60 * 5,
+    });
+}
+
+/*====== CONTACT MESSAGE QUERY ======*/
+export function useContactMessagesQuery() {
+    return useQuery({
+        queryKey: ['contact_messages'],
+        queryFn: () => getContactMessagesAction(),
+        retry: 3,
+        staleTime: 100 * 60 * 5,
+    });
+}
+
+export function useContactMessageQuery(contactId: string) {
+    return useQuery({
+        queryKey: ['contact_message'],
+        queryFn: () => getContactMessageByIdAction(contactId),
         retry: 3,
         staleTime: 100 * 60 * 5,
     });

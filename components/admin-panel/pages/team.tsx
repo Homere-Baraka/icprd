@@ -40,9 +40,12 @@ export default function Teams() {
                 </div>
                 <button
                     onClick={() => router.push('/admin/teams/new')}
-                    className="flex items-center gap-2 bg-primary hover:bg-indigo-700 text-white px-5 py-2.5 rounded-md font-medium transition-all shadow-md cursor-pointer active:scale-95"
+                    className="group flex items-center gap-3 bg-primary text-white px-6 py-4 rounded-full hover:pr-8 transition-all duration-300 cursor-pointer"
                 >
-                    <Plus size={20} />
+                    <Plus
+                        size={20}
+                        className="group-hover:rotate-90 transition-transform"
+                    />
                     Ajouter un membre
                 </button>
             </div>

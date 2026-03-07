@@ -17,7 +17,7 @@ export default function QuickActionModal({ isOpen, onClose }: any) {
             label: 'Nouveau Post',
             icon: <FileText size={20} />,
             color: 'bg-blue-100/10 text-blue-600',
-            href: '/admin/posts/new',
+            href: '/admin/blogs/new',
         },
         {
             label: 'Ajouter un Membre',

@@ -33,7 +33,7 @@ export default function Sidebar() {
         {
             icon: BookOpen,
             label: 'Articles',
-            href: '/admin/posts',
+            href: '/admin/blogs',
         },
         {
             icon: Trophy,
@@ -63,7 +63,7 @@ export default function Sidebar() {
     ];
 
     return (
-        <aside className="w-64 h-screen bg-card border-r border-card-border flex flex-col p-6">
+        <aside className="w-64 h-screen bg-background border-r border-card-border/15 flex flex-col p-6">
             <div className="flex items-center gap-3 mb-10 px-2">
                 <Logo />
                 <div>

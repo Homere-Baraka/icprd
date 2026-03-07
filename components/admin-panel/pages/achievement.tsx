@@ -46,29 +46,9 @@ export default function Achievement() {
 
     const metrics = [
         {
-            id: 1,
-            label: 'Portée Provicial',
-            value: `${uniqueProvinces}`,
-            subtext: 'Provice',
-            trend: '+12% cette année',
-            icon: <Users className="text-blue-600" size={24} />,
-            iconBg: 'bg-blue-50/10',
-        },
-        {
-            id: 3,
-            label: 'Croissance des Revenus',
-            value: `${totalRevenue.toLocaleString()} $`,
-            subtext: 'ARR (Revenu Annuel)',
-            trend: '+45% sur un an',
-            icon: <TrendingUp className="text-emerald-500" size={24} />,
-            iconBg: 'bg-emerald-50/10',
-        },
-        {
             id: 4,
             label: 'Projets Terminés',
             value: `${completedCount}`,
-            subtext: 'Livraisons réussies',
-            trend: 'En bonne voie pour le T4',
             icon: <Target className="text-purple-500" size={24} />,
             iconBg: 'bg-purple-50/10',
         },
@@ -143,49 +123,86 @@ export default function Achievement() {
                 </div>
                 <button
                     onClick={() => router.push('/admin/achievements/new')}
-                    className="flex items-center gap-2 bg-primary hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg font-medium transition-all shadow-md cursor-pointer active:scale-95"
+                    className="group flex items-center gap-3 bg-primary text-white px-6 py-4 rounded-full hover:pr-8 transition-all duration-300 cursor-pointer"
                 >
-                    <Plus size={20} />
+                    <Plus
+                        size={20}
+                        className="group-hover:rotate-90 transition-transform"
+                    />
                     Ajouter une réalisation
                 </button>
             </div>
 
             {/* Metrics Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-                {metrics.map((item) => (
-                    <div
-                        key={item.id}
-                        className="bg-card p-8 rounded-xl border border-card-border shadow-sm hover:shadow-md transition-shadow"
-                    >
-                        {/* Icon Circle */}
+                <div className="bg-card border border-card-border p-6 rounded-2xl relative overflow-hidden group">
+                    <div className="flex items-center gap-4">
                         <div
-                            className={`w-14 h-14 ${item.iconBg} rounded-2xl flex items-center justify-center mb-6`}
+                            className={`w-14 h-14 bg-blue-50/10 rounded-2xl flex items-center justify-center mb-6`}
                         >
-                            {item.icon}
+                            <Users className="text-blue-600" size={24} />
                         </div>
 
-                        <div className="space-y-1 mb-6">
-                            <p className="text-sm font-semibold text-text-main uppercase tracking-wide">
-                                {item.label}
+                        <div className="space-y-1">
+                            <p className="text-sm font-bold text-text-muted uppercase tracking-wider">
+                                Portée Provicial
                             </p>
-                            <h2 className="text-4xl font-extrabold text-text-muted">
-                                {item.value}
+                            <h2 className="text-3xl font-extrabold text-text-muted">
+                                {uniqueProvinces}
                             </h2>
-                            <p className="text-text-subtle font-medium">
-                                {item.subtext}
-                            </p>
-                        </div>
-
-                        {/* Divider */}
-                        <div className="h-[1px] bg-card-border w-full mb-4" />
-
-                        {/* Trend info */}
-                        <div className="flex items-center gap-1.5 text-blue-500 text-sm font-medium">
-                            <ArrowUpRight size={16} />
-                            <span>{item.trend}</span>
                         </div>
                     </div>
-                ))}
+                    <div className="absolute -right-2 -bottom-2 opacity-5 group-hover:scale-110 transition-transform">
+                        <Users size={80} />
+                    </div>
+                </div>
+
+                <div className="bg-card border border-card-border p-6 rounded-2xl relative overflow-hidden group">
+                    <div className="flex items-center gap-4">
+                        <div
+                            className={`w-14 h-14 bg-emerald-50/10 rounded-2xl flex items-center justify-center mb-6`}
+                        >
+                            <TrendingUp
+                                className="text-emerald-500"
+                                size={24}
+                            />
+                        </div>
+
+                        <div className="space-y-1">
+                            <p className="text-sm font-bold text-text-muted uppercase tracking-wider">
+                                Croissance des Revenus
+                            </p>
+                            <h2 className="text-3xl font-extrabold text-text-muted">
+                                {totalRevenue.toLocaleString()}
+                            </h2>
+                        </div>
+                    </div>
+                    <div className="absolute -right-2 -bottom-2 opacity-5 group-hover:scale-110 transition-transform">
+                        <TrendingUp size={80} />
+                    </div>
+                </div>
+
+                <div className="bg-card border border-card-border p-6 rounded-2xl relative overflow-hidden group">
+                    <div className="flex items-center gap-4">
+                        <div
+                            className={`w-14 h-14 bg-purple-50/10 rounded-2xl flex items-center justify-center mb-6`}
+                        >
+                            <Target className="text-purple-500" size={24} />
+                        </div>
+
+                        <div className="space-y-1">
+                            <p className="text-sm font-bold text-text-muted uppercase tracking-wider">
+                                Projets Terminés
+                            </p>
+                            <h2 className="text-3xl font-extrabold text-text-muted">
+                                {completedCount}
+                            </h2>
+                        </div>
+                    </div>
+                    <div className="absolute -right-2 -bottom-2 opacity-5 group-hover:scale-110 transition-transform">
+                        <Target size={80} />
+                    </div>
+                </div>
             </div>
 
             {/* Main Card */}
@@ -276,8 +293,35 @@ export default function Achievement() {
                                         />
                                     </dt>
                                 </tr>
-                            ) : filteredAchievements &&
-                              filteredAchievements.length > 0 ? (
+                            ) : achievements?.data?.length == 0 ? (
+                                <tr>
+                                    <td>
+                                        <EmptyState
+                                            title="Vos Accomplissements"
+                                            description="
+                                                Retrouvez ici l'ensemble de vos succès et leur évolution.
+                                                Nous préparons une chronologie visuelle pour retracer votre
+                                                parcours : restez connectés !"
+                                            icon={
+                                                <Trophy
+                                                    strokeWidth={1.5}
+                                                    size={32}
+                                                />
+                                            }
+                                        />
+                                    </td>
+                                </tr>
+                            ) : filteredAchievements.length == 0 ? (
+                                <tr>
+                                    <td>
+                                        <div className="text-center p-6 text-text-muted text-xl">
+                                            Aucun résultat
+                                        </div>
+                                    </td>
+                                </tr>
+                            ) : (
+                                (filteredAchievements &&
+                                    filteredAchievements.length) > 0 &&
                                 filteredAchievements.map((achievement: any) => (
                                     <tr
                                         key={achievement.id}
@@ -343,24 +387,6 @@ export default function Achievement() {
                                         </td>
                                     </tr>
                                 ))
-                            ) : (
-                                <tr>
-                                    <td>
-                                        <EmptyState
-                                            title="Vos Accomplissements"
-                                            description="
-                                                Retrouvez ici l'ensemble de vos succès et leur évolution.
-                                                Nous préparons une chronologie visuelle pour retracer votre
-                                                parcours : restez connectés !"
-                                            icon={
-                                                <Trophy
-                                                    strokeWidth={1.5}
-                                                    size={32}
-                                                />
-                                            }
-                                        />
-                                    </td>
-                                </tr>
                             )}
                         </tbody>
                     </table>

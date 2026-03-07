@@ -29,7 +29,7 @@ model User {
   emailVerified DateTime?
   image         String?
   
-  role          Role   @default(USER)
+  role          Role   @default(ADMIN)
   is_active     Boolean @default(true)
   
   teams         Team? @relation("UserTeam")
@@ -46,9 +46,6 @@ model User {
 }
 
 enum Role{
-  USER
-  MEMBER
-  CONTRIBUTOR
   ADMIN
 }
 
@@ -170,24 +167,51 @@ enum AchievementStaus{
 model Post {
   id          String   @id @default(uuid(7)) @db.Uuid
   title       String
-  content     String
-  excerpt     String?
   imageUrl    String?
   video       String?
   category    String?
 
-  teamId    String @db.Uuid
+  teamId      String @db.Uuid
   author      Team   @relation(fields: [teamId], references: [id])
 
   publishedAt DateTime?   @default(now())
   views       Int        @default(0)
+  order       Int
 
   testimonials Testimonial[]
+  contents     BlogContent[]
 
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 
   @@map("post")
+}
+
+model BlogContent {
+  id        String      @id @default(uuid()) @db.Uuid
+  postId    String      @db.Uuid
+  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  
+  type      ContentType
+  value     String?      @db.Text
+  metadata  Json?
+  
+  label     String?
+  order     Int
+
+  @@index([postId])
+
+  @@map("blog_content")
+}
+
+enum ContentType {
+  PARAGRAPH
+  HEADING
+  IMAGE
+  LIST
+  CODE
+  QUOTE
+  LINK
 }
 
 model Testimonial {

@@ -1,4 +1,44 @@
+'use client';
+
+import { useTransition } from 'react';
+import { useRouter } from 'next/navigation';
+import useNotification from '@/hooks/use-taost';
+import { useContactValidation } from '@/hooks/use-validation-form';
+import LoadingSpinner from '@/components/ui/loading-spinner';
+import { createContactAction } from '@/actions/admin/contact';
+
 export default function ContactSection() {
+    const router = useRouter();
+    const { notifyError, notifySuccess } = useNotification();
+    const [isPending, startTransition] = useTransition();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useContactValidation();
+
+    const onSubmit = async (data: any) => {
+        startTransition(async () => {
+            try {
+                const result = await createContactAction(data);
+
+                if (result.success) {
+                    notifySuccess('Message envoyé avec succès');
+
+                    router.push('/');
+                    router.refresh();
+                } else {
+                    console.error('Une erreur survenue: ', result.error);
+                    notifyError(
+                        (result.error as string) || 'Une erreur est survenue.',
+                    );
+                }
+            } catch (err) {
+                notifyError('Erreur de connexion au serveur');
+            }
+        });
+    };
+
     return (
         <section id="contact" className="py-32 bg-primary">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -65,7 +105,10 @@ export default function ContactSection() {
                         </div>
                     </div>
                     <div className="contact-form bg-white dark:bg-slate-900 p-12 rounded-[2.5rem] shadow-2xl">
-                        <form className="space-y-6">
+                        <form
+                            onSubmit={handleSubmit(onSubmit)}
+                            className="space-y-6"
+                        >
                             <div className="grid grid-cols-2 gap-6">
                                 <div>
                                     <label
@@ -75,11 +118,17 @@ export default function ContactSection() {
                                         Nom
                                     </label>
                                     <input
+                                        {...register('name')}
                                         data-translate="form.name_placeholder"
-                                        className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary py-4"
+                                        className="w-full text-slate-50 px-3 placeholder:text-slate-500 bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary py-4"
                                         placeholder="Nom complet"
                                         type="text"
                                     />
+                                    {errors.name && (
+                                        <p className="text-red-500 text-xs mt-1">
+                                            {errors.name.message}
+                                        </p>
+                                    )}
                                 </div>
                                 <div>
                                     <label
@@ -89,11 +138,17 @@ export default function ContactSection() {
                                         Email
                                     </label>
                                     <input
+                                        {...register('email')}
                                         data-translate="form.email_placeholder"
-                                        className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary py-4"
+                                        className="w-full text-slate-50 px-3 placeholder:text-slate-500 bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary py-4"
                                         placeholder="Adresse email"
                                         type="email"
                                     />
+                                    {errors.email && (
+                                        <p className="text-red-500 text-xs mt-1">
+                                            {errors.email.message}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                             <div>
@@ -104,11 +159,17 @@ export default function ContactSection() {
                                     Sujet
                                 </label>
                                 <input
+                                    {...register('subject')}
                                     data-translate="form.subject_placeholder"
-                                    className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary py-4"
+                                    className="w-full text-slate-50 px-3 placeholder:text-slate-500 bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary py-4"
                                     placeholder="Objet de votre message"
                                     type="text"
                                 />
+                                {errors.subject && (
+                                    <p className="text-red-500 text-xs mt-1">
+                                        {errors.subject.message}
+                                    </p>
+                                )}
                             </div>
                             <div>
                                 <label
@@ -118,17 +179,31 @@ export default function ContactSection() {
                                     Message
                                 </label>
                                 <textarea
+                                    {...register('message')}
                                     data-translate="form.message_placeholder"
-                                    className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary py-4"
+                                    className="w-full text-slate-50 px-3 placeholder:text-slate-500 bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary py-4"
                                     placeholder="Comment pouvons-nous vous aider ?"
-                                    rows="4"
+                                    rows={4}
                                 ></textarea>
+                                {errors.message && (
+                                    <p className="text-red-500 text-xs mt-1">
+                                        {errors.message.message}
+                                    </p>
+                                )}
                             </div>
                             <button
+                                disabled={isPending}
                                 data-translate="form.button"
-                                className="w-full bg-primary py-5 rounded-xl text-white font-black text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all"
+                                className="w-full bg-primary py-5 rounded-xl text-center text-white font-black text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all"
                             >
-                                Envoyer le Message
+                                {isPending ? (
+                                    <div className="flex gap-x-3 items-center justify-center text-white">
+                                        <LoadingSpinner />
+                                        Sauvegarde en cours
+                                    </div>
+                                ) : (
+                                    <>Envoyer le Message</>
+                                )}
                             </button>
                         </form>
                     </div>
