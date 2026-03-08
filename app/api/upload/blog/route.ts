@@ -24,7 +24,7 @@ export async function POST(request: Request) {
 
         return NextResponse.json({
             success: true,
-            url: `/blog/${filename}`,
+            url: `/uploads/blog/${filename}`,
         });
     } catch (error) {
         console.error('[POST_UPLOAD_ERROR]:', error);

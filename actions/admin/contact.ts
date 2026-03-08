@@ -59,10 +59,23 @@ export async function getContactMessagesAction() {
     }
 }
 
-export async function getContactMessageByIdAction(contactId: string) {
+export async function markMessageAsReadAction(messageId: string) {
+    try {
+        await prisma.contactMessage.update({
+            where: { id: messageId },
+            data: { read: true },
+        });
+        revalidatePath('/admin/messages');
+        return { success: true };
+    } catch (error) {
+        return { success: false, error: 'Impossible de marquer comme lu' };
+    }
+}
+
+export async function getContactMessageByIdAction(messageId: string) {
     try {
         const contactMessage = await prisma.contactMessage.findUnique({
-            where: { id: contactId },
+            where: { id: messageId },
         });
 
         if (!contactMessage) {
@@ -73,5 +86,26 @@ export async function getContactMessageByIdAction(contactId: string) {
     } catch (error) {
         console.error('[CONTACT_MESSAGE_ERROR]', error);
         return { success: false, message: 'Error while fetching data.' };
+    }
+}
+
+export async function deleteContactMessageAction(messageId: string) {
+    try {
+        if (!messageId) throw new Error('ID du message manquant');
+
+        await prisma.contactMessage.delete({
+            where: { id: messageId },
+        });
+
+        revalidatePath('/admin/messages');
+        revalidatePath('/admin');
+
+        return { success: true, message: 'Message supprimé définitivement' };
+    } catch (error) {
+        console.error('CONTACT_MESSAGE_ERROR:', error);
+        return {
+            success: false,
+            error: 'Error while deleting contact message.',
+        };
     }
 }

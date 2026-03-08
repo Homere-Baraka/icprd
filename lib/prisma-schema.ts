@@ -59,14 +59,11 @@ export const userLoginSchema = z.object({
 export type userLoginInput = z.infer<typeof userLoginSchema>;
 
 // BLOG FORM VALIDATION
-
-export const postSchema = z.object({
+export const blogSchema = z.object({
     title: z
         .string()
         .min(4, 'Le titre est trop court (min 4 caractères)')
         .max(100, 'Le titre est trop long (max 100)'),
-
-    content: z.string().min(15, 'Le contenu doit faire au moins 15 caractères'),
 
     excerpt: z.string().optional().or(z.literal('')),
 
@@ -80,10 +77,13 @@ export const postSchema = z.object({
         .min(1, 'Veuillez choisir une catégorie de votre blog')
         .optional(),
     views: z.number().int().default(0),
+    contents: z
+        .string()
+        .min(10, 'Le contenu doit faire au moins 15 caractères'),
 });
 
-export type postFormValues = z.infer<typeof postSchema>;
-export const updatePostSchema = postSchema.partial();
+export type blogFormValues = z.infer<typeof blogSchema>;
+export const updateBlogSchema = blogSchema.partial();
 
 // ACHIEVEMENT FORM VALIDATION
 export const AchievementEnum = z.enum(['PENDING', 'FINISHED', 'CANCELED']);
@@ -92,10 +92,6 @@ export const achievementSchema = z.object({
         .string()
         .min(4, 'Le titre est trop court (min 4 caractères)')
         .max(100, 'Le titre est trop long (max 100)'),
-
-    content: z.string().min(15, 'Le contenu doit faire au moins 15 caractères'),
-
-    excerpt: z.string().optional().or(z.literal('')),
 
     date: z.coerce
         .date()
@@ -117,7 +113,15 @@ export const achievementSchema = z.object({
         .string()
         .min(1, 'Veuillez choisir une catégorie de votre réalisation')
         .optional(),
+
+    revenue: z.coerce.number().optional().default(0),
+    province: z.coerce.number().int().optional().default(0),
+    countries: z.coerce.number().int().optional().default(0),
+
     status: AchievementEnum.default('PENDING'),
+    contents: z
+        .string()
+        .min(10, 'Le contenu doit faire au moins 15 caractères'),
 });
 
 export type achievementFormValues = z.infer<typeof achievementSchema>;

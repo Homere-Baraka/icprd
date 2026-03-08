@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache';
 import { authOptions } from '@/lib/auth/options';
 import { getServerSession } from 'next-auth';
 import { achievementSchema } from '@/lib/prisma-schema';
+import { cleanupBlogFiles } from '@/utils/clean-file';
 
 export async function createAchievementAction(
     data: unknown,
@@ -25,8 +26,17 @@ export async function createAchievementAction(
         };
     }
 
-    const { title, content, excerpt, date, category, imageUrl, status } =
-        validation.data;
+    const {
+        title,
+        contents,
+        date,
+        category,
+        imageUrl,
+        revenue,
+        countries,
+        province,
+        status,
+    } = validation.data;
 
     const publishedAt = actionType === 'publish' ? new Date() : null;
 
@@ -41,18 +51,36 @@ export async function createAchievementAction(
         };
     }
 
+    const lastAchievement = await prisma.achievement.findFirst({
+        orderBy: { order: 'desc' },
+        select: { order: true },
+    });
+    const nextOrder = lastAchievement ? lastAchievement.order + 1 : 1;
+
     try {
         const achievement = await prisma.achievement.create({
             data: {
                 title,
-                content,
-                excerpt,
                 date,
                 category,
                 imageUrl,
                 publishedAt,
                 status,
+                revenue,
+                countries,
+                province,
+                order: nextOrder,
                 teamId: teamMember.id,
+
+                contents: {
+                    create: [
+                        {
+                            type: 'PARAGRAPH',
+                            value: contents,
+                            order: 1,
+                        },
+                    ],
+                },
             },
         });
 
@@ -127,8 +155,17 @@ export async function updateAchievementAction(
             };
         }
 
-        const { title, content, excerpt, date, category, imageUrl, status } =
-            validated.data;
+        const {
+            title,
+            contents,
+            date,
+            category,
+            imageUrl,
+            revenue,
+            province,
+            countries,
+            status,
+        } = validated.data;
 
         const publishedAt = actionType === 'publish' ? new Date() : null;
 
@@ -147,14 +184,26 @@ export async function updateAchievementAction(
             where: { id: achievementId },
             data: {
                 title,
-                content,
-                excerpt,
                 date,
                 category,
                 imageUrl,
                 publishedAt,
                 status,
+                revenue,
+                province,
+                countries,
                 teamId: teamMember.id,
+
+                contents: {
+                    deleteMany: {},
+                    create: [
+                        {
+                            type: 'PARAGRAPH',
+                            value: contents,
+                            order: 1,
+                        },
+                    ],
+                },
             },
         });
 
@@ -180,6 +229,7 @@ export async function getAchievementByIdAction(achievementId: string) {
                 author: {
                     include: { user: true },
                 },
+                contents: true,
             },
         });
 
@@ -191,5 +241,35 @@ export async function getAchievementByIdAction(achievementId: string) {
     } catch (error) {
         console.error('[ACHIEVEMENT_GET_ACTION]', error);
         return { success: false, message: 'Error while fetching data.' };
+    }
+}
+
+export async function deleteAchievementAction(achievementId: string) {
+    try {
+        const session = await getServerSession(authOptions);
+        if (!session) return { success: false, error: 'Non authentifié' };
+
+        const achievement = await prisma.achievement.findUnique({
+            where: { id: achievementId },
+            include: { contents: true },
+        });
+
+        if (!achievement) return { success: false, error: 'Blog non trouvé' };
+
+        const htmlStrings = achievement.contents.map((c) => c.value as string);
+        await cleanupBlogFiles(achievement.imageUrl, htmlStrings);
+
+        await prisma.achievement.delete({
+            where: { id: achievementId },
+        });
+
+        revalidatePath('/admin/achivements');
+        return { success: true, message: 'Achievement deleted successfully.' };
+    } catch (error) {
+        console.error(error);
+        return {
+            success: false,
+            error: 'Erreur technique lors de la suppression.',
+        };
     }
 }

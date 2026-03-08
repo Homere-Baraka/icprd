@@ -2,26 +2,19 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAchievementValidation } from '@/hooks/use-validation-form';
+import { usePostValidation } from '@/hooks/use-validation-form';
 import {
-    createAchievementAction,
-    updateAchievementAction,
-    getAchievementByIdAction,
-} from '@/actions/admin/achievement';
-import {
-    uploadAchievementContentImage,
-    uploadAchievementImage,
-} from '@/lib/upload';
-import BlogEditor from '@/components/taptap-editor';
-import { Save, Send, Shield, ArrowLeft, ImageIcon } from 'lucide-react';
+    createBlogAction,
+    updateBlogAction,
+    getBlogByIdAction,
+} from '@/actions/admin/blog';
+import { uploadBlogContentImage, uploadBlogImage } from '@/lib/upload';
+import BlogEditor from '../../../taptap-editor';
+import { Save, Send, ArrowLeft, ImageIcon } from 'lucide-react';
 import useNotification from '@/hooks/use-taost';
 import LoadingSpinner from '@/components/ui/loading-spinner';
 
-export default function CreateAchievement({
-    achievementId,
-}: {
-    achievementId?: string;
-}) {
+export default function CreatePostPage({ blogId }: { blogId?: string }) {
     const router = useRouter();
     const { notifyError, notifySuccess } = useNotification();
 
@@ -30,7 +23,7 @@ export default function CreateAchievement({
     const [isSubmitting, setIsSubmitting] = useState<
         'draft' | 'publish' | null
     >(null);
-    const [isInitialLoading, setIsInitialLoading] = useState(!!achievementId);
+    const [isInitialLoading, setIsInitialLoading] = useState(!!blogId);
 
     const {
         register,
@@ -39,36 +32,36 @@ export default function CreateAchievement({
         formState: { errors },
         reset,
         watch,
-    } = useAchievementValidation();
+    } = usePostValidation();
 
     const currentContent = watch('contents');
 
     useEffect(() => {
         const loadPostData = async () => {
-            if (!achievementId || isDataLoaded) return;
+            if (!blogId || isDataLoaded) return;
 
             setIsInitialLoading(true);
             try {
-                const result = await getAchievementByIdAction(achievementId);
+                const result = await getBlogByIdAction(blogId);
                 if (result.success) {
-                    const achievementData = result?.data;
+                    const blogData = result?.data;
 
                     let htmlContent = '';
 
-                    if (Array.isArray(achievementData?.contents)) {
-                        htmlContent = achievementData.contents
+                    if (Array.isArray(blogData?.contents)) {
+                        htmlContent = blogData.contents
                             .map((item: any) => item.value)
                             .join('');
                     } else {
-                        htmlContent = achievementData?.contents || '';
+                        htmlContent = blogData?.contents || '';
                     }
 
                     console.log('htmlContent: ', htmlContent);
 
-                    reset({ ...achievementData, contents: htmlContent } as any);
+                    reset({ ...blogData, contents: htmlContent } as any);
 
-                    if (achievementData?.imageUrl) {
-                        setPreviewImage(achievementData?.imageUrl);
+                    if (blogData?.imageUrl) {
+                        setPreviewImage(blogData?.imageUrl);
                     }
 
                     setIsDataLoaded(true);
@@ -82,15 +75,15 @@ export default function CreateAchievement({
             }
         };
         loadPostData();
-    }, [achievementId, reset, notifyError, isDataLoaded]);
+    }, [blogId, reset, notifyError, isDataLoaded]);
 
-    const handleAchievementContentUpload = async (file: File) => {
-        const result = await uploadAchievementContentImage(file);
+    const handleBlogContentUpload = async (file: File) => {
+        const result = await uploadBlogContentImage(file);
         return result.success ? result.url : null;
     };
 
-    const handleAchievementUpload = async (file: File) => {
-        const result = await uploadAchievementImage(file);
+    const handleBlogUpload = async (file: File) => {
+        const result = await uploadBlogImage(file);
         return result.success ? result.url : null;
     };
 
@@ -100,7 +93,7 @@ export default function CreateAchievement({
             const localPreview = URL.createObjectURL(file);
             setPreviewImage(localPreview);
 
-            const url = await handleAchievementUpload(file);
+            const url = await handleBlogUpload(file);
             if (url) {
                 setPreviewImage(url);
                 setValue('imageUrl', url, { shouldValidate: true });
@@ -112,7 +105,7 @@ export default function CreateAchievement({
         }
     };
 
-    const isEditing = !!achievementId;
+    const isEditing = !!blogId;
 
     const processForm = async (data: any, actionType: 'draft' | 'publish') => {
         setIsSubmitting(actionType);
@@ -120,21 +113,17 @@ export default function CreateAchievement({
         console.log('content: ', data?.contents);
         try {
             const result =
-                isEditing && achievementId
-                    ? await updateAchievementAction(
-                          achievementId,
-                          data,
-                          actionType,
-                      )
-                    : await createAchievementAction(data, actionType);
+                isEditing && blogId
+                    ? await updateBlogAction(blogId, data, actionType)
+                    : await createBlogAction(data, actionType);
 
             if (result.success) {
                 notifySuccess(
                     isEditing
                         ? 'Contenus mis à jour !'
-                        : 'Réalisation créé avec succès !',
+                        : 'Blog créé avec succès !',
                 );
-                router.push('/admin/achievements');
+                router.push('/admin/blogs');
                 router.refresh();
             } else {
                 notifyError(
@@ -178,13 +167,13 @@ export default function CreateAchievement({
                         </header>
 
                         {/* TITRE */}
-                        <div className="max-w-[40%]">
-                            <label className="text-xs font-bold text-text-muted uppercase tracking-widest">
+                        <div className="max-w-[400px]">
+                            <label className="text-xs font-bold text-gray-400 uppercase tracking-widest">
                                 Titre
                             </label>
                             <input
                                 {...register('title')}
-                                className="w-full p-3 border border-card-border rounded-lg outline-none focus:border-blue-500 transition-all"
+                                className="w-full p-3 bg-card border border-card-border rounded-lg outline-none focus:border-blue-500 transition-all"
                                 placeholder="Titre ici..."
                             />
                             {errors.title && (
@@ -194,108 +183,22 @@ export default function CreateAchievement({
                             )}
                         </div>
 
-                        <div className="grid grid-cols-3 gap-4 max-w-[60%]">
+                        <div className="max-w-[300px]">
                             <div className="space-y-2">
-                                <label className="text-[11px] font-black text-text-muted uppercase tracking-widest">
-                                    Date de réalisation
-                                </label>
-                                <input
-                                    type="date"
-                                    {...register('date')}
-                                    className="w-full p-3 bg-background border border-card-border rounded-lg outline-none focus:border-primary transition-all"
-                                />
-                                {errors.date && (
-                                    <p className="text-red-500 text-xs font-bold">
-                                        {errors.date.message as string}
-                                    </p>
-                                )}
-                            </div>
-
-                            {/* CATÉGORIE */}
-                            <div className="space-y-2">
-                                <label className="text-[11px] font-black text-text-muted uppercase tracking-widest">
+                                <label className="text-xs font-bold text-gray-400 uppercase tracking-widest">
                                     Catégorie
                                 </label>
                                 <input
                                     {...register('category')}
-                                    placeholder="Ex: Éducation, Santé..."
-                                    className="w-full p-3 bg-background border border-card-border rounded-lg outline-none focus:border-primary transition-all"
-                                />
-                            </div>
-                            <div className="space-y-1">
-                                <label className="text-xs font-bold text-text-muted uppercase tracking-tighter ml-1">
-                                    Rôle Système
-                                </label>
-                                <div className="relative">
-                                    <Shield
-                                        className="absolute left-3 top-3 text-text-muted"
-                                        size={16}
-                                    />
-                                    <select
-                                        {...register('status')}
-                                        className="w-full pl-10 pr-4 py-3 bg-card border border-card-border rounded-lg outline-none focus:border-primary text-sm font-bold appearance-none"
-                                    >
-                                        <option value="PENDING">
-                                            Réalisation en cours
-                                        </option>
-                                        <option value="FINISHED">
-                                            Réalisation terminée
-                                        </option>
-                                        <option value="CANCELED">
-                                            Réalisation abandonnée
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* REVENUE / BUDGET */}
-                        <div className="grid grid-cols-3 gap-4 max-w-[60%]">
-                            <div className="space-y-2">
-                                <label className="text-[11px] font-black text-text-muted uppercase tracking-widest">
-                                    Revenu / Budget (USD)
-                                </label>
-                                <input
-                                    type="number"
-                                    step="0.01"
-                                    {...register('revenue', {
-                                        valueAsNumber: true,
-                                    })}
-                                    placeholder="0.00"
-                                    className="w-full p-3 bg-background border border-card-border rounded-lg outline-none focus:border-primary transition-all"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-[11px] font-black text-text-muted uppercase tracking-widest">
-                                    Provinces touchées
-                                </label>
-                                <input
-                                    type="number"
-                                    {...register('province', {
-                                        valueAsNumber: true,
-                                    })}
-                                    placeholder="0"
-                                    className="w-full p-3 bg-background border border-card-border rounded-lg outline-none focus:border-primary transition-all"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-[11px] font-black text-text-muted uppercase tracking-widest">
-                                    Pays
-                                </label>
-                                <input
-                                    type="number"
-                                    {...register('countries', {
-                                        valueAsNumber: true,
-                                    })}
-                                    placeholder="0"
-                                    className="w-full p-3 bg-background border border-card-border rounded-lg outline-none focus:border-primary transition-all"
+                                    placeholder="Ex: Technologie"
+                                    className="w-full p-3 bg-card border border-card-border rounded-lg outline-none focus:border-blue-500 transition-all"
                                 />
                             </div>
                         </div>
 
                         {/* IMAGE DE COUVERTURE DU BLOG */}
                         <div className="space-y-4">
-                            <label className="text-xs font-bold text-text-muted uppercase tracking-widest">
+                            <label className="text-xs font-bold text-gray-400 uppercase tracking-widest">
                                 Image de couverture (Banner)
                             </label>
 
@@ -351,10 +254,10 @@ export default function CreateAchievement({
 
                         {/* ÉDITEUR TIPTAP */}
                         <div className="space-y-4">
-                            <label className="text-xs font-bold text-text-muted uppercase tracking-widest">
+                            <label className="text-xs font-bold text-gray-400 uppercase tracking-widest">
                                 Contenu
                             </label>
-                            {(achievementId ? isDataLoaded : true) ? (
+                            {(blogId ? isDataLoaded : true) ? (
                                 <BlogEditor
                                     initialContent={currentContent || ''}
                                     onChange={(html) =>
@@ -362,9 +265,7 @@ export default function CreateAchievement({
                                             shouldValidate: true,
                                         })
                                     }
-                                    onImageUpload={
-                                        handleAchievementContentUpload
-                                    }
+                                    onImageUpload={handleBlogContentUpload}
                                 />
                             ) : (
                                 <div className="h-[350px] bg-card animate-pulse rounded-xl border border-card-border" />

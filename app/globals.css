@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@plugin "@tailwindcss/typography";
+
 /* @tailwind base;
 @tailwind components;
 @tailwind utilities; */
@@ -96,8 +98,62 @@
     --radius-xl: var(--radius-premium);
 }
 
-/* BASE STYLE */
+@layer base {
+    .tiptap {
+        @apply prose prose-blue max-w-none text-slate-50;
 
+        h1 {
+            @apply text-2xl font-extrabold mt-8 mb-4;
+        }
+        h2 {
+            @apply text-xl font-bold mt-6 mb-3;
+        }
+        ul {
+            @apply list-disc pl-5 my-4;
+        }
+        blockquote {
+            @apply border-l-4 border-slate-500 pl-2 italic my-4;
+        }
+    }
+}
+
+.tiptap.prose {
+    --tw-prose-body: rgb(153, 160, 170);
+
+    --tw-prose-headings: var(--color-text-main);
+
+    --tw-prose-invert-body: #f1f5f9;
+    --tw-prose-invert-headings: #ffffff;
+}
+
+.tiptap img {
+    display: block;
+    height: auto;
+    max-width: 30%;
+    border-radius: 0.5rem;
+    transition: transform 0.2s;
+}
+
+.tiptap img.ProseMirror-selectednode {
+    outline: 3px solid #3b82f6;
+    transform: scale(1.02);
+}
+
+.tiptap p {
+    color: #eeeeee !important;
+}
+
+.tiptap .is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+
+    font-style: normal !important;
+    @apply text-text-muted;
+}
+
+/* BASE STYLE */
 body {
     background: var(--background);
     color: var(--foreground);

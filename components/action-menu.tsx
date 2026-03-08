@@ -26,7 +26,7 @@ export default function ActionMenu({ link1, link2 }: any) {
         <div className="inline-block" ref={dropdownRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="p-1 hover:bg-background rounded-md transition-colors text-slate-400"
+                className="p-1 hover:bg-card hover:text-text-main rounded-md transition-colors text-text-muted cursor-pointer"
             >
                 <MoreVertical size={20} />
             </button>

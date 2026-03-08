@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import React, { useState, useMemo } from 'react';
 import { Search, Clock } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
@@ -51,7 +52,6 @@ export default function Messages() {
 
             {/* Main Container */}
             <div className="bg-card rounded-xl border border-card-border overflow-hidden">
-                {/* Search Bar & Stats */}
                 <div className="p-6 flex justify-between items-center border-b border-card-border">
                     <div className="relative flex-1 max-w-sm">
                         <Search
@@ -66,8 +66,12 @@ export default function Messages() {
                             className="w-full pl-12 pr-4 py-2.5 bg-background border border-card-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
                         />
                     </div>
-                    <div className="text-slate-500 font-medium">
-                        <span className="text-slate-900">2</span> Unread
+                    <div className="text-text-muted font-medium">
+                        <span className="text-text-main">
+                            {messageData.filter((msg: any) => !msg?.read)
+                                .length || 0}
+                        </span>{' '}
+                        non lus
                     </div>
                 </div>
 
@@ -86,11 +90,11 @@ export default function Messages() {
                         </tr>
                     ) : messageData.length == 0 ? (
                         <EmptyState
-                            title="Vos Accomplissements"
+                            title="Vos Messages"
                             description="
-                                    Retrouvez ici l'ensemble de vos succès et leur évolution.
-                                    Nous préparons une chronologie visuelle pour retracer votre
-                                    parcours : restez connectés !"
+                                Retrouvez ici l'ensemble de vos messages recus.
+                                Nous préparons une chronologie visuelle pour retracer votre
+                                parcours : restez connectés !"
                             icon={<MessageCircle strokeWidth={1.5} size={32} />}
                         />
                     ) : filteredMessages.length == 0 ? (
@@ -100,12 +104,11 @@ export default function Messages() {
                     ) : (
                         filteredMessages &&
                         filteredMessages.map((msg: any) => (
-                            <div
+                            <Link
                                 key={msg.id}
+                                href={`/admin/messages/${msg.id}`}
                                 className={`p-6 flex items-start gap-4 transition-colors cursor-pointer hover:bg-card ${
-                                    msg.unread
-                                        ? 'bg-blue-50/40'
-                                        : 'bg-background'
+                                    msg.read ? 'bg-background' : 'bg-card'
                                 }`}
                             >
                                 <div
@@ -142,7 +145,7 @@ export default function Messages() {
                                         {msg.message}
                                     </p>
                                 </div>
-                            </div>
+                            </Link>
                         ))
                     )}
                 </div>

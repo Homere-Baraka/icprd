@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { getPostsAction, getPostByIdAction } from '@/actions/admin/post';
+import { getBlogsAction, getBlogByIdAction } from '@/actions/admin/blog';
 import {
     getAchievementsAction,
     getAchievementByIdAction,
@@ -12,21 +12,25 @@ import {
 } from '@/actions/admin/contact';
 
 /*====== BLOG QUERY =======*/
-export function usePostsQuery() {
+export function useBlogsQuery() {
     return useQuery({
-        queryKey: ['posts'],
-        queryFn: () => getPostsAction(),
+        queryKey: ['blogs'],
+        queryFn: () => getBlogsAction(),
         retry: 3,
-        staleTime: 100 * 60 * 5,
+        staleTime: 0,
+        refetchInterval: 1000 * 10,
+        refetchIntervalInBackground: false,
     });
 }
 
-export function usePostQuery(postId: string) {
+export function useBlogQuery(postId: string) {
     return useQuery({
         queryKey: ['post'],
-        queryFn: () => getPostByIdAction(postId),
+        queryFn: () => getBlogByIdAction(postId),
         retry: 3,
-        staleTime: 100 * 60 * 5,
+        staleTime: 0,
+        refetchInterval: 1000 * 10,
+        refetchIntervalInBackground: false,
     });
 }
 
@@ -36,16 +40,20 @@ export function useAchievementsQuery() {
         queryKey: ['achievements'],
         queryFn: () => getAchievementsAction(),
         retry: 3,
-        staleTime: 100 * 60 * 5,
+        staleTime: 0,
+        refetchInterval: 1000 * 10,
+        refetchIntervalInBackground: false,
     });
 }
 
 export function useAchievementQuery(achievementId: string) {
     return useQuery({
         queryKey: ['achievement'],
-        queryFn: () => getPostByIdAction(achievementId),
+        queryFn: () => getAchievementByIdAction(achievementId),
         retry: 3,
-        staleTime: 100 * 60 * 5,
+        staleTime: 0,
+        refetchInterval: 1000 * 10,
+        refetchIntervalInBackground: false,
     });
 }
 
@@ -55,15 +63,19 @@ export function useContactMessagesQuery() {
         queryKey: ['contact_messages'],
         queryFn: () => getContactMessagesAction(),
         retry: 3,
-        staleTime: 100 * 60 * 5,
+        staleTime: 0,
+        refetchInterval: 1000 * 10,
+        refetchIntervalInBackground: false,
     });
 }
 
-export function useContactMessageQuery(contactId: string) {
+export function useContactMessageQuery(messageId: string) {
     return useQuery({
         queryKey: ['contact_message'],
-        queryFn: () => getContactMessageByIdAction(contactId),
+        queryFn: () => getContactMessageByIdAction(messageId),
         retry: 3,
-        staleTime: 100 * 60 * 5,
+        staleTime: 0,
+        refetchInterval: 1000 * 10,
+        refetchIntervalInBackground: false,
     });
 }

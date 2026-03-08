@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import ActionMenu from '@/components/action-menu';
-import { usePostsQuery } from '@/lib/query/query';
+import { useBlogsQuery } from '@/lib/query/query';
 import EmptyState from '@/components/ui/empty-state';
 import ErrorState from '@/components/ui/error-state';
 import PostSkeleton from '@/components/ui/post-skeletton';
@@ -18,14 +18,14 @@ import {
     ExternalLink,
 } from 'lucide-react';
 
-export default function Posts() {
+export default function Blogs() {
     const router = useRouter();
-    const { data: posts, isLoading, error, isError, refetch } = usePostsQuery();
+    const { data: posts, isLoading, error, isError, refetch } = useBlogsQuery();
 
     const [searchQuery, setSearchQuery] = useState('');
     const [activeTab, setActiveTab] = useState('Tous');
 
-    const filteredPosts = useMemo(() => {
+    const filteredBlogs = useMemo(() => {
         if (!posts?.data) return [];
 
         return posts.data.filter((post: any) => {
@@ -145,8 +145,8 @@ export default function Posts() {
             </div>
 
             {/* Main Card */}
-            <div className="bg-card rounded-xl border border-card-border shadow-sm">
-                <div className="p-6 bg-gradient-to-b from-card/50 to-transparent backdrop-blur-md border-b border-white/[0.05] flex flex-wrap items-center justify-between gap-6">
+            <div className="rounded-xl border border-card-border shadow-sm">
+                <div className="bg-card p-6 bg-gradient-to-b from-card/50 to-transparent backdrop-blur-md border-b border-white/[0.05] flex flex-wrap items-center justify-between gap-6">
                     <div className="relative group min-w-[320px]">
                         <div className="relative flex items-center">
                             <Search
@@ -236,7 +236,7 @@ export default function Posts() {
                                         />
                                     </td>
                                 </tr>
-                            ) : filteredPosts.length == 0 ? (
+                            ) : filteredBlogs.length == 0 ? (
                                 <tr>
                                     <td>
                                         <div className="text-center p-6 text-text-muted text-xl">
@@ -245,11 +245,11 @@ export default function Posts() {
                                     </td>
                                 </tr>
                             ) : (
-                                (filteredPosts && filteredPosts.length) > 0 &&
-                                filteredPosts.map((post: any) => (
+                                (filteredBlogs && filteredBlogs.length) > 0 &&
+                                filteredBlogs.map((post: any) => (
                                     <tr
                                         key={post.id}
-                                        className="hover:bg-slate-50/5 transition-colors group"
+                                        className="transition-colors group"
                                     >
                                         <td className="px-6 py-5 font-semibold text-text-muted max-w-56 truncate">
                                             {post.title}
@@ -282,8 +282,8 @@ export default function Posts() {
                                         </td>
                                         <td className="px-6 py-5 text-right">
                                             <ActionMenu
-                                                link1={`/admin/posts/${post.id}`}
-                                                link2={`/admin/posts/${post.id}/edit`}
+                                                link1={`/admin/blogs/${post.id}`}
+                                                link2={`/admin/blogs/${post.id}/edit`}
                                             />
                                         </td>
                                     </tr>

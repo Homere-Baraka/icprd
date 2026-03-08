@@ -7,8 +7,8 @@ import {
     userLoginSchema,
     userRegisterInput,
     userRegisterSchema,
-    postSchema,
-    postFormValues,
+    blogSchema,
+    blogFormValues,
     achievementFormValues,
     achievementSchema,
     contactMessageInput,
@@ -35,8 +35,8 @@ export const useUserLoginValidationForm = () => {
 
 /*====== POST VALIDATION =======*/
 export const usePostValidation = () => {
-    const form = useForm<postFormValues>({
-        resolver: zodResolver(postSchema),
+    const form = useForm<blogFormValues>({
+        resolver: zodResolver(blogSchema),
     });
 
     return form;
