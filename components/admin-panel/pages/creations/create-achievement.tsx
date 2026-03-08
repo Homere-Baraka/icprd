@@ -280,7 +280,7 @@ export default function CreateAchievement({
                             </div>
                             <div className="space-y-2">
                                 <label className="text-[11px] font-black text-text-muted uppercase tracking-widest">
-                                    Pays
+                                    Pays touchés
                                 </label>
                                 <input
                                     type="number"
