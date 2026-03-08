@@ -2,10 +2,11 @@
 
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import Heading from '@tiptap/extension-heading';
 import Placeholder from '@tiptap/extension-placeholder';
 import Image from '@tiptap/extension-image';
 import { HashtagHeading } from '@/lib/hashtag';
-import { useMemo, useEffect } from 'react';
+import { useMemo, useEffect, useRef } from 'react';
 import {
     Type,
     Heading1,
@@ -16,20 +17,25 @@ import {
     Code,
 } from 'lucide-react';
 
-interface RichTextEditorProps {
+interface EditorProps {
     initialContent: string;
     onChange: (html: string) => void;
     onImageUpload: (file: File) => Promise<string | null>;
 }
 
-export default function RichTextEditor({
+export default function BlogEditor({
     initialContent,
     onChange,
     onImageUpload,
-}: RichTextEditorProps) {
+}: EditorProps) {
+    const isInitialized = useRef(false);
+
     const extensions = useMemo(
         () => [
             StarterKit.configure({ heading: false }),
+            Heading.configure({
+                levels: [1, 2, 3],
+            }),
             HashtagHeading,
             Image.configure({
                 HTMLAttributes: {
@@ -37,7 +43,7 @@ export default function RichTextEditor({
                 },
             }),
             Placeholder.configure({
-                placeholder: 'Écrivez quelque chose d’incroyable...',
+                placeholder: 'Écrivez votre blog...',
             }),
         ],
         [],
@@ -47,7 +53,7 @@ export default function RichTextEditor({
         extensions,
         content: initialContent,
         onUpdate: ({ editor }) => {
-            onChange(editor.getHTML()); // Envoie le HTML au parent à chaque frappe
+            onChange(editor.getHTML());
         },
         editorProps: {
             attributes: {
@@ -57,25 +63,44 @@ export default function RichTextEditor({
         immediatelyRender: false,
     });
 
+    useEffect(() => {
+        if (editor && initialContent && !isInitialized.current) {
+            editor.commands.setContent(initialContent);
+            isInitialized.current = true;
+        }
+    }, [initialContent, editor]);
+
     // Gestion de l'image locale à l'éditeur
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file && editor) {
+            console.log('Upload en cours...');
             const url = await onImageUpload(file);
-            if (url) editor.chain().focus().setImage({ src: url }).run();
+
+            console.log('URL reçue du serveur :', url);
+
+            if (url) {
+                editor.chain().focus().setImage({ src: url }).run();
+                console.log('Commande setImage exécutée');
+            } else {
+                console.error("L'URL est vide ou nulle");
+            }
         }
     };
 
     if (!editor) return null;
 
     const btnStyle = (active: string, attrs = {}) => `
-    p-2 rounded transition-colors ${editor.isActive(active, attrs) ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100 text-gray-600'}
-  `;
+        p-2 rounded transition-colors ${
+            editor.isActive(active, attrs)
+                ? 'bg-blue-100 text-blue-600'
+                : 'hover:bg-gray-100 text-gray-600'
+        }`;
 
     return (
-        <div className="border border-card-border rounded-xl shadow-sm overflow-hidden">
-            {/* Barre d'outils style Word */}
-            <div className="flex items-center gap-1 p-2 border-b bg-card-border sticky top-0 z-20">
+        <div className="border border-card-border rounded-xl overflow-hidden">
+            {/* Barre d'outils */}
+            <div className="flex items-center gap-1 p-2 border-b border-card-border bg-card sticky top-0 z-20">
                 <button
                     type="button"
                     onClick={() => editor.chain().focus().setParagraph().run()}
@@ -86,19 +111,9 @@ export default function RichTextEditor({
                 <button
                     type="button"
                     onClick={() =>
-                        editor
-                            .chain()
-                            .focus()
-                            .insertContent([
-                                {
-                                    type: 'hashtagHeading',
-                                    attrs: { level: 1 },
-                                    content: [{ type: 'text', text: '# ' }],
-                                },
-                            ])
-                            .run()
+                        editor.chain().focus().toggleHeading({ level: 1 }).run()
                     }
-                    className={btnStyle('hashtagHeading', { level: 1 })}
+                    className={btnStyle('heading', { level: 1 })}
                 >
                     <Heading1 size={18} />
                 </button>
@@ -111,7 +126,7 @@ export default function RichTextEditor({
                 >
                     <List size={18} />
                 </button>
-                <div className="w-px h-6 bg-gray-200 mx-1" />
+                <div className="w-px h-6 bg-card-border mx-1" />
                 <label className="p-2 hover:bg-gray-100 rounded cursor-pointer text-gray-600">
                     <ImageIcon size={18} />
                     <input

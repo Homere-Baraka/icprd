@@ -121,7 +121,7 @@ model Team {
   userId    String @unique  @db.Uuid
   user      User   @relation("UserTeam", fields: [userId], references: [id])
   
-  posts        Post[]
+  blogs        Blog[]
   testimonials Testimonial[]
   achievements Achievement[]
   gallery      Gallery[]
@@ -136,21 +136,22 @@ model Team {
 model Achievement {
   id          String   @id @default(uuid(7)) @db.Uuid
   title       String
-  content     String
-  excerpt     String?
   imageUrl    String?
   video       String?
-  date        DateTime
+  date        DateTime?
   category    String?
   revenue     Float? @default(0.0)
   province    Int?   @default(0)
   countries   Int?   @default(0)
+  order       Int    @default(0)
 
-  status      AchievementStaus @default(PENDING)
+  status      AchievementStatus @default(PENDING)
   publishedAt DateTime?   @default(now())
 
   teamId      String @db.Uuid
   author      Team   @relation(fields: [teamId], references: [id])
+
+  contents     AchievementContent[]
 
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
@@ -158,13 +159,30 @@ model Achievement {
   @@map("achievement")
 }
 
-enum AchievementStaus{
+enum AchievementStatus{
   PENDING
   FINISHED
   CANCELED
 }
 
-model Post {
+model AchievementContent {
+  id        String      @id @default(uuid()) @db.Uuid
+  achievementId    String      @db.Uuid
+  achievement      Achievement      @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+  
+  type      ContentType
+  value     String?      @db.Text
+  metadata  Json?
+  
+  label     String?
+  order     Int  @default(0)
+
+  @@index([achievementId])
+
+  @@map("achievement_content")
+}
+
+model Blog {
   id          String   @id @default(uuid(7)) @db.Uuid
   title       String
   imageUrl    String?
@@ -174,9 +192,9 @@ model Post {
   teamId      String @db.Uuid
   author      Team   @relation(fields: [teamId], references: [id])
 
-  publishedAt DateTime?   @default(now())
-  views       Int        @default(0)
-  order       Int
+  publishedAt DateTime? @default(now())
+  views       Int       @default(0)
+  order       Int       @default(0)
 
   testimonials Testimonial[]
   contents     BlogContent[]
@@ -184,22 +202,22 @@ model Post {
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 
-  @@map("post")
+  @@map("blog")
 }
 
 model BlogContent {
   id        String      @id @default(uuid()) @db.Uuid
-  postId    String      @db.Uuid
-  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  blogId    String      @db.Uuid
+  blog      Blog      @relation(fields: [blogId], references: [id], onDelete: Cascade)
   
   type      ContentType
   value     String?      @db.Text
   metadata  Json?
   
   label     String?
-  order     Int
+  order     Int  @default(0)
 
-  @@index([postId])
+  @@index([blogId])
 
   @@map("blog_content")
 }
@@ -221,8 +239,8 @@ model Testimonial {
   content     String
   imageUrl    String?
 
-  postId      String?    @unique  @db.Uuid
-  post        Post?      @relation(fields: [postId], references: [id])
+  blogId      String?    @unique  @db.Uuid
+  blog        Blog?      @relation(fields: [blogId], references: [id])
   teamId    String    @unique  @db.Uuid
   author      Team      @relation(fields: [teamId], references: [id])
 

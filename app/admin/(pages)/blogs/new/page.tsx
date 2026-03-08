@@ -1,5 +1,5 @@
 import MainLayout from '@/components/admin-panel/main-layout';
-import CreatePost from '@/components/admin-panel/pages/creations/create-post';
+import CreatePost from '@/components/admin-panel/pages/creations/create-blog';
 
 export default function CreatePostPage() {
     return (

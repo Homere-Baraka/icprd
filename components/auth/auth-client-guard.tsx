@@ -19,7 +19,7 @@ export function AuthClientGuard({ children }: { children: React.ReactNode }) {
     }
 
     if (!isAuthenticated) {
-        redirect('/admin/accounts/login');
+        redirect('/accounts/login');
     }
 
     return <>{children}</>;

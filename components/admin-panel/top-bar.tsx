@@ -60,7 +60,7 @@ export default function TopBar() {
     const isDark = theme === 'dark';
 
     return (
-        <header className="h-20 border-b border-card-border bg-card backdrop-blur-md flex items-center justify-end px-8 sticky top-0 z-10">
+        <header className="h-20 border-b border-card-border bg-background backdrop-blur-md flex items-center justify-end px-8 sticky top-0 z-10">
             {/* Right Actions */}
             <div className="flex justify-end items-end gap-6">
                 <div className="flex items-center gap-3 pr-6 border-r border-gray-800">

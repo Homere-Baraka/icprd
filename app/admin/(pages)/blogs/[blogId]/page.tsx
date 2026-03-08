@@ -1,17 +1,8 @@
 'use client';
 
-import React, { use, useState, useTransition } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { useAchievementQuery } from '@/lib/query/query';
-import MainLayout from '@/components/admin-panel/main-layout';
 import {
     Edit3,
     Eye,
-    Tag,
-    Map,
-    Globe,
     Calendar,
     Layout,
     User,
@@ -20,41 +11,45 @@ import {
     CheckCircle2,
     FileText,
     ExternalLink,
-    DollarSign,
+    Tag,
 } from 'lucide-react';
-import DeleteConfirmModal from '@/components/ui/delete-confirm-modal';
-import { deleteAchievementAction } from '@/actions/admin/achievement';
-import useNotification from '@/hooks/use-taost';
+import React, { use, useState, useTransition } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useBlogQuery } from '@/lib/query/query';
+import MainLayout from '@/components/admin-panel/main-layout';
 import LoadingSpinner from '@/components/ui/loading-spinner';
+import { deleteBlogAction } from '@/actions/admin/blog';
+import useNotification from '@/hooks/use-taost';
+import DeleteConfirmModal from '@/components/ui/delete-confirm-modal';
 
-export default function AchievementDetailsAdminPage({
+export default function PostDetailsAdminPage({
     params,
 }: {
-    params: Promise<{ achievementId: string }>;
+    params: Promise<{ blogId: string }>;
 }) {
     const router = useRouter();
     const resolvedParams = use(params);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const { notifyError, notifySuccess } = useNotification();
     const [isPending, startTransition] = useTransition();
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const { data: achievement, isLoading } = useAchievementQuery(
-        resolvedParams.achievementId,
-    );
+    const { data: blog, isLoading } = useBlogQuery(resolvedParams.blogId);
 
-    const achievementData = achievement?.data;
-    const isPublished = !!achievementData?.publishedAt;
-    const htmlContent = achievementData?.contents?.[0]?.value || '';
+    const blogData = blog?.data;
+    const isPublished = !!blogData?.publishedAt;
+    const htmlContent = blogData?.contents?.[0]?.value || '';
 
     const handleDelete = async () => {
         startTransition(async () => {
-            const result = await deleteAchievementAction(
-                String(resolvedParams.achievementId),
+            const result = await deleteBlogAction(
+                String(resolvedParams.blogId),
             );
 
             if (result.success) {
                 setIsModalOpen(false);
                 notifySuccess(String(result.message));
-                router.push('/admin/achievements');
+                router.push('/admin/blogs');
             } else {
                 notifyError(String(result.error));
             }
@@ -63,7 +58,7 @@ export default function AchievementDetailsAdminPage({
 
     return (
         <MainLayout>
-            {isLoading || !achievementData ? (
+            {isLoading || !blogData ? (
                 <div className="p-10 mt-10 flex justify-center">
                     <LoadingSpinner />
                 </div>
@@ -99,8 +94,7 @@ export default function AchievementDetailsAdminPage({
                                         •
                                     </span>
                                     <span className="text-text-muted text-xs flex items-center gap-1">
-                                        <Tag size={12} />{' '}
-                                        {achievementData?.category}
+                                        <Tag size={12} /> {blogData?.category}
                                     </span>
                                 </div>
                             </div>
@@ -115,14 +109,14 @@ export default function AchievementDetailsAdminPage({
                                 <Trash2 size={20} />
                             </button>
                             <Link
-                                href={`/achievements/${achievementData?.id}`}
+                                href={`/blog/${blogData?.id}`}
                                 target="_blank"
                                 className="flex items-center gap-2 px-4 py-2 bg-card border border-card-border rounded-lg text-sm font-bold hover:bg-card-border transition-all shadow-sm"
                             >
                                 <ExternalLink size={16} /> Voir sur le site
                             </Link>
                             <Link
-                                href={`/admin/achievements/${achievementData?.id}/edit`}
+                                href={`/admin/blogs/${blogData?.id}/edit`}
                                 className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-bold hover:opacity-90 shadow-md transition-all"
                             >
                                 <Edit3 size={16} /> Modifier
@@ -143,7 +137,7 @@ export default function AchievementDetailsAdminPage({
                                     <div className="relative aspect-video rounded-xl overflow-hidden border border-card-border shadow-inner bg-slate-50">
                                         <Image
                                             src={
-                                                achievementData?.imageUrl ||
+                                                blogData?.imageUrl ||
                                                 '/placeholder.jpg'
                                             }
                                             alt="Couverture"
@@ -167,8 +161,8 @@ export default function AchievementDetailsAdminPage({
                                             <User size={14} /> Auteur
                                         </span>
                                         <span className="font-bold text-text-main">
-                                            {achievementData?.author?.user
-                                                ?.username || 'Équipe Admin'}
+                                            {blogData?.author?.user?.username ||
+                                                'Équipe Admin'}
                                         </span>
                                     </div>
                                     <div className="flex justify-between items-center text-sm">
@@ -177,7 +171,7 @@ export default function AchievementDetailsAdminPage({
                                         </span>
                                         <span className="font-bold text-text-main">
                                             {new Date(
-                                                achievementData?.createdAt,
+                                                blogData?.createdAt,
                                             ).toLocaleDateString('fr-FR', {
                                                 day: 'numeric',
                                                 month: 'long',
@@ -187,43 +181,12 @@ export default function AchievementDetailsAdminPage({
                                     </div>
                                     <div className="flex justify-between items-center text-sm">
                                         <span className="text-text-muted flex items-center gap-2 font-medium">
-                                            <DollarSign
-                                                size={14}
-                                                className="text-emerald-500"
-                                            />{' '}
-                                            Revenu généré
+                                            <Eye size={14} /> Lectures
                                         </span>
                                         <span className="font-bold text-text-main">
-                                            {achievementData?.revenue?.toLocaleString(
-                                                'en-US',
-                                            )}{' '}
-                                            $
-                                        </span>
-                                    </div>
-
-                                    <div className="flex justify-between items-center text-sm">
-                                        <span className="text-text-muted flex items-center gap-2 font-medium">
-                                            <Map
-                                                size={14}
-                                                className="text-blue-500"
-                                            />{' '}
-                                            Provinces ciblées
-                                        </span>
-                                        <span className="font-bold text-text-main">
-                                            {achievementData?.province || 0}
-                                        </span>
-                                    </div>
-
-                                    <div className="flex justify-between items-center text-sm">
-                                        <span className="text-text-muted flex items-center gap-2 font-medium">
-                                            <Globe
-                                                size={14}
-                                                className="text-indigo-500"
-                                            />{' '}
-                                            Pays ciblés
-                                        </span>
-                                        <span className="font-bold text-text-main">
-                                            {achievementData?.countries || 0}
+                                            {blogData?.views?.toLocaleString() ||
+                                                0}{' '}
+                                            vues
                                         </span>
                                     </div>
                                 </div>
@@ -246,7 +209,7 @@ export default function AchievementDetailsAdminPage({
                                             Titre de l'article
                                         </label>
                                         <h3 className="text-3xl font-black text-text-main leading-tight">
-                                            {achievementData?.title}
+                                            {blogData?.title}
                                         </h3>
                                     </div>
 
@@ -280,7 +243,7 @@ export default function AchievementDetailsAdminPage({
             )}
 
             <DeleteConfirmModal
-                title="Supprimer cette Réalisation"
+                title="Supprimer cet article"
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 onConfirm={handleDelete}

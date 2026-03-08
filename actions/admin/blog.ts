@@ -4,9 +4,10 @@ import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { authOptions } from '@/lib/auth/options';
 import { getServerSession } from 'next-auth';
-import { postSchema } from '@/lib/prisma-schema';
+import { blogSchema } from '@/lib/prisma-schema';
+import { cleanupBlogFiles } from '@/utils/clean-file';
 
-export async function createPostAction(
+export async function createBlogAction(
     data: unknown,
     actionType: 'draft' | 'publish',
 ) {
@@ -16,7 +17,7 @@ export async function createPostAction(
         return { success: false, error: 'Vous devez être connecté.' };
     }
 
-    const validation = postSchema.safeParse(data);
+    const validation = blogSchema.safeParse(data);
 
     if (!validation.success) {
         return {
@@ -25,8 +26,7 @@ export async function createPostAction(
         };
     }
 
-    const { title, content, excerpt, category, imageUrl, views } =
-        validation.data;
+    const { title, contents, category, imageUrl, views } = validation.data;
     const publishedAt = actionType === 'publish' ? new Date() : null;
 
     const teamMember = await prisma.team.findUnique({
@@ -40,17 +40,32 @@ export async function createPostAction(
         };
     }
 
+    const lastBlog = await prisma.blog.findFirst({
+        orderBy: { order: 'desc' },
+        select: { order: true },
+    });
+    const nextOrder = lastBlog ? lastBlog.order + 1 : 1;
+
     try {
-        await prisma.post.create({
+        await prisma.blog.create({
             data: {
                 title,
-                content,
-                excerpt,
                 category,
                 imageUrl,
                 publishedAt,
+                order: nextOrder,
                 views,
                 teamId: teamMember.id,
+
+                contents: {
+                    create: [
+                        {
+                            type: 'PARAGRAPH',
+                            value: contents,
+                            order: 1,
+                        },
+                    ],
+                },
             },
         });
 
@@ -72,9 +87,9 @@ export async function createPostAction(
     }
 }
 
-export async function getPostsAction() {
+export async function getBlogsAction() {
     try {
-        const posts = await prisma.post.findMany({
+        const posts = await prisma.blog.findMany({
             orderBy: { createdAt: 'desc' },
             include: {
                 author: {
@@ -104,8 +119,8 @@ export async function getPostsAction() {
     }
 }
 
-export async function updatePostAction(
-    postId: string,
+export async function updateBlogAction(
+    blogId: string,
     data: unknown,
     actionType: 'draft' | 'publish',
 ) {
@@ -116,7 +131,7 @@ export async function updatePostAction(
             return { success: false, error: 'Vous devez être connecté.' };
         }
 
-        const validated = postSchema.safeParse(data);
+        const validated = blogSchema.safeParse(data);
 
         if (!validated.success) {
             return {
@@ -125,8 +140,7 @@ export async function updatePostAction(
             };
         }
 
-        const { title, content, excerpt, category, imageUrl, views } =
-            validated.data;
+        const { title, contents, category, imageUrl, views } = validated.data;
         const publishedAt = actionType === 'publish' ? new Date() : null;
 
         const teamMember = await prisma.team.findUnique({
@@ -140,27 +154,36 @@ export async function updatePostAction(
             };
         }
 
-        const updatedPost = await prisma.post.update({
-            where: { id: postId },
+        const updatedPost = await prisma.blog.update({
+            where: { id: blogId },
             data: {
                 title,
-                content,
-                excerpt,
                 category,
                 imageUrl,
                 publishedAt,
                 views,
                 teamId: teamMember.id,
+
+                contents: {
+                    deleteMany: {},
+                    create: [
+                        {
+                            type: 'PARAGRAPH',
+                            value: contents,
+                            order: 1,
+                        },
+                    ],
+                },
             },
         });
 
-        revalidatePath(`/admin/posts`);
-        revalidatePath(`/admin/posts/${postId}`);
+        revalidatePath(`/admin/blogs`);
+        revalidatePath(`/admin/blogs/${blogId}`);
         revalidatePath(`/blog`);
 
         return { success: true, data: updatedPost };
     } catch (error: any) {
-        console.error('[ACHIEVEMENT_PATCH_ACTION]', error);
+        console.error('[BLOGS_ACTION]', error);
         return {
             success: false,
             message: 'Erreur lors de la mise à jour.',
@@ -168,14 +191,15 @@ export async function updatePostAction(
     }
 }
 
-export async function getPostByIdAction(postId: string) {
+export async function getBlogByIdAction(blogId: string) {
     try {
-        const post = await prisma.post.findUnique({
-            where: { id: postId },
+        const post = await prisma.blog.findUnique({
+            where: { id: blogId },
             include: {
                 author: {
                     include: { user: true },
                 },
+                contents: true,
             },
         });
 
@@ -187,5 +211,35 @@ export async function getPostByIdAction(postId: string) {
     } catch (error) {
         console.error('[POST_GET_ACTION]', error);
         return { success: false, message: 'Error while fetching data.' };
+    }
+}
+
+export async function deleteBlogAction(blogId: string) {
+    try {
+        const session = await getServerSession(authOptions);
+        if (!session) return { success: false, error: 'Non authentifié' };
+
+        const blog = await prisma.blog.findUnique({
+            where: { id: blogId },
+            include: { contents: true },
+        });
+
+        if (!blog) return { success: false, error: 'Blog non trouvé' };
+
+        const htmlStrings = blog.contents.map((c) => c.value as string);
+        await cleanupBlogFiles(blog.imageUrl, htmlStrings);
+
+        await prisma.blog.delete({
+            where: { id: blogId },
+        });
+
+        revalidatePath('/admin/blogs');
+        return { success: true, message: 'Blog et fichiers supprimés.' };
+    } catch (error) {
+        console.error(error);
+        return {
+            success: false,
+            error: 'Erreur technique lors de la suppression.',
+        };
     }
 }

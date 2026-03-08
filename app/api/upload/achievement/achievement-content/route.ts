@@ -18,7 +18,7 @@ export async function POST(request: Request) {
         const filename = Date.now() + '_' + file.name.replace(/\s+/g, '_');
         const uploadDir = path.join(
             process.cwd(),
-            'public/uploads/achievements',
+            'public/uploads/achievements/achievement-content',
         );
 
         await mkdir(uploadDir, { recursive: true });
@@ -27,12 +27,12 @@ export async function POST(request: Request) {
 
         return NextResponse.json({
             success: true,
-            url: `/uploads/achievements/${filename}`,
+            url: `/uploads/achievements/achievement-content/${filename}`,
         });
     } catch (error) {
         console.error('[ACHIEVEMENT_UPLOAD_ERROR]:', error);
         return NextResponse.json(
-            { error: 'Error while upload file.' },
+            { error: 'Error while uplaod file.' },
             { status: 500 },
         );
     }
