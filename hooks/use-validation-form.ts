@@ -13,6 +13,8 @@ import {
     achievementSchema,
     contactMessageInput,
     contactMessageSchema,
+    newsletterFormValues,
+    newsletterSchema,
 } from '@/lib/prisma-schema';
 
 /*====== ADMIN AUTH VALIDATION =======*/
@@ -54,6 +56,14 @@ export const useAchievementValidation = () => {
 export const useContactValidation = () => {
     const form = useForm<contactMessageInput>({
         resolver: zodResolver(contactMessageSchema),
+    });
+    return form;
+};
+
+/*======= CONTACT VALIDATION ======*/
+export const useNewsletterValidation = () => {
+    const form = useForm<newsletterFormValues>({
+        resolver: zodResolver(newsletterSchema),
     });
     return form;
 };

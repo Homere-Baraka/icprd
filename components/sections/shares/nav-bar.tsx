@@ -36,21 +36,21 @@ export default function NavBar() {
                                 href="#mission"
                                 data-translate="nav.about"
                             >
-                                About Us
+                                À Propos
                             </a>
                             <a
                                 className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
                                 href="#intervention"
                                 data-translate="nav.what-we-do"
                             >
-                                What we do
+                                Nos Actions
                             </a>
                             <a
                                 className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
                                 href="#environment"
                                 data-translate="nav.environment"
                             >
-                                Environment
+                                Environnement
                             </a>
 
                             <a
@@ -58,14 +58,14 @@ export default function NavBar() {
                                 href="#insights"
                                 data-translate="nav.insights"
                             >
-                                Insights
+                                Perspectives
                             </a>
                             <a
                                 className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
                                 href="#team"
                                 data-translate="nav.team"
                             >
-                                Team
+                                Équipe
                             </a>
                             <a
                                 className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"

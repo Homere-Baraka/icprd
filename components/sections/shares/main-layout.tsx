@@ -9,7 +9,7 @@ export default function MainLayout({
     return (
         <div>
             <NavBar />
-            <main className="flex-1 overflow-x-hidden custom-scrollbar">
+            <main className="flex-1 overflow-x-hidden bg-background-dark custom-scrollbar">
                 {children}
             </main>
             <FooterSection />
