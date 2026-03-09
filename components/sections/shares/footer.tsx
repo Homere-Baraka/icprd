@@ -1,4 +1,33 @@
+'use client';
+
+import { useTransition } from 'react';
+import useNotification from '@/hooks/use-taost';
+import { useNewsletterValidation } from '@/hooks/use-validation-form';
+import { subscribeToNewsletter } from '@/actions/subscriber-to-newsletter';
+import LoadingSpinner from '@/components/ui/loading-spinner';
+import { Send } from 'lucide-react';
+
 export default function FooterSection() {
+    const [isPending, startTransition] = useTransition();
+    const { notifyError, notifySuccess } = useNotification();
+
+    const { register, handleSubmit } = useNewsletterValidation();
+
+    const onSubmit = async (data: any) => {
+        startTransition(async () => {
+            const result = await subscribeToNewsletter(data);
+            try {
+                if (result.success) {
+                    notifySuccess(result.message as string);
+                } else {
+                    notifyError(result.error as string);
+                }
+            } catch (error) {
+                notifyError(String(result?.error) || 'Une erreur est survenue');
+            }
+        });
+    };
+
     return (
         <footer className="bg-background-dark text-slate-400 py-20 border-t border-slate-800">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -149,8 +178,13 @@ export default function FooterSection() {
                             Recevez des mises à jour du terrain et nos rapports
                             directement dans votre boîte mail.
                         </p>
-                        <div className="flex gap-2">
+                        <form
+                            method="post"
+                            className="flex gap-2"
+                            onSubmit={handleSubmit(onSubmit)}
+                        >
                             <input
+                                {...register('email')}
                                 data-translate="footer.newsletter.placeholder"
                                 className="bg-slate-900 border-none rounded-xl focus:ring-primary text-sm w-full py-3"
                                 placeholder="Adresse email"
@@ -160,11 +194,9 @@ export default function FooterSection() {
                                 data-translate="footer.newsletter.button"
                                 className="bg-primary text-white px-5 rounded-xl hover:bg-primary/90 transition-colors flex items-center justify-center"
                             >
-                                <span className="material-symbols-outlined">
-                                    send
-                                </span>
+                                {isPending ? <LoadingSpinner /> : <Send />}
                             </button>
-                        </div>
+                        </form>
                     </div>
                 </div>
                 <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em]">

@@ -149,5 +149,11 @@ export const contactMessageSchema = z.object({
         .max(2000, 'Le message ne peut pas dépasser 2000 caractères')
         .trim(),
 });
-
 export type contactMessageInput = z.infer<typeof contactMessageSchema>;
+
+// NEWS LETTER VALIDATION
+export const newsletterSchema = z.object({
+    email: z.string().email('Invalid email address').trim().toLowerCase(),
+    name: z.string().optional().or(z.literal('')),
+});
+export type newsletterFormValues = z.infer<typeof newsletterSchema>;

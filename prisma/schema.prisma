@@ -198,6 +198,8 @@ model Blog {
 
   testimonials Testimonial[]
   contents     BlogContent[]
+  comments     Comment[]
+  likes        Like[]
 
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
@@ -294,4 +296,51 @@ model ContactMessage {
   updatedAt DateTime  @updatedAt
 
   @@map("contactmessage")
+}
+
+
+/// ================
+/// NEWS LETTER
+/// ================
+
+model Newsletter {
+  id        String   @id @default(uuid(7)) @db.Uuid
+  name      String?
+  email     String    @unique
+  
+  comments  Comment[]
+  likes     Like[]
+  
+  createdAt DateTime  @default(now())
+
+  @@map("newsletter")
+}
+
+model Comment {
+  id           String     @id @default(uuid(7)) @db.Uuid
+  content      String     @db.Text
+
+  blogId       String     @db.Uuid
+  blog         Blog       @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  
+  subscriberId String     @db.Uuid
+  subscriber   Newsletter @relation(fields: [subscriberId], references: [id], onDelete: Cascade)
+
+  createdAt    DateTime   @default(now())
+  @@map("comment")
+}
+
+model Like {
+  id           String   @id @default(uuid(7)) @db.Uuid
+
+  blogId       String   @db.Uuid
+  blog         Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  
+  subscriberId String   @db.Uuid
+  subscriber   Newsletter @relation(fields: [subscriberId], references: [id], onDelete: Cascade)
+
+  createdAt    DateTime   @default(now())
+
+  @@unique([blogId, subscriberId])
+  @@map("like")
 }

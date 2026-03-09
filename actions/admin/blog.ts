@@ -103,6 +103,7 @@ export async function getBlogsAction() {
                         },
                     },
                 },
+                contents: true,
             },
         });
 

@@ -47,6 +47,10 @@
     scrollbar-color: var(--card-border);
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 /* SCROLL BAR STYLE */
 
 ::-webkit-scrollbar {
