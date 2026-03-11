@@ -1,4 +1,10 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
+
 export default function CTASection() {
+    const router = useRouter();
+
     return (
         <section id="cta" className="py-20 bg-primary">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -19,6 +25,7 @@ export default function CTASection() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <button
+                        onClick={() => router.push('/donation')}
                         data-translate="cta.button1"
                         className="bg-white text-primary px-10 py-4 rounded-xl font-black text-lg hover:bg-slate-50 transition-all"
                     >

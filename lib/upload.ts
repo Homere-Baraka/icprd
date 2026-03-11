@@ -1,3 +1,17 @@
+export async function uploadTeamImage(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await fetch('/api/upload/team', {
+        method: 'POST',
+        body: formData,
+    });
+
+    if (!response.ok) throw new Error('Error to upload file.');
+
+    return await response.json();
+}
+
 export async function uploadBlogImage(file: File) {
     const formData = new FormData();
     formData.append('file', file);

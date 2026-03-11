@@ -29,7 +29,7 @@ export default function NewsletterSection() {
     };
 
     return (
-        <section className="py-20">
+        <section className="py-20" id="newsletter">
             <div className="max-w-5xl mx-auto px-4 text-white text-center">
                 <div className="p-8 rounded-[2rem] bg-gradient-to-br from-white/[0.05] to-transparent border border-white/10 backdrop-blur-md">
                     <h2 className="text-3xl md:text-4xl font-black mb-4 relative z-10">

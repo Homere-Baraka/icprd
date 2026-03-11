@@ -3,6 +3,7 @@ import { ThemeProvider } from '@/hooks/theme-provider';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth/options';
 import { AuthClientGuard } from '@/components/auth/auth-client-guard';
+import HandleVisiblity from '@/lib/handle-visibility';
 
 export default async function AdminLayout({
     children,
@@ -32,7 +33,10 @@ export default async function AdminLayout({
             // forcedTheme="dark"
         >
             <AuthClientGuard>
-                <div className="min-h-screen">{children}</div>
+                <div className="min-h-screen">
+                    <HandleVisiblity />
+                    {children}
+                </div>
             </AuthClientGuard>
         </ThemeProvider>
     );

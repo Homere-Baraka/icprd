@@ -15,24 +15,6 @@ export default function BlogInfos() {
 
     return (
         <>
-            {/* <nav className="sticky top-0 z-30 bg-background/80 backdrop-blur-md border-y border-card-border/5">
-                <div className="max-w-7xl mx-auto px-4 overflow-x-auto no-scrollbar">
-                    <div className="flex items-center gap-8 py-4 whitespace-nowrap">
-                        {[
-                            'All Stories', 'Health', 'Education', 
-                            'Environment', 'Economy', 'Field Reports',
-                        ].map((cat, i) => (
-                            <button
-                                key={cat}
-                                className={`text-sm font-bold transition-colors hover:text-primary cursor-pointer ${i === 0 ? 'text-primary' : 'text-text-muted'}`}
-                            >
-                                {cat}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-            </nav> */}
-
             <section className="py-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="mb-10 flex items-center justify-between">

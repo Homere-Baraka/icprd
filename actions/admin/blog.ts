@@ -29,11 +29,11 @@ export async function createBlogAction(
     const { title, contents, category, imageUrl, views } = validation.data;
     const publishedAt = actionType === 'publish' ? new Date() : null;
 
-    const teamMember = await prisma.team.findUnique({
-        where: { userId: session.user.id },
+    const user = await prisma.user.findUnique({
+        where: { id: session.user.id },
     });
 
-    if (!teamMember) {
+    if (!user) {
         return {
             success: false,
             error: 'Profil membre introuvable.',
@@ -55,7 +55,7 @@ export async function createBlogAction(
                 publishedAt,
                 order: nextOrder,
                 views,
-                teamId: teamMember.id,
+                userId: user.id,
 
                 contents: {
                     create: [
@@ -93,14 +93,10 @@ export async function getBlogsAction() {
             orderBy: { createdAt: 'desc' },
             include: {
                 author: {
-                    include: {
-                        user: {
-                            select: {
-                                username: true,
-                                first_name: true,
-                                email: true,
-                            },
-                        },
+                    select: {
+                        username: true,
+                        first_name: true,
+                        email: true,
                     },
                 },
                 contents: true,
@@ -144,11 +140,11 @@ export async function updateBlogAction(
         const { title, contents, category, imageUrl, views } = validated.data;
         const publishedAt = actionType === 'publish' ? new Date() : null;
 
-        const teamMember = await prisma.team.findUnique({
-            where: { userId: session.user.id },
+        const user = await prisma.user.findUnique({
+            where: { id: session.user.id },
         });
 
-        if (!teamMember) {
+        if (!user) {
             return {
                 success: false,
                 error: 'Profil membre introuvable.',
@@ -163,7 +159,7 @@ export async function updateBlogAction(
                 imageUrl,
                 publishedAt,
                 views,
-                teamId: teamMember.id,
+                userId: user.id,
 
                 contents: {
                     deleteMany: {},
@@ -197,9 +193,7 @@ export async function getBlogByIdAction(blogId: string) {
         const post = await prisma.blog.findUnique({
             where: { id: blogId },
             include: {
-                author: {
-                    include: { user: true },
-                },
+                author: true,
                 contents: true,
             },
         });
@@ -235,7 +229,10 @@ export async function deleteBlogAction(blogId: string) {
         });
 
         revalidatePath('/admin/blogs');
-        return { success: true, message: 'Blog et fichiers supprimés.' };
+        return {
+            success: true,
+            message: 'Blog et fichiers supprimés.',
+        };
     } catch (error) {
         console.error(error);
         return {

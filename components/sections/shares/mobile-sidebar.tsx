@@ -1,13 +1,46 @@
-export default function MobileSidebar() {
+'use client';
+
+import { useRef, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { X } from 'lucide-react';
+
+export default function MobileSidebar({
+    isOpen,
+    setIsOpen,
+}: {
+    isOpen: boolean;
+    setIsOpen: (val: boolean) => void;
+}) {
+    const router = useRouter();
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node)
+            ) {
+                setIsOpen(false);
+            }
+        };
+        if (isOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+        return () =>
+            document.removeEventListener('mousedown', handleClickOutside);
+    }, [isOpen]);
+
     return (
-        <>
+        <div ref={dropdownRef}>
             <div
                 id="mobile-overlay"
+                onClick={() => setIsOpen(false)}
                 className="fixed inset-0 z-[59] bg-black/50 hidden lg:hidden"
             ></div>
             <div
-                id="mobile-sidebar"
-                className="fixed inset-y-0 right-0 w-64 bg-white dark:bg-[#101322] z-[60] transform translate-x-full transition-transform duration-300 ease-in-out shadow-2xl lg:hidden"
+                className={`fixed inset-y-0 right-0 w-64 bg-white dark:bg-[#101322] z-[60] transform transition-transform duration-300 ease-in-out shadow-2xl lg:hidden ${
+                    isOpen ? 'translate-x-0' : 'translate-x-full'
+                }`}
             >
                 <div className="flex flex-col h-full">
                     <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-800">
@@ -26,53 +59,58 @@ export default function MobileSidebar() {
                             </span>
                         </div>
                         <button
+                            onClick={() => setIsOpen(!isOpen)}
                             id="mobile-menu-close"
                             className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
                             aria-label="Fermer"
                         >
-                            <span className="material-symbols-outlined text-2xl">
-                                close
-                            </span>
+                            <X />
                         </button>
                     </div>
                     <nav className="flex-1 p-6 space-y-4 overflow-y-auto">
                         <a
                             href="#mission"
+                            onClick={() => setIsOpen(false)}
                             className="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
                             data-translate="nav.about"
                         >
-                            About Us
+                            À Propos
                         </a>
                         <a
                             href="#intervention"
+                            onClick={() => setIsOpen(false)}
                             className="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
                             data-translate="nav.what-we-do"
                         >
-                            What we do
+                            Nos Actions
                         </a>
                         <a
                             href="#environment"
+                            onClick={() => setIsOpen(false)}
                             className="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
                             data-translate="nav.environment"
                         >
-                            Environment
+                            Environnement
                         </a>
                         <a
-                            href="#insights"
+                            href="/blogs"
+                            onClick={() => setIsOpen(false)}
                             className="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
                             data-translate="nav.insights"
                         >
-                            Insights
+                            Perspectives
                         </a>
                         <a
                             href="#team"
+                            onClick={() => setIsOpen(false)}
                             className="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
                             data-translate="nav.team"
                         >
-                            Team
+                            Équipe
                         </a>
                         <a
                             href="#contact"
+                            onClick={() => setIsOpen(false)}
                             className="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
                             data-translate="nav.contact"
                         >
@@ -81,6 +119,7 @@ export default function MobileSidebar() {
                     </nav>
                     <div className="p-6 border-t border-slate-200 dark:border-slate-800">
                         <button
+                            onClick={() => router.push('/donation')}
                             className="w-full bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full font-bold text-sm transition-all mb-4 sidebar-link"
                             data-translate="header.donate"
                         >
@@ -92,6 +131,6 @@ export default function MobileSidebar() {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }

@@ -5,7 +5,7 @@ import useNotification from '@/hooks/use-taost';
 import { useNewsletterValidation } from '@/hooks/use-validation-form';
 import { subscribeToNewsletter } from '@/actions/subscriber-to-newsletter';
 import LoadingSpinner from '@/components/ui/loading-spinner';
-import { Send } from 'lucide-react';
+import { Send, Share2, Users } from 'lucide-react';
 
 export default function FooterSection() {
     const [isPending, startTransition] = useTransition();
@@ -57,18 +57,16 @@ export default function FooterSection() {
                             <a
                                 className="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center hover:bg-primary hover:border-primary transition-all text-white"
                                 href="#"
+                                aria-label="Partager"
                             >
-                                <span className="material-symbols-outlined !text-lg">
-                                    share
-                                </span>
+                                <Share2 size={18} />
                             </a>
                             <a
                                 className="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center hover:bg-primary hover:border-primary transition-all text-white"
                                 href="#"
+                                aria-label="Équipe"
                             >
-                                <span className="material-symbols-outlined !text-lg">
-                                    group
-                                </span>
+                                <Users size={18} />
                             </a>
                         </div>
                     </div>
@@ -111,7 +109,7 @@ export default function FooterSection() {
                                 <a
                                     data-translate="footer.org.join"
                                     className="hover:text-primary transition-colors"
-                                    href="#"
+                                    href="#newsletter"
                                 >
                                     Rejoignez-nous
                                 </a>

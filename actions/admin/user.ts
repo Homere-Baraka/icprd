@@ -3,6 +3,7 @@
 import { getServerSession } from 'next-auth';
 import { prisma } from '@/lib/prisma';
 import { authOptions } from '@/lib/auth/options';
+import { teamSchema } from '@/lib/prisma-schema';
 
 export async function getUsersAction() {
     try {
@@ -18,7 +19,7 @@ export async function getUsersAction() {
         console.error('Erreur Fetch:', error);
         return {
             success: false,
-            message: 'Erreur lors de la récupération',
+            error: 'Erreur lors de la récupération',
         };
     }
 }
@@ -42,27 +43,75 @@ export async function getUserByIdAction(userId: string) {
         console.error('Error :', error);
         return {
             success: false,
-            message: 'Error while fetching data',
+            error: 'Error while fetching data',
         };
     }
 }
 
 // TEAMS
-// TEAMS
+export async function createTeamAction(data: unknown) {
+    try {
+        // await requireAdmin();
+
+        const validated = teamSchema.safeParse(data);
+
+        if (!validated.success) {
+            return {
+                success: false,
+                errors: validated.error.flatten().fieldErrors,
+            };
+        }
+
+        const {
+            first_name,
+            last_name,
+            email,
+            image,
+            role,
+            bio,
+            socialLinks,
+            phone,
+        } = validated.data;
+
+        await prisma.team.create({
+            data: {
+                first_name,
+                last_name,
+                email,
+                image,
+                bio,
+                role,
+                socialLinks: socialLinks
+                    ? JSON.parse(JSON.stringify(socialLinks))
+                    : null,
+                phone,
+            },
+        });
+
+        return {
+            success: true,
+            message: 'Team member created successfully',
+        };
+    } catch (error: any) {
+        if (error.code === 'P2002') {
+            return {
+                success: false,
+                error: 'This email is already in use',
+            };
+        }
+
+        console.error('[TEAM_REGISTER_ERROR]', error);
+        return {
+            success: false,
+            error: 'Failed to create team member',
+        };
+    }
+}
+
 export async function getTeamsAction() {
     try {
         const members = await prisma.team.findMany({
             orderBy: { createdAt: 'desc' },
-            include: {
-                user: true,
-                _count: {
-                    select: {
-                        posts: true,
-                        achievements: true,
-                        testimonials: true,
-                    },
-                },
-            },
         });
 
         return {
@@ -83,8 +132,7 @@ export async function getTeamByIdAction(teamId: string) {
         if (!teamId) return null;
 
         const member = await prisma.team.findUnique({
-            where: { userId: teamId },
-            include: { user: true },
+            where: { id: teamId },
         });
         if (!member) {
             return { success: false, message: 'Member not found' };

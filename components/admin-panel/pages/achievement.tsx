@@ -321,11 +321,10 @@ export default function Achievement() {
                                                     <td className="px-6 py-5 text-text-subtle">
                                                         {
                                                             achievement?.author
-                                                                ?.user?.username
+                                                                ?.username
                                                         }{' '}
                                                         {
                                                             achievement?.author
-                                                                ?.user
                                                                 ?.first_name
                                                         }
                                                     </td>

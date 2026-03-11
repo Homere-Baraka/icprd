@@ -29,12 +29,17 @@ model User {
   emailVerified DateTime?
   image         String?
   
-  role          Role   @default(ADMIN)
-  is_active     Boolean @default(true)
+  role          String?   @default("ADMIN")
+  is_active     Boolean   @default(true)
   
-  teams         Team? @relation("UserTeam")
   accounts      Account[]
   sessions      Session[]
+
+  blogs        Blog[]
+  testimonials Testimonial[]
+  achievements Achievement[]
+  gallery      Gallery[]
+  partner      Partner[]
 
   password_resets  PasswordReset? @relation("UserPasswordReset")
 
@@ -43,10 +48,6 @@ model User {
   deleted_at    DateTime?
 
   @@map("user")
-}
-
-enum Role{
-  ADMIN
 }
 
 model Account {
@@ -110,22 +111,16 @@ model PasswordReset {
 /// ================
 
 model Team {
-  id          String   @id @default(uuid(7)) @db.Uuid
+  id            String   @id @default(uuid(7)) @db.Uuid
+  first_name    String?
+  last_name     String?
+  email         String?   @unique
+  image         String?
+  
   role        String?
   bio         String?
-  imageUrl    String?
   socialLinks Json?
   phone      String?
-  date_bith  String?
-
-  userId    String @unique  @db.Uuid
-  user      User   @relation("UserTeam", fields: [userId], references: [id])
-  
-  blogs        Blog[]
-  testimonials Testimonial[]
-  achievements Achievement[]
-  gallery      Gallery[]
-  partner      Partner[]
 
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
@@ -148,8 +143,8 @@ model Achievement {
   status      AchievementStatus @default(PENDING)
   publishedAt DateTime?   @default(now())
 
-  teamId      String @db.Uuid
-  author      Team   @relation(fields: [teamId], references: [id])
+  userId      String @db.Uuid
+  author      User   @relation(fields: [userId], references: [id])
 
   contents     AchievementContent[]
 
@@ -189,8 +184,8 @@ model Blog {
   video       String?
   category    String?
 
-  teamId      String @db.Uuid
-  author      Team   @relation(fields: [teamId], references: [id])
+  userId      String @db.Uuid
+  author      User   @relation(fields: [userId], references: [id])
 
   publishedAt DateTime? @default(now())
   views       Int       @default(0)
@@ -198,8 +193,6 @@ model Blog {
 
   testimonials Testimonial[]
   contents     BlogContent[]
-  comments     Comment[]
-  likes        Like[]
 
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
@@ -243,8 +236,8 @@ model Testimonial {
 
   blogId      String?    @unique  @db.Uuid
   blog        Blog?      @relation(fields: [blogId], references: [id])
-  teamId    String    @unique  @db.Uuid
-  author      Team      @relation(fields: [teamId], references: [id])
+  userId      String @db.Uuid
+  author      User   @relation(fields: [userId], references: [id])
 
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
@@ -259,8 +252,8 @@ model Gallery {
   imageUrl    String
   category    String?
 
-  teamId      String @unique @db.Uuid
-  author      Team   @relation(fields: [teamId], references: [id])
+  userId      String @db.Uuid
+  author      User   @relation(fields: [userId], references: [id])
 
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
@@ -275,8 +268,8 @@ model Partner {
   websiteUrl  String?
   description String?
 
-  teamId      String @unique @db.Uuid
-  author      Team?   @relation(fields: [teamId], references: [id])
+  userId      String @db.Uuid
+  author      User   @relation(fields: [userId], references: [id])
 
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
@@ -308,39 +301,7 @@ model Newsletter {
   name      String?
   email     String    @unique
   
-  comments  Comment[]
-  likes     Like[]
-  
   createdAt DateTime  @default(now())
 
   @@map("newsletter")
-}
-
-model Comment {
-  id           String     @id @default(uuid(7)) @db.Uuid
-  content      String     @db.Text
-
-  blogId       String     @db.Uuid
-  blog         Blog       @relation(fields: [blogId], references: [id], onDelete: Cascade)
-  
-  subscriberId String     @db.Uuid
-  subscriber   Newsletter @relation(fields: [subscriberId], references: [id], onDelete: Cascade)
-
-  createdAt    DateTime   @default(now())
-  @@map("comment")
-}
-
-model Like {
-  id           String   @id @default(uuid(7)) @db.Uuid
-
-  blogId       String   @db.Uuid
-  blog         Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
-  
-  subscriberId String   @db.Uuid
-  subscriber   Newsletter @relation(fields: [subscriberId], references: [id], onDelete: Cascade)
-
-  createdAt    DateTime   @default(now())
-
-  @@unique([blogId, subscriberId])
-  @@map("like")
 }

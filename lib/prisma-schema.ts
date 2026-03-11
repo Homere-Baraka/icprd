@@ -1,9 +1,6 @@
 import { z } from 'zod';
 
 /*====== AUTH SCHEMA =======*/
-
-export const RoleEnum = z.enum(['USER', 'MEMBER', 'ADMIN']);
-
 export const userRegisterSchema = z.object({
     username: z
         .string()
@@ -36,7 +33,6 @@ export const userRegisterSchema = z.object({
         .min(8, 'Mot de passe trop court')
         .regex(/[A-Z]/, 'Au moins une majuscule')
         .regex(/[0-9]/, 'Au moins un chiffre'),
-    role: RoleEnum.default('USER'),
     is_active: z.boolean().default(true),
 });
 export type userRegisterInput = z.infer<typeof userRegisterSchema>;
@@ -57,6 +53,37 @@ export const userLoginSchema = z.object({
         .regex(/[0-9]/, 'Au moins un chiffre'),
 });
 export type userLoginInput = z.infer<typeof userLoginSchema>;
+
+// TEAM VALIDATION
+export const teamSchema = z.object({
+    first_name: z
+        .string()
+        .min(2, 'Le prénom est trop court')
+        .nullable()
+        .optional(),
+
+    last_name: z.string().min(2, 'Le nom est trop court').nullable().optional(),
+
+    email: z.string().email("Format d'email invalide").nullable().optional(),
+
+    image: z.preprocess(
+        (val) => (val === null ? '' : val),
+        z.string().optional().or(z.literal('')),
+    ),
+
+    role: z.string().max(50, 'Le rôle est trop long').nullable().optional(),
+
+    bio: z.string().max(500, 'La bio est trop longue').nullable().optional(),
+
+    socialLinks: z.record(z.string(), z.string().url()).nullable().optional(),
+
+    phone: z
+        .string()
+        .regex(/^\+?[0-9]{10,15}$/, 'Numéro de téléphone invalide')
+        .nullable()
+        .optional(),
+});
+export type teamFormValues = z.infer<typeof teamSchema>;
 
 // BLOG FORM VALIDATION
 export const blogSchema = z.object({

@@ -23,7 +23,16 @@ export async function adminLoginAction(data: unknown) {
         const admin = await prisma.user.findUnique({ where: { email } });
 
         if (!admin) {
-            return { success: false, message: 'Invalid credentials' };
+            return {
+                success: false,
+                message: 'Invalid credentials',
+            };
+        }
+        if (admin.role !== 'ADMIN') {
+            return {
+                success: false,
+                message: 'Access denied. Administrator privileges required.',
+            };
         }
 
         const isValid = await bcrypt.compare(password, admin.password || '');
@@ -35,11 +44,11 @@ export async function adminLoginAction(data: unknown) {
         return {
             success: true,
             message: 'Admin logged in successfully',
-            admin: {
-                id: admin.id,
-                email: admin.email,
-                username: admin.username,
-            },
+            // admin: {
+            //     id: admin.id,
+            //     email: admin.email,
+            //     username: admin.username,
+            // },
         };
     } catch (error) {
         console.error('[ADMIN_LOGIN_ERROR]', error);
