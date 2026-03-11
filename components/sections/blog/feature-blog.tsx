@@ -6,7 +6,7 @@ export default function FeatureBlog() {
             <div className="group relative grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-[#161b33] border border-slate-400/20 rounded-3xl overflow-hidden p-4 lg:p-8 hover:shadow-xl transition-all duration-500">
                 <div className="relative aspect-[16/10] lg:aspect-square overflow-hidden rounded-2xl">
                     <img
-                        src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070"
+                        src="/images/war-child.webp"
                         alt="Featured post"
                         className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                     />

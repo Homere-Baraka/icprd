@@ -85,7 +85,7 @@ export default function BlogDetailPage({
                         </nav>
 
                         <div className="absolute bottom-0 w-full z-10 pb-16">
-                            <div className="max-w-4xl mx-auto px-6">
+                            <div className="max-w-5xl mx-auto px-3">
                                 <span className="inline-block px-4 py-1.5 bg-primary text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-md mb-6 shadow-xl">
                                     {blog.category || 'Information'}
                                 </span>
@@ -101,7 +101,7 @@ export default function BlogDetailPage({
                                             />
                                         </div>
                                         <span className="font-bold text-white">
-                                            {blog?.author?.user?.username ||
+                                            {blog?.author?.username ||
                                                 'Equipe ICPRD'}
                                         </span>
                                     </div>
@@ -151,7 +151,7 @@ export default function BlogDetailPage({
                             </div>
 
                             <div className="mt-20 pt-10 border-t border-white/10 flex flex-wrap gap-3">
-                                {['Impact', 'RDC', blog.category]
+                                {['Impact', blog.category, 'RDC']
                                     .filter(Boolean)
                                     .map((tag) => (
                                         <span
@@ -168,50 +168,62 @@ export default function BlogDetailPage({
             )}
 
             {/* 3. RELATED POSTS */}
-            {otherBlogs && otherBlogs?.length > 0 && (
-                <section className="bg-white/[0.02] py-24 border-t border-white/5">
-                    <div className="max-w-7xl mx-auto px-6">
-                        <div className="flex items-center justify-between mb-12">
-                            <h3 className="text-3xl font-black text-white tracking-tighter italic">
-                                Discover more.
-                            </h3>
-                            <Link
-                                href="/blog"
-                                className="text-primary font-bold text-sm flex items-center gap-2 group"
-                            >
-                                All posts{' '}
-                                <span className="group-hover:translate-x-1 transition-transform">
-                                    →
-                                </span>
-                            </Link>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                            {otherBlogs?.map((item: any) => (
+            {blogsLoading ? (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {[1, 2, 3].map((n) => (
+                        <div
+                            key={n}
+                            className="h-[400px] bg-card-border/5 animate-pulse rounded-2xl"
+                        />
+                    ))}
+                </div>
+            ) : (
+                otherBlogs &&
+                otherBlogs?.length > 0 && (
+                    <section className="bg-white/[0.02] py-24 border-t border-white/5">
+                        <div className="max-w-7xl mx-auto px-6">
+                            <div className="flex items-center justify-between mb-12">
+                                <h3 className="text-3xl font-black text-white tracking-tighter italic">
+                                    Discover more.
+                                </h3>
                                 <Link
-                                    href={`/blogs/${item.id}`}
-                                    key={item.id}
-                                    className="group"
+                                    href="/blog"
+                                    className="text-primary font-bold text-sm flex items-center gap-2 group"
                                 >
-                                    <div className="aspect-[16/10] rounded-2xl overflow-hidden mb-6 border border-white/5 relative">
-                                        <img
-                                            src={item.imageUrl}
-                                            alt={item.title}
-                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                        />
-                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
-                                    </div>
-                                    <h4 className="text-lg font-bold text-white group-hover:text-primary transition-colors line-clamp-2 leading-snug">
-                                        {item.title}
-                                    </h4>
-                                    <p className="mt-3 text-sm text-slate-500 line-clamp-2">
-                                        {getDescription(item.contents)}
-                                    </p>
+                                    All posts{' '}
+                                    <span className="group-hover:translate-x-1 transition-transform">
+                                        →
+                                    </span>
                                 </Link>
-                            ))}
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+                                {otherBlogs?.map((item: any) => (
+                                    <Link
+                                        href={`/blogs/${item.id}`}
+                                        key={item.id}
+                                        className="group"
+                                    >
+                                        <div className="aspect-[16/10] rounded-2xl overflow-hidden mb-6 border border-white/5 relative">
+                                            <img
+                                                src={item.imageUrl}
+                                                alt={item.title}
+                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                            />
+                                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
+                                        </div>
+                                        <h4 className="text-lg font-bold text-white group-hover:text-primary transition-colors line-clamp-2 leading-snug">
+                                            {item.title}
+                                        </h4>
+                                        <p className="mt-3 text-sm text-slate-500 line-clamp-2">
+                                            {getDescription(item.contents)}
+                                        </p>
+                                    </Link>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                )
             )}
 
             <NewsletterSection />

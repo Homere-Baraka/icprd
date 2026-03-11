@@ -40,11 +40,11 @@ export async function createAchievementAction(
 
     const publishedAt = actionType === 'publish' ? new Date() : null;
 
-    const teamMember = await prisma.team.findUnique({
-        where: { userId: session.user.id },
+    const user = await prisma.user.findUnique({
+        where: { id: session.user.id },
     });
 
-    if (!teamMember) {
+    if (!user) {
         return {
             success: false,
             error: 'Profil membre introuvable.',
@@ -70,7 +70,7 @@ export async function createAchievementAction(
                 countries,
                 province,
                 order: nextOrder,
-                teamId: teamMember.id,
+                userId: user.id,
 
                 contents: {
                     create: [
@@ -108,14 +108,10 @@ export async function getAchievementsAction() {
             orderBy: { createdAt: 'desc' },
             include: {
                 author: {
-                    include: {
-                        user: {
-                            select: {
-                                username: true,
-                                first_name: true,
-                                email: true,
-                            },
-                        },
+                    select: {
+                        username: true,
+                        first_name: true,
+                        email: true,
                     },
                 },
             },
@@ -169,11 +165,11 @@ export async function updateAchievementAction(
 
         const publishedAt = actionType === 'publish' ? new Date() : null;
 
-        const teamMember = await prisma.team.findUnique({
-            where: { userId: session.user.id },
+        const user = await prisma.user.findUnique({
+            where: { id: session.user.id },
         });
 
-        if (!teamMember) {
+        if (!user) {
             return {
                 success: false,
                 error: 'Profil membre introuvable.',
@@ -192,7 +188,7 @@ export async function updateAchievementAction(
                 revenue,
                 province,
                 countries,
-                teamId: teamMember.id,
+                userId: user.id,
 
                 contents: {
                     deleteMany: {},
@@ -226,9 +222,7 @@ export async function getAchievementByIdAction(achievementId: string) {
         const achievement = await prisma.achievement.findUnique({
             where: { id: achievementId },
             include: {
-                author: {
-                    include: { user: true },
-                },
+                author: true,
                 contents: true,
             },
         });

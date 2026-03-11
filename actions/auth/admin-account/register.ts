@@ -3,7 +3,6 @@
 import bcrypt from 'bcryptjs';
 import { prisma } from '@/lib/prisma';
 import { userRegisterSchema } from '@/lib/prisma-schema';
-import { requireAdmin } from '@/lib/auth/admin-guard';
 
 export async function adminRegisterAction(data: unknown) {
     try {
@@ -18,34 +17,24 @@ export async function adminRegisterAction(data: unknown) {
             };
         }
 
-        const { username, email, password, role, is_active } = validated.data;
+        const { username, email, password, is_active } = validated.data;
 
         const hashedPassword = password
             ? await bcrypt.hash(password, 10)
             : null;
 
-        const result = await prisma.$transaction(async (tx) => {
-            const newUser = await tx.user.create({
-                data: {
-                    username,
-                    email,
-                    password: hashedPassword,
-                    role,
-                    is_active: is_active ?? true,
-                },
-            });
-
-            const newTeamMember = await tx.team.create({
-                data: { userId: newUser.id },
-            });
-
-            return newUser;
+        const user = await prisma.user.create({
+            data: {
+                username,
+                email,
+                password: hashedPassword,
+                is_active: is_active ?? true,
+            },
         });
 
         return {
             success: true,
             message: 'Account created successfully',
-            admin: { id: result.id, email: result.email },
         };
     } catch (error: any) {
         if (error.code === 'P2002') {

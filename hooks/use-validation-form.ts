@@ -7,6 +7,8 @@ import {
     userLoginSchema,
     userRegisterInput,
     userRegisterSchema,
+    teamSchema,
+    teamFormValues,
     blogSchema,
     blogFormValues,
     achievementFormValues,
@@ -18,7 +20,6 @@ import {
 } from '@/lib/prisma-schema';
 
 /*====== ADMIN AUTH VALIDATION =======*/
-
 export const useUserRegisterValidationForm = () => {
     const form = useForm<userRegisterInput>({
         resolver: zodResolver(userRegisterSchema),
@@ -30,6 +31,15 @@ export const useUserRegisterValidationForm = () => {
 export const useUserLoginValidationForm = () => {
     const form = useForm<userLoginInput>({
         resolver: zodResolver(userLoginSchema),
+    });
+
+    return form;
+};
+
+/*====== TEAM VALIDATION =======*/
+export const useTeamValidationForm = () => {
+    const form = useForm<teamFormValues>({
+        resolver: zodResolver(teamSchema),
     });
 
     return form;
@@ -60,7 +70,7 @@ export const useContactValidation = () => {
     return form;
 };
 
-/*======= CONTACT VALIDATION ======*/
+/*======= NEWSLETTER VALIDATION ======*/
 export const useNewsletterValidation = () => {
     const form = useForm<newsletterFormValues>({
         resolver: zodResolver(newsletterSchema),

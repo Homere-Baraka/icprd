@@ -2,16 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import {
-    Plus,
-    Mail,
-    Github,
-    Linkedin,
-    Twitter,
-    MessageSquare,
-    Award,
-    FileText,
-} from 'lucide-react';
+import { Plus, Mail, Linkedin, Twitter, Youtube, Globe } from 'lucide-react';
 import { useTeamsQuery } from '@/lib/query/user.query';
 import EmptyState from '@/components/ui/empty-state';
 import TeamSkeletton from '@/components/ui/team-skelette';
@@ -62,47 +53,94 @@ export default function Teams() {
                             key={member.id}
                             className="group bg-card rounded-xl border border-card-border shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
                         >
-                            {/* Top Section: Photo & Socials */}
                             <div className="relative p-6 pb-0">
-                                <div className="relative w-32 h-32 mx-auto">
+                                <div className="relative w-28 h-28 mx-auto">
                                     <img
                                         src={
-                                            member?.imageUrl ||
-                                            '/images/user.jpg'
+                                            member?.image || '/images/user.jpg'
                                         }
-                                        alt={`${member.user.username} ${member.user.first_name}`}
-                                        className="w-full h-full object-cover rounded-[2rem] shadow-lg group-hover:scale-105 transition-transform duration-500"
+                                        alt={`${member.first_name} ${member.last_name}`}
+                                        className="w-full h-full object-cover rounded-full shadow-lg group-hover:scale-105 transition-transform duration-500"
                                     />
-                                    <div className="absolute -bottom-2 -right-2 bg-[#2563eb] text-white p-2 rounded-xl shadow-lg">
+                                    <div className="absolute bottom-0 right-2 bg-[#2563eb] text-white p-2 rounded-xl shadow-lg">
                                         <Mail size={16} />
                                     </div>
                                 </div>
 
-                                {/* Social Links Popover (Visible on hover) */}
-                                <div className="flex justify-center gap-3 mt-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    {member?.socialLinks?.github && (
-                                        <button className="p-2 bg-slate-400/20 hover:bg-slate-200 rounded-lg text-slate-600 transition-colors">
-                                            <Github size={18} />
-                                        </button>
-                                    )}
-                                    {member.socialLinks?.linkedin && (
-                                        <button className="p-2 bg-slate-400/20 hover:bg-blue-100 rounded-lg text-blue-600 transition-colors">
-                                            <Linkedin size={18} />
-                                        </button>
-                                    )}
-                                    {member.socialLinks?.twitter && (
-                                        <button className="p-2 bg-slate-400/20 hover:bg-sky-100 rounded-lg text-sky-500 transition-colors">
-                                            <Twitter size={18} />
-                                        </button>
-                                    )}
+                                <div className="flex justify-center gap-3 mt-6 transition-opacity duration-300">
+                                    {member.socialLinks &&
+                                        Object.entries(member.socialLinks).map(
+                                            ([platform, url]) => {
+                                                if (
+                                                    !url ||
+                                                    typeof url !== 'string'
+                                                )
+                                                    return null;
+
+                                                const platformConfig: Record<
+                                                    string,
+                                                    {
+                                                        icon: any;
+                                                        color: string;
+                                                        bg: string;
+                                                    }
+                                                > = {
+                                                    linkedin: {
+                                                        icon: Linkedin,
+                                                        color: 'text-blue-600',
+                                                        bg: 'hover:bg-blue-100',
+                                                    },
+                                                    twitter: {
+                                                        icon: Twitter,
+                                                        color: 'text-sky-500',
+                                                        bg: 'hover:bg-sky-100',
+                                                    },
+                                                    facebook: {
+                                                        icon: Globe,
+                                                        color: 'text-blue-700',
+                                                        bg: 'hover:bg-blue-50',
+                                                    },
+                                                    youtube: {
+                                                        icon: Youtube,
+                                                        color: 'text-red-600',
+                                                        bg: 'hover:bg-red-50',
+                                                    },
+                                                };
+
+                                                const config =
+                                                    platformConfig[
+                                                        platform.toLowerCase()
+                                                    ];
+                                                if (!config) return null;
+
+                                                const Icon = config.icon;
+
+                                                return (
+                                                    <a
+                                                        key={platform}
+                                                        href={
+                                                            url.startsWith(
+                                                                'http',
+                                                            )
+                                                                ? url
+                                                                : `https://${url}`
+                                                        }
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className={`p-2 bg-slate-400/10 ${config.bg} ${config.color} rounded-lg transition-all duration-200 hover:scale-110 shadow-sm`}
+                                                        title={`Visiter ${platform}`}
+                                                    >
+                                                        <Icon size={18} />
+                                                    </a>
+                                                );
+                                            },
+                                        )}
                                 </div>
                             </div>
 
-                            {/* Content Section */}
                             <div className="p-8 pt-4 text-center flex-grow">
                                 <h3 className="text-2xl font-bold text-text-main">
-                                    {member.user.username}{' '}
-                                    {member.user.last_name}
+                                    {member.first_name} {member.last_name}
                                 </h3>
                                 <p className="text-[#2563eb] font-semibold text-sm uppercase tracking-wider mb-4">
                                     {member.role || 'Aucun rôle défini'}
@@ -110,49 +148,7 @@ export default function Teams() {
                                 <p className="text-text-muted text-sm leading-relaxed mb-6">
                                     {member.bio || 'No bio provided yet.'}
                                 </p>
-
-                                {/* Integration Stats (Basé sur ton modèle Prisma) */}
-                                <div className="grid grid-cols-3 gap-2 bg-card-border rounded-xl p-4">
-                                    <div className="flex flex-col items-center">
-                                        <div className="flex items-center gap-1 text-text-main mb-1">
-                                            <FileText size={14} />
-                                            <span className="text-[10px] font-bold uppercase">
-                                                Posts
-                                            </span>
-                                        </div>
-                                        <span className="font-bold text-text-muted">
-                                            {member._count.posts}
-                                        </span>
-                                    </div>
-                                    <div className="flex flex-col items-center border-x border-gray-500">
-                                        <div className="flex items-center gap-1 text-text-main mb-1">
-                                            <MessageSquare size={14} />
-                                            <span className="text-[10px] font-bold uppercase">
-                                                Tips
-                                            </span>
-                                        </div>
-                                        <span className="font-bold text-text-muted">
-                                            {member._count.testimonials}
-                                        </span>
-                                    </div>
-                                    <div className="flex flex-col items-center">
-                                        <div className="flex items-center gap-1 text-text-main mb-1">
-                                            <Award size={14} />
-                                            <span className="text-[10px] font-bold uppercase">
-                                                Wins
-                                            </span>
-                                        </div>
-                                        <span className="font-bold text-text-muted">
-                                            {member._count.achievements}
-                                        </span>
-                                    </div>
-                                </div>
                             </div>
-
-                            {/* Footer Action */}
-                            <button className="w-full py-4 bg-background group-hover:bg-card-border group-hover:text-white transition-colors font-bold text-sm text-text-subtle border-t border-card-border cursor-pointer">
-                                VIEW FULL PROFILE
-                            </button>
                         </div>
                     ))
                 ) : (

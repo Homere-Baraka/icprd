@@ -9,7 +9,7 @@ import Link from 'next/link';
 export default function Dashboard() {
     const [isActionModalOpen, setIsActionModalOpen] = useState(false);
     const [counts, setCounts] = useState({
-        posts: 0,
+        blogs: 0,
         members: 0,
         partners: 0,
         achievements: 0,
@@ -27,7 +27,7 @@ export default function Dashboard() {
     const navigation = [
         {
             label: 'Articles',
-            count: counts.posts,
+            count: counts.blogs,
             link: '/admin/posts',
             color: 'from-blue-500 to-cyan-400',
         },
@@ -101,7 +101,6 @@ export default function Dashboard() {
                                     Voir les détails <ArrowUpRight size={16} />
                                 </Link>
                             </div>
-                            {/* Décoration d'arrière-plan style "Glass" */}
                             <div className="absolute top-[-20%] right-[-10%] w-64 h-64 bg-blue-600/20 blur-[120px] rounded-full"></div>
                         </div>
 

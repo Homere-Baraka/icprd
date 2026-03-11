@@ -19,8 +19,7 @@ export default function DonationPage() {
 
     return (
         <MainLayout>
-            <div className="max-w-4xl mx-auto py-16">
-                {/* HEADER DE LA PAGE */}
+            <div className="max-w-4xl mx-auto py-16 px-4">
                 <div className="text-center mb-16">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-6">
                         <Heart size={14} /> Soutenez l'Impact
@@ -35,9 +34,7 @@ export default function DonationPage() {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
-                    {/* COLONNE GAUCHE : FORMULAIRE */}
                     <div className="lg:col-span-3 space-y-8">
-                        {/* 1. CHOIX DU MONTANT */}
                         <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 backdrop-blur-md">
                             <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
                                 <span className="size-6 rounded-full bg-primary text-white text-xs flex items-center justify-center">
@@ -52,7 +49,7 @@ export default function DonationPage() {
                                         onClick={() => setAmount(amt)}
                                         className={`py-4 rounded-xl font-black transition-all border ${
                                             amount === amt
-                                                ? 'bg-primary border-primary text-white shadow-lg shadow-primary/20'
+                                                ? 'bg-primary border-primary placeholder:text-white'
                                                 : 'bg-white/5 border-white/5 text-slate-400 hover:border-white/20'
                                         }`}
                                     >
@@ -69,12 +66,12 @@ export default function DonationPage() {
                                     placeholder="Autre montant"
                                     value={amount}
                                     onChange={(e) => setAmount(e.target.value)}
-                                    className="w-full pl-10 pr-4 py-4 bg-slate-900 border border-white/10 rounded-2xl outline-none focus:border-primary transition-all font-bold"
+                                    className="w-full pl-10 pr-4 py-4 text-white bg-inherit border border-white/10 rounded-2xl outline-none focus:border-primary transition-all font-bold"
                                 />
                             </div>
                         </div>
 
-                        {/* 2. MÉTHODE DE PAIEMENT */}
+                        {/* MÉTHODE DE PAIEMENT */}
                         <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 backdrop-blur-md">
                             <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
                                 <span className="size-6 rounded-full bg-primary text-white text-xs flex items-center justify-center">
@@ -121,11 +118,11 @@ export default function DonationPage() {
                             {/* CONTENU MOBILE MONEY */}
                             {method === 'mobile' && (
                                 <div className="grid grid-cols-1 gap-4 animate-in fade-in duration-500">
-                                    <button className="flex items-center justify-between p-4 bg-[#ff6600]/10 border border-[#ff6600]/30 rounded-2xl group hover:bg-[#ff6600]/20 transition-all">
+                                    <button className="flex items-center justify-between p-4 border border-[#ff6600]/20 rounded-2xl group hover:bg-[#ff6600]/5 transition-all">
                                         <div className="flex items-center gap-4">
                                             <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center overflow-hidden p-1">
                                                 <img
-                                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Orange_logo.svg/1024px-Orange_logo.svg.png"
+                                                    src="/images/orange-money.webp"
                                                     alt="Orange"
                                                     className="object-contain"
                                                 />
@@ -145,11 +142,11 @@ export default function DonationPage() {
                                         />
                                     </button>
 
-                                    <button className="flex items-center justify-between p-4 bg-[#e11919]/10 border border-[#e11919]/30 rounded-2xl group hover:bg-[#e11919]/20 transition-all">
+                                    <button className="flex items-center justify-between p-4 border border-[#e11919]/20 rounded-2xl group hover:bg-[#e11919]/5 transition-all">
                                         <div className="flex items-center gap-4">
                                             <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center overflow-hidden p-1">
                                                 <img
-                                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Airtel_logo.svg/2560px-Airtel_logo.svg.png"
+                                                    src="/images/airtel-money.webp"
                                                     alt="Airtel"
                                                     className="object-contain"
                                                 />
@@ -173,7 +170,6 @@ export default function DonationPage() {
                         </div>
                     </div>
 
-                    {/* COLONNE DROITE : RÉCAPITULATIF / TRUST */}
                     <div className="lg:col-span-2 space-y-6">
                         <div className="p-8 bg-primary rounded-[2rem] text-white">
                             <h4 className="text-xl font-black mb-4 tracking-tight">

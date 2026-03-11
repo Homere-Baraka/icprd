@@ -5,13 +5,13 @@ import { prisma } from '@/lib/prisma';
 export async function getDashboardStatsAction() {
     try {
         const [
-            postsCount,
+            blogsCount,
             achievementsCount,
             galleryCount,
             partnersCount,
             teamsCount,
         ] = await Promise.all([
-            prisma.post.count(),
+            prisma.blog.count(),
             prisma.achievement.count(),
             prisma.gallery.count(),
             prisma.partner.count(),
@@ -21,7 +21,7 @@ export async function getDashboardStatsAction() {
         return {
             success: true,
             data: {
-                posts: postsCount,
+                blogs: blogsCount,
                 achievements: achievementsCount,
                 gallery: galleryCount,
                 partners: partnersCount,
