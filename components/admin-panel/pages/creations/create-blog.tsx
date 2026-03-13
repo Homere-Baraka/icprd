@@ -110,7 +110,6 @@ export default function CreatePostPage({ blogId }: { blogId?: string }) {
     const processForm = async (data: any, actionType: 'draft' | 'publish') => {
         setIsSubmitting(actionType);
 
-        console.log('content: ', data?.contents);
         try {
             const result =
                 isEditing && blogId
@@ -279,11 +278,14 @@ export default function CreatePostPage({ blogId }: { blogId?: string }) {
 
                         <div className="flex gap-3">
                             <button
-                                type="button"
+                                type="submit"
                                 disabled={!!isSubmitting}
-                                onClick={handleSubmit((data) =>
-                                    processForm(data, 'draft'),
-                                )}
+                                onClick={() => {
+                                    if (isSubmitting) return;
+                                    handleSubmit((data) =>
+                                        processForm(data, 'draft'),
+                                    );
+                                }}
                                 className="flex items-center gap-2 bg-white border border-gray-200 text-gray-700 px-6 py-2 rounded-lg font-bold hover:bg-gray-50"
                             >
                                 {isSubmitting === 'draft' ? (
@@ -295,11 +297,14 @@ export default function CreatePostPage({ blogId }: { blogId?: string }) {
                             </button>
 
                             <button
-                                type="button"
+                                type="submit"
                                 disabled={!!isSubmitting}
-                                onClick={handleSubmit((data) =>
-                                    processForm(data, 'publish'),
-                                )}
+                                onClick={() => {
+                                    if (isSubmitting) return;
+                                    handleSubmit((data) =>
+                                        processForm(data, 'publish'),
+                                    );
+                                }}
                                 className="flex items-center gap-2 bg-primary text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700"
                             >
                                 {isSubmitting === 'publish' ? (

@@ -82,7 +82,7 @@ export default function FooterSection() {
                                 <a
                                     data-translate="footer.org.about"
                                     className="hover:text-primary transition-colors"
-                                    href="#"
+                                    href="/construction"
                                 >
                                     À propos
                                 </a>
@@ -91,7 +91,7 @@ export default function FooterSection() {
                                 <a
                                     data-translate="footer.org.plan"
                                     className="hover:text-primary transition-colors"
-                                    href="#"
+                                    href="/construction"
                                 >
                                     Plan Stratégique
                                 </a>
@@ -100,7 +100,7 @@ export default function FooterSection() {
                                 <a
                                     data-translate="footer.org.reports"
                                     className="hover:text-primary transition-colors"
-                                    href="#"
+                                    href="/construction"
                                 >
                                     Rapports Annuels
                                 </a>
@@ -128,7 +128,7 @@ export default function FooterSection() {
                                 <a
                                     data-translate="footer.legal.privacy"
                                     className="hover:text-primary transition-colors"
-                                    href="#"
+                                    href="/construction"
                                 >
                                     Politique de Confidentialité
                                 </a>
@@ -137,7 +137,7 @@ export default function FooterSection() {
                                 <a
                                     data-translate="footer.legal.charter"
                                     className="hover:text-primary transition-colors"
-                                    href="#"
+                                    href="/construction"
                                 >
                                     Charte des Donateurs
                                 </a>
@@ -146,7 +146,7 @@ export default function FooterSection() {
                                 <a
                                     data-translate="footer.legal.governance"
                                     className="hover:text-primary transition-colors"
-                                    href="#"
+                                    href="/construction"
                                 >
                                     Gouvernance
                                 </a>
@@ -155,7 +155,7 @@ export default function FooterSection() {
                                 <a
                                     data-translate="footer.legal.transparency"
                                     className="hover:text-primary transition-colors"
-                                    href="#"
+                                    href="/construction"
                                 >
                                     Transparence
                                 </a>
@@ -206,14 +206,14 @@ export default function FooterSection() {
                         <a
                             data-translate="footer.tagline1"
                             className="hover:text-primary"
-                            href="#"
+                            href="construction"
                         >
                             La Paix est Possible
                         </a>
                         <a
                             data-translate="footer.tagline2"
                             className="hover:text-primary"
-                            href="#"
+                            href="/construction"
                         >
                             RDC Forte
                         </a>

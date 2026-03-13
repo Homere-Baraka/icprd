@@ -38,16 +38,17 @@ export default function BlogDetailPage({
     const otherBlogs = blogsResponse?.data
         ?.filter(
             (b: any) =>
-                b.id !== resolvedParams.blogId && b.publishedAt === 'PUBLISH',
+                b.id !== resolvedParams.blogId && b.publishedAt !== null,
         )
         .slice(0, 3);
 
-    if (!blog)
+    if (!blog) {
         return (
             <div className="text-white text-center py-20">
                 Article not found.
             </div>
         );
+    }
 
     return (
         <MainLayout>
@@ -186,7 +187,7 @@ export default function BlogDetailPage({
                                 <h3 className="text-3xl font-black text-white tracking-tighter italic">
                                     Discover more.
                                 </h3>
-                                <Link
+                                <a
                                     href="/blog"
                                     className="text-primary font-bold text-sm flex items-center gap-2 group"
                                 >
@@ -194,31 +195,81 @@ export default function BlogDetailPage({
                                     <span className="group-hover:translate-x-1 transition-transform">
                                         →
                                     </span>
-                                </Link>
+                                </a>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                                 {otherBlogs?.map((item: any) => (
-                                    <Link
-                                        href={`/blogs/${item.id}`}
-                                        key={item.id}
-                                        className="group"
+                                    <article
+                                        key={blog.id}
+                                        className="blog-card flex flex-col bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                                     >
-                                        <div className="aspect-[16/10] rounded-2xl overflow-hidden mb-6 border border-white/5 relative">
-                                            <img
-                                                src={item.imageUrl}
-                                                alt={item.title}
-                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                            />
-                                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
-                                        </div>
-                                        <h4 className="text-lg font-bold text-white group-hover:text-primary transition-colors line-clamp-2 leading-snug">
-                                            {item.title}
-                                        </h4>
-                                        <p className="mt-3 text-sm text-slate-500 line-clamp-2">
-                                            {getDescription(item.contents)}
-                                        </p>
-                                    </Link>
+                                        <a href={`/blogs/${blog.id}`}>
+                                            <div className="relative h-60 overflow-hidden">
+                                                <div className="absolute top-4 left-4 z-20">
+                                                    <span className="bg-primary text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg shadow-xl">
+                                                        {blog.category ||
+                                                            'Général'}
+                                                    </span>
+                                                </div>
+                                                <img
+                                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                                    alt={blog.title}
+                                                    src={
+                                                        blog.imageUrl ||
+                                                        '/images/placeholder-blog.jpg'
+                                                    }
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                            </div>
+
+                                            <div className="p-6 flex-1 flex flex-col">
+                                                <h3 className="text-xl font-bold text-white mb-3 line-clamp-2 leading-snug group-hover:text-primary transition-colors">
+                                                    {blog.title}
+                                                </h3>
+
+                                                <p className="text-slate-200 text-sm leading-relaxed mb-6 line-clamp-3">
+                                                    {getDescription(
+                                                        blog.contents,
+                                                    )}
+                                                </p>
+
+                                                <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="size-8 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+                                                            <User size={16} />
+                                                        </div>
+                                                        <div className="flex flex-col">
+                                                            <span className="text-xs font-bold text-white">
+                                                                {blog.author
+                                                                    ?.first_name ||
+                                                                    'Équipe ICPRD'}
+                                                            </span>
+                                                            <span className="text-[10px] text-text-muted">
+                                                                {blog.createdAt &&
+                                                                    formatDistanceToNow(
+                                                                        new Date(
+                                                                            blog.createdAt,
+                                                                        ),
+                                                                        {
+                                                                            addSuffix: true,
+                                                                            locale: fr,
+                                                                        },
+                                                                    )}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex items-center gap-1.5 text-text-muted text-xs font-medium bg-white/5 px-2 py-1 rounded-md">
+                                                        <Eye
+                                                            size={14}
+                                                            className="text-primary"
+                                                        />
+                                                        {blog.views || 0}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </article>
                                 ))}
                             </div>
                         </div>

@@ -378,7 +378,7 @@ export default function CreateAchievement({
 
                         <div className="flex gap-3">
                             <button
-                                type="button"
+                                type="submit"
                                 disabled={!!isSubmitting}
                                 onClick={handleSubmit((data) =>
                                     processForm(data, 'draft'),
@@ -394,7 +394,7 @@ export default function CreateAchievement({
                             </button>
 
                             <button
-                                type="button"
+                                type="submit"
                                 disabled={!!isSubmitting}
                                 onClick={handleSubmit((data) =>
                                     processForm(data, 'publish'),
