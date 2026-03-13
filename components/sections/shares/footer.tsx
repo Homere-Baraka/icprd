@@ -184,7 +184,7 @@ export default function FooterSection() {
                             <input
                                 {...register('email')}
                                 data-translate="footer.newsletter.placeholder"
-                                className="bg-slate-900 border-none rounded-xl focus:ring-primary text-sm w-full py-3"
+                                className="bg-slate-900 border-none rounded-xl focus:ring-primary text-sm w-full p-3"
                                 placeholder="Adresse email"
                                 type="email"
                             />
