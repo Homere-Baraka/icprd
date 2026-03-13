@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { Menu } from 'lucide-react';
+import { Languages, Menu } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Logo from '@/components/ui/logo';
 
@@ -25,25 +25,25 @@ export default function NavBar({ onMenuClick }: any) {
                         <nav className="hidden lg:flex items-center gap-8">
                             <a
                                 className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
-                                href="#mission"
+                                href="/"
                                 data-translate="nav.about"
                             >
-                                À Propos
+                                Accueil
                             </a>
                             <a
                                 className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
-                                href="#intervention"
+                                href="/achievements"
                                 data-translate="nav.what-we-do"
                             >
-                                Nos Actions
+                                Réalisations
                             </a>
-                            <a
+                            {/* <a
                                 className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
                                 href="#environment"
                                 data-translate="nav.environment"
                             >
                                 Environnement
-                            </a>
+                            </a> */}
 
                             <a
                                 className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
@@ -61,6 +61,13 @@ export default function NavBar({ onMenuClick }: any) {
                             </a>
                             <a
                                 className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+                                href="/construction"
+                                data-translate="nav.about"
+                            >
+                                À Propos
+                            </a>
+                            <a
+                                className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
                                 href="#contact"
                                 data-translate="nav.contact"
                             >
@@ -70,9 +77,7 @@ export default function NavBar({ onMenuClick }: any) {
                     </div>
                     <div className="flex items-center gap-4">
                         <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-                            <span className="material-symbols-outlined text-primary !text-lg">
-                                language
-                            </span>
+                            <Languages size={20} color="white" />
                             <button
                                 className="text-xs font-bold text-primary"
                                 data-lang-btn="en"

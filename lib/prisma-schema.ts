@@ -75,7 +75,9 @@ export const teamSchema = z.object({
 
     bio: z.string().max(500, 'La bio est trop longue').nullable().optional(),
 
-    socialLinks: z.record(z.string(), z.string().url()).nullable().optional(),
+    socialLinks: z
+        .record(z.string(), z.string().url().or(z.literal('')))
+        .optional(),
 
     phone: z
         .string()
@@ -120,22 +122,18 @@ export const achievementSchema = z.object({
         .min(4, 'Le titre est trop court (min 4 caractères)')
         .max(100, 'Le titre est trop long (max 100)'),
 
-    date: z.coerce
-        .date()
-        .refine((d) => !isNaN(d.getTime()), {
-            message: 'Veuillez sélectionner une date valide',
-        })
-        .refine((d) => d <= new Date(), {
-            message: 'La date ne peut pas être dans le futur',
-        })
-        .optional()
-        .or(z.literal('')),
-
-    imageUrl: z.preprocess(
-        (val) => (val === null ? '' : val),
-        z.string().optional().or(z.literal('')),
+    date: z.preprocess(
+        (val) => (val === '' || val === null ? undefined : val),
+        z.coerce
+            .date()
+            .refine((d) => !isNaN(d.getTime()), {
+                message: 'Veuillez sélectionner une date valide',
+            })
+            .refine((d) => d <= new Date(), {
+                message: 'La date ne peut pas être dans le futur',
+            })
+            .optional(),
     ),
-
     category: z
         .string()
         .min(1, 'Veuillez choisir une catégorie de votre réalisation')

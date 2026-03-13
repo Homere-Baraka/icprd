@@ -58,6 +58,11 @@ export const usePostValidation = () => {
 export const useAchievementValidation = () => {
     const form = useForm<achievementFormValues>({
         resolver: zodResolver(achievementSchema),
+        defaultValues: {
+            province: 0,
+            revenue: 0.0,
+            countries: 0,
+        },
     });
     return form;
 };
