@@ -58,7 +58,7 @@ export async function createAchievementAction(
     const nextOrder = lastAchievement ? lastAchievement.order + 1 : 1;
 
     try {
-        const achievement = await prisma.achievement.create({
+        await prisma.achievement.create({
             data: {
                 title,
                 date,
@@ -114,6 +114,7 @@ export async function getAchievementsAction() {
                         email: true,
                     },
                 },
+                contents: true,
             },
         });
 

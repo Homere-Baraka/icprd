@@ -86,7 +86,7 @@ export default function BlogDetailPage({
                         </nav>
 
                         <div className="absolute bottom-0 w-full z-10 pb-16">
-                            <div className="max-w-5xl mx-auto px-3">
+                            <div className="max-w-6xl mx-auto px-3">
                                 <span className="inline-block px-4 py-1.5 bg-primary text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-md mb-6 shadow-xl">
                                     {blog.category || 'Information'}
                                 </span>
@@ -135,7 +135,7 @@ export default function BlogDetailPage({
                     </div>
 
                     {/* 2. CONTENT SECTION */}
-                    <section className="relative z-10 max-w-4xl mx-auto px-6 grid grid-cols-1  gap-16 py-20">
+                    <section className="relative z-10 max-w-6xl mx-auto px-6 grid grid-cols-1  gap-16 py-20">
                         <div className="lg:col-span-8">
                             <div className="prose prose-invert prose-lg max-w-none prose-img:max-w-[50%] prose-p:leading-relaxed prose-p:text-slate-300 prose-headings:text-white prose-headings:font-black">
                                 {blog.contents?.map(
