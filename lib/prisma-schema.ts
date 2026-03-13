@@ -134,6 +134,10 @@ export const achievementSchema = z.object({
             })
             .optional(),
     ),
+    imageUrl: z.preprocess(
+        (val) => (val === null ? '' : val),
+        z.string().optional().or(z.literal('')),
+    ),
     category: z
         .string()
         .min(1, 'Veuillez choisir une catégorie de votre réalisation')
