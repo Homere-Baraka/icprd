@@ -6,6 +6,7 @@ import useNotification from '@/hooks/use-taost';
 import { useContactValidation } from '@/hooks/use-validation-form';
 import LoadingSpinner from '@/components/ui/loading-spinner';
 import { createContactAction } from '@/actions/admin/contact';
+import { LocationEdit } from 'lucide-react';
 
 export default function ContactSection() {
     const router = useRouter();
@@ -82,9 +83,7 @@ export default function ContactSection() {
                             </div>
                             <div className="flex items-center gap-6">
                                 <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center border border-white/20">
-                                    <span className="material-symbols-outlined">
-                                        location_on
-                                    </span>
+                                    <LocationEdit/>
                                 </div>
                                 <div>
                                     <p
