@@ -20,13 +20,13 @@ import {
 } from '@/lib/prisma-schema';
 
 /*====== ADMIN AUTH VALIDATION =======*/
-export const useUserRegisterValidationForm = () => {
-    const form = useForm<userRegisterInput>({
-        resolver: zodResolver(userRegisterSchema),
-    });
+// export const useUserRegisterValidationForm = () => {
+//     const form = useForm<userRegisterInput>({
+//         resolver: zodResolver(userRegisterSchema),
+//     });
 
-    return form;
-};
+//     return form;
+// };
 
 export const useUserLoginValidationForm = () => {
     const form = useForm<userLoginInput>({

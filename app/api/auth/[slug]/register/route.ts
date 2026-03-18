@@ -4,10 +4,12 @@ import { prisma } from '@/lib/prisma';
 import { userRegisterSchema } from '@/lib/prisma-schema';
 
 export async function POST(
-    req: Request,
-    { params }: { params: { path: string } },
+  req: Request, 
+  { params }: { params: Promise<{ slug: string }> }
 ) {
-    const isPathValid = params.path === process.env.ADMIN_REGISTER_PATH;
+    const { slug } = await params;
+    
+    const isPathValid = slug === process.env.ADMIN_REGISTER_PATH;
 
     if (!isPathValid) {
         return new NextResponse(null, { status: 404 });
