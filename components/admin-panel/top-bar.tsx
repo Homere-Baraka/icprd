@@ -161,7 +161,7 @@ export default function TopBar() {
                                     </Link> */}
 
                                     <Link
-                                        href="/admin/settings"
+                                        href="#"
                                         className="flex items-center gap-3 px-4 py-2.5 text-sm text-text-main hover:bg-primary/10 hover:text-primary transition-colors"
                                     >
                                         <Settings size={16} /> Paramètres

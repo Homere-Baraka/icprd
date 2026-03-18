@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -20,7 +20,7 @@ datasource db {
 /// ================
 
 model User {
-  id            String   @id @default(uuid(7)) @db.Uuid
+  id            String   @id @default(uuid(7))
   username      String?
   first_name    String?
   last_name     String?
@@ -51,9 +51,10 @@ model User {
 }
 
 model Account {
-  id                String   @id @default(uuid(7)) @db.Uuid
+  id                String   @id @default(uuid(7))
+  userId            String
   user              User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId            String @db.Uuid
+
   type              String
   provider          String
   providerAccountId String
@@ -70,9 +71,10 @@ model Account {
 }
 
 model Session {
-  id            String   @id @default(uuid(7)) @db.Uuid
+  id            String   @id @default(uuid(7))
+  userId        String
   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId        String   @db.Uuid
+  
   sessionToken  String   @unique
   expires       DateTime
 
@@ -94,12 +96,12 @@ model VerificationToken {
 /// ================
 
 model PasswordReset {
-  id        String   @id @default(uuid(7)) @db.Uuid
+  id        String   @id @default(uuid(7))
   token     String
   expiresAt DateTime
   createdAt DateTime @default(now())
 
-  userId    String  @unique  @db.Uuid
+  userId    String  @unique
   user User @relation("UserPasswordReset", fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("password_reset")
@@ -111,7 +113,7 @@ model PasswordReset {
 /// ================
 
 model Team {
-  id            String   @id @default(uuid(7)) @db.Uuid
+  id            String   @id @default(uuid(7))
   first_name    String?
   last_name     String?
   email         String?   @unique
@@ -129,7 +131,7 @@ model Team {
 }
 
 model Achievement {
-  id          String   @id @default(uuid(7)) @db.Uuid
+  id          String   @id @default(uuid(7))
   title       String
   imageUrl    String?
   video       String?
@@ -143,7 +145,7 @@ model Achievement {
   status      AchievementStatus @default(PENDING)
   publishedAt DateTime?   @default(now())
 
-  userId      String @db.Uuid
+  userId      String
   author      User   @relation(fields: [userId], references: [id])
 
   contents     AchievementContent[]
@@ -161,9 +163,9 @@ enum AchievementStatus{
 }
 
 model AchievementContent {
-  id        String      @id @default(uuid()) @db.Uuid
-  achievementId    String      @db.Uuid
-  achievement      Achievement      @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+  id               String       @id @default(uuid())
+  achievementId    String
+  achievement      Achievement  @relation(fields: [achievementId], references: [id], onDelete: Cascade)
   
   type      ContentType
   value     String?      @db.Text
@@ -178,14 +180,14 @@ model AchievementContent {
 }
 
 model Blog {
-  id          String   @id @default(uuid(7)) @db.Uuid
+  id          String   @id @default(uuid(7))
   title       String
   imageUrl    String?
   video       String?
   category    String?
 
-  userId      String @db.Uuid
-  author      User   @relation(fields: [userId], references: [id])
+  userId      String
+  author      User      @relation(fields: [userId], references: [id])
 
   publishedAt DateTime? @default(now())
   views       Int       @default(0)
@@ -201,9 +203,9 @@ model Blog {
 }
 
 model BlogContent {
-  id        String      @id @default(uuid()) @db.Uuid
-  blogId    String      @db.Uuid
-  blog      Blog      @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  id        String      @id @default(uuid())
+  blogId    String
+  blog      Blog        @relation(fields: [blogId], references: [id], onDelete: Cascade)
   
   type      ContentType
   value     String?      @db.Text
@@ -228,15 +230,15 @@ enum ContentType {
 }
 
 model Testimonial {
-  id          String   @id @default(uuid(7)) @db.Uuid
+  id          String   @id @default(uuid(7))
   name        String
   role        String?
   content     String
   imageUrl    String?
 
-  blogId      String?    @unique  @db.Uuid
+  blogId      String?    @unique
   blog        Blog?      @relation(fields: [blogId], references: [id])
-  userId      String @db.Uuid
+  userId      String
   author      User   @relation(fields: [userId], references: [id])
 
   createdAt   DateTime   @default(now())
@@ -246,13 +248,13 @@ model Testimonial {
 }
 
 model Gallery {
-  id          String   @id @default(uuid(7)) @db.Uuid
+  id          String   @id @default(uuid(7))
   title       String?
   description String?
   imageUrl    String
   category    String?
 
-  userId      String @db.Uuid
+  userId      String
   author      User   @relation(fields: [userId], references: [id])
 
   createdAt   DateTime   @default(now())
@@ -262,13 +264,13 @@ model Gallery {
 }
 
 model Partner {
-  id          String   @id @default(uuid(7)) @db.Uuid
+  id          String   @id @default(uuid(7))
   name        String
   logoUrl     String?
   websiteUrl  String?
   description String?
 
-  userId      String @db.Uuid
+  userId      String
   author      User   @relation(fields: [userId], references: [id])
 
   createdAt   DateTime   @default(now())
@@ -278,7 +280,7 @@ model Partner {
 }
 
 model ContactMessage {
-  id        String   @id @default(uuid(7)) @db.Uuid
+  id        String   @id @default(uuid(7))
   name      String
   email     String
   subject   String
@@ -297,7 +299,7 @@ model ContactMessage {
 /// ================
 
 model Newsletter {
-  id        String   @id @default(uuid(7)) @db.Uuid
+  id        String   @id @default(uuid(7))
   name      String?
   email     String    @unique
   

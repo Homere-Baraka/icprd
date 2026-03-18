@@ -161,8 +161,7 @@ export default function PostDetailsAdminPage({
                                             <User size={14} /> Auteur
                                         </span>
                                         <span className="font-bold text-text-main">
-                                            {blogData?.author?.user?.username ||
-                                                'Équipe Admin'}
+                                            {blogData?.author?.username || 'Équipe Admin'}
                                         </span>
                                     </div>
                                     <div className="flex justify-between items-center text-sm">
