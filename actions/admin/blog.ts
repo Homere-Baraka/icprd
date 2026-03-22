@@ -125,7 +125,7 @@ export async function updateBlogAction(
         const session = await getServerSession(authOptions);
 
         if (!session || !session.user) {
-            return { success: false, error: 'Vous devez être connecté.' };
+            return { success: false, error: 'Connexion is required.' };
         }
 
         const validated = blogSchema.safeParse(data);
@@ -212,14 +212,14 @@ export async function getBlogByIdAction(blogId: string) {
 export async function deleteBlogAction(blogId: string) {
     try {
         const session = await getServerSession(authOptions);
-        if (!session) return { success: false, error: 'Non authentifié' };
+        if (!session) return { success: false, error: 'Forbiden' };
 
         const blog = await prisma.blog.findUnique({
             where: { id: blogId },
             include: { contents: true },
         });
 
-        if (!blog) return { success: false, error: 'Blog non trouvé' };
+        if (!blog) return { success: false, error: 'Blog not found' };
 
         const htmlStrings = blog.contents.map((c) => c.value as string);
         await cleanupBlogFiles(blog.imageUrl, htmlStrings);
@@ -231,13 +231,13 @@ export async function deleteBlogAction(blogId: string) {
         revalidatePath('/admin/blogs');
         return {
             success: true,
-            message: 'Blog et fichiers supprimés.',
+            message: 'Blog delete successeffuly.',
         };
     } catch (error) {
         console.error(error);
         return {
             success: false,
-            error: 'Erreur technique lors de la suppression.',
+            error: 'Error while deleting blog.',
         };
     }
 }

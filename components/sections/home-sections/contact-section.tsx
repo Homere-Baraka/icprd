@@ -83,7 +83,7 @@ export default function ContactSection() {
                             </div>
                             <div className="flex items-center gap-6">
                                 <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center border border-white/20">
-                                    <LocationEdit/>
+                                    <LocationEdit />
                                 </div>
                                 <div>
                                     <p

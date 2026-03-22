@@ -1,9 +1,13 @@
 'use server';
 
+import bcrypt from 'bcryptjs';
 import { getServerSession } from 'next-auth';
 import { prisma } from '@/lib/prisma';
 import { authOptions } from '@/lib/auth/options';
 import { teamSchema } from '@/lib/prisma-schema';
+import { revalidatePath } from 'next/cache';
+import { requireAdmin } from '@/lib/auth/admin-guard';
+import { deleteFileFromStorage } from '@/lib/file-helper';
 
 export async function getUsersAction() {
     try {
@@ -108,6 +112,66 @@ export async function createTeamAction(data: unknown) {
     }
 }
 
+export async function updateTeamAction(teamId: string, data: unknown) {
+    try {
+        // await requireAdmin();
+
+        const validated = teamSchema.safeParse(data);
+
+        if (!validated.success) {
+            return {
+                success: false,
+                errors: validated.error.flatten().fieldErrors,
+            };
+        }
+
+        const {
+            first_name,
+            last_name,
+            email,
+            image,
+            role,
+            bio,
+            socialLinks,
+            phone,
+        } = validated.data;
+
+        await prisma.team.update({
+            where: { id: teamId },
+            data: {
+                first_name,
+                last_name,
+                email,
+                image,
+                bio,
+                role,
+                socialLinks: socialLinks
+                    ? JSON.parse(JSON.stringify(socialLinks))
+                    : null,
+                phone,
+            },
+        });
+
+        return {
+            success: true,
+            message: 'Team member updated successfully',
+        };
+    } catch (error: any) {
+        if (error.code === 'P2002') {
+            return {
+                success: false,
+                error: 'This email is already in use',
+            };
+        }
+
+        console.error('[TEAM_UPDATE_ERROR]', error);
+        return {
+            success: false,
+            error: 'Failed to update team member',
+        };
+    }
+}
+
 export async function getTeamsAction() {
     try {
         const members = await prisma.team.findMany({
@@ -147,6 +211,91 @@ export async function getTeamByIdAction(teamId: string) {
         return {
             success: false,
             error: 'Error while fetching data',
+        };
+    }
+}
+
+export async function deleteTeamAction(teamId: string) {
+    await requireAdmin();
+
+    try {
+        const member = await prisma.team.findUnique({
+            where: { id: teamId },
+            select: { image: true },
+        });
+
+        if (!member) {
+            return { success: false, error: 'Membre introuvable.' };
+        }
+
+        if (member?.image) {
+            await deleteFileFromStorage(member.image);
+            console.log('File deleted from storage');
+        }
+
+        await prisma.team.delete({
+            where: { id: teamId },
+        });
+
+        revalidatePath('/admin/teams');
+
+        return {
+            success: true,
+            message: 'Member delete successeffuly.',
+        };
+    } catch (error) {
+        console.error(error);
+        return {
+            success: false,
+            error: 'Error while deleting member.',
+        };
+    }
+}
+
+// ADMIN PROFILE
+export async function updateAdminProfileAction(formData: any) {
+    await requireAdmin();
+
+    try {
+        const session = await getServerSession(authOptions);
+
+        if (!session?.user?.id) {
+            return { success: false, error: 'Forbiden' };
+        }
+
+        const userId = session.user.id;
+        const dataToUpdate: any = { ...formData };
+
+        if (dataToUpdate.password) {
+            const salt = await bcrypt.genSalt(10);
+            dataToUpdate.password = await bcrypt.hash(
+                dataToUpdate.password,
+                salt,
+            );
+        }
+
+        await prisma.user.update({
+            where: { id: userId },
+            data: dataToUpdate,
+        });
+
+        revalidatePath('/settings');
+        revalidatePath('/admin');
+
+        return { success: true, message: 'User updated successfully' };
+    } catch (error: any) {
+        console.error('Prisma Patch Error:', error);
+
+        if (error.code === 'P2002') {
+            return {
+                success: false,
+                error: 'This email or username is already in use.',
+            };
+        }
+
+        return {
+            success: false,
+            error: 'An error occurred while updating the database.',
         };
     }
 }

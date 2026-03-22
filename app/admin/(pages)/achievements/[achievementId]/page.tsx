@@ -167,7 +167,8 @@ export default function AchievementDetailsAdminPage({
                                             <User size={14} /> Auteur
                                         </span>
                                         <span className="font-bold text-text-main">
-                                            {achievementData?.author?.username || 'Équipe Admin'}
+                                            {achievementData?.author
+                                                ?.username || 'Équipe Admin'}
                                         </span>
                                     </div>
                                     <div className="flex justify-between items-center text-sm">

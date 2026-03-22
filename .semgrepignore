@@ -1,0 +1,17 @@
+# Ignorer les dépendances
+node_modules/
+venv/
+.env
+.local.env
+
+# Ignorer les dossiers de build et de cache
+.next/
+dist/
+__pycache__/
+
+# Ignorer les fichiers de test (si vous ne voulez pas les scanner)
+tests/**/*.py
+*.test.js
+
+# Ignorer des fichiers spécifiques
+config/secrets.json

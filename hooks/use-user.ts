@@ -12,6 +12,8 @@ export const useUser = () => {
         id: user?.id,
         name: user?.name,
         email: user?.email,
+        first_name: user?.first_name,
+        last_name: user?.last_name,
         image: user?.image,
         role: user?.role,
         isLoading,

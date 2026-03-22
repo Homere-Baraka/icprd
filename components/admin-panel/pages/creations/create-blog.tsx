@@ -146,7 +146,9 @@ export default function CreatePostPage({ blogId }: { blogId?: string }) {
             ) : (
                 <div className="max-w-5xl mx-auto p-10">
                     <form
-                        onSubmit={handleSubmit((data) => processForm(data, actionType))}
+                        onSubmit={handleSubmit((data) =>
+                            processForm(data, actionType),
+                        )}
                         className="space-y-8"
                     >
                         <header className="flex justify-between items-center">
@@ -281,7 +283,7 @@ export default function CreatePostPage({ blogId }: { blogId?: string }) {
                             <button
                                 type="submit"
                                 disabled={!!isSubmitting}
-                                onClick={()=> setActionType('draft')}
+                                onClick={() => setActionType('draft')}
                                 className="flex items-center gap-2 bg-white border border-gray-200 text-gray-700 px-6 py-2 rounded-lg font-bold hover:bg-gray-50"
                             >
                                 {isSubmitting === 'draft' ? (
@@ -295,7 +297,7 @@ export default function CreatePostPage({ blogId }: { blogId?: string }) {
                             <button
                                 type="submit"
                                 disabled={!!isSubmitting}
-                                onClick={()=> setActionType('publish')}
+                                onClick={() => setActionType('publish')}
                                 className="flex items-center gap-2 bg-primary text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700"
                             >
                                 {isSubmitting === 'publish' ? (

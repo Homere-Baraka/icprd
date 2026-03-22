@@ -24,7 +24,7 @@ import { deleteBlogAction } from '@/actions/admin/blog';
 import useNotification from '@/hooks/use-taost';
 import DeleteConfirmModal from '@/components/ui/delete-confirm-modal';
 
-export default function PostDetailsAdminPage({
+export default function BlogDetailsAdminPage({
     params,
 }: {
     params: Promise<{ blogId: string }>;
@@ -161,7 +161,8 @@ export default function PostDetailsAdminPage({
                                             <User size={14} /> Auteur
                                         </span>
                                         <span className="font-bold text-text-main">
-                                            {blogData?.author?.username || 'Équipe Admin'}
+                                            {blogData?.author?.username ||
+                                                'Équipe Admin'}
                                         </span>
                                     </div>
                                     <div className="flex justify-between items-center text-sm">

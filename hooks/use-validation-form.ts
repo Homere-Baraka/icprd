@@ -1,12 +1,12 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { useForm, Resolver } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
     userLoginInput,
     userLoginSchema,
-    userRegisterInput,
-    userRegisterSchema,
+    updateProfileFormValues,
+    profilePatchSchema,
     teamSchema,
     teamFormValues,
     blogSchema,
@@ -19,14 +19,16 @@ import {
     newsletterSchema,
 } from '@/lib/prisma-schema';
 
-/*====== ADMIN AUTH VALIDATION =======*/
-// export const useUserRegisterValidationForm = () => {
-//     const form = useForm<userRegisterInput>({
-//         resolver: zodResolver(userRegisterSchema),
-//     });
+/*====== ADMIN SETTING VALIDATION =======*/
+export const useProfileValidationForm = () => {
+    const form = useForm<updateProfileFormValues>({
+        resolver: zodResolver(
+            profilePatchSchema,
+        ) as unknown as Resolver<updateProfileFormValues>,
+    });
 
-//     return form;
-// };
+    return form;
+};
 
 export const useUserLoginValidationForm = () => {
     const form = useForm<userLoginInput>({
@@ -39,7 +41,9 @@ export const useUserLoginValidationForm = () => {
 /*====== TEAM VALIDATION =======*/
 export const useTeamValidationForm = () => {
     const form = useForm<teamFormValues>({
-        resolver: zodResolver(teamSchema),
+        resolver: zodResolver(
+            teamSchema,
+        ) as unknown as Resolver<teamFormValues>,
     });
 
     return form;
@@ -48,7 +52,9 @@ export const useTeamValidationForm = () => {
 /*====== POST VALIDATION =======*/
 export const usePostValidation = () => {
     const form = useForm<blogFormValues>({
-        resolver: zodResolver(blogSchema),
+        resolver: zodResolver(
+            blogSchema,
+        ) as unknown as Resolver<blogFormValues>,
     });
 
     return form;
@@ -57,7 +63,9 @@ export const usePostValidation = () => {
 /*====== ACHIEVEMENT VALIDATION =======*/
 export const useAchievementValidation = () => {
     const form = useForm<achievementFormValues>({
-        resolver: zodResolver(achievementSchema),
+        resolver: zodResolver(
+            achievementSchema,
+        ) as unknown as Resolver<achievementFormValues>,
         defaultValues: {
             province: 0,
             revenue: 0.0,

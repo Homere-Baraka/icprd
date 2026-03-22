@@ -1,6 +1,13 @@
 'use client';
 
-import { Eye, User, Calendar, Calendar1, CheckCircle2, Clock } from 'lucide-react';
+import {
+    Eye,
+    User,
+    Calendar,
+    Calendar1,
+    CheckCircle2,
+    Clock,
+} from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { useAchievementsQuery } from '@/lib/query/query';
@@ -66,15 +73,26 @@ export default function AchievementInfos() {
                                                 </span>
                                                 <p
                                                     data-translate="achievement1.status"
-                                                    className={
-                                                        `text-white text-xs font-bold flex items-center gap-1.5
-                                                        ${achievement.status === 'FINISHED' 
-                                                            ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' 
-                                                            : 'bg-amber-500/10 border-amber-500/20 text-amber-400'
+                                                    className={`text-white text-xs font-bold flex items-center gap-1.5
+                                                        ${
+                                                            achievement.status ===
+                                                            'FINISHED'
+                                                                ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
+                                                                : 'bg-amber-500/10 border-amber-500/20 text-amber-400'
                                                         }`}
                                                 >
-                                                    {achievement.status === 'FINISHED' ? <CheckCircle2 size={12}/> : <Clock size={12}/>}
-                                                    {achievement.status === 'FINISHED' ? 'Terminé' : 'En cours'}
+                                                    {achievement.status ===
+                                                    'FINISHED' ? (
+                                                        <CheckCircle2
+                                                            size={12}
+                                                        />
+                                                    ) : (
+                                                        <Clock size={12} />
+                                                    )}
+                                                    {achievement.status ===
+                                                    'FINISHED'
+                                                        ? 'Terminé'
+                                                        : 'En cours'}
                                                 </p>
                                             </div>
                                         </div>
