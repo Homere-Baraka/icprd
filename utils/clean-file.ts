@@ -11,44 +11,55 @@ export async function cleanupBlogFiles(
     coverUrl?: string | null,
     htmlContents: string[] = [],
 ) {
-    const filesToDelete: string[] = [];
+    const filesToDelete = new Set<string>();
 
     if (coverUrl && coverUrl.startsWith('/uploads/')) {
-        filesToDelete.push(coverUrl);
+        filesToDelete.add(coverUrl);
     }
 
-    // Extraction des images du contenu (blog-content)
     const imgRegex = /<img[^>]+src="([^">]+)"/g;
     htmlContents.forEach((html) => {
         let match;
         while ((match = imgRegex.exec(html)) !== null) {
             const src = match[1];
             if (src.startsWith('/uploads/')) {
-                filesToDelete.push(src);
+                filesToDelete.add(src);
             }
         }
     });
 
     const results = await Promise.allSettled(
-        filesToDelete.map(async (fileUrl) => {
+        Array.from(filesToDelete).map(async (fileUrl) => {
             const relativePath = fileUrl.startsWith('/')
                 ? fileUrl.substring(1)
                 : fileUrl;
+
+            const cleanRelativePath = path
+                .normalize(relativePath)
+                .replace(/^(\.\.(\/|\\|$))+/, '');
+
             const absolutePath = path.join(
                 process.cwd(),
                 'public',
-                relativePath,
+                cleanRelativePath,
             );
+
+            const publicPath = path.join(process.cwd(), 'public');
+            if (!absolutePath.startsWith(publicPath)) {
+                console.error('DELETING_PATH_ERROR :', relativePath);
+                return;
+            }
 
             try {
                 await fs.unlink(absolutePath);
-                console.log(`✅ Supprimé : ${relativePath}`);
+                console.log(`Deleted : ${relativePath}`);
             } catch (err: any) {
                 if (err.code === 'ENOENT') {
-                    console.warn(`Fichier déjà absent : ${relativePath}`);
+                    console.warn("File doesn't exist : ", relativePath);
                 } else {
                     console.error(
-                        `Erreur suppression ${relativePath} :`,
+                        'Deletion error  :',
+                        relativePath,
                         err.message,
                     );
                 }

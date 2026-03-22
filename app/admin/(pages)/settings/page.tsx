@@ -1,10 +1,10 @@
 import MainLayout from '@/components/admin-panel/main-layout';
-import Blogs from '@/components/admin-panel/pages/blog';
+import Setting from '@/components/admin-panel/pages/settings';
 
-export default function BlogPage() {
+export default function SettingPage() {
     return (
         <MainLayout>
-            <Blogs />
+            <Setting />
         </MainLayout>
     );
 }

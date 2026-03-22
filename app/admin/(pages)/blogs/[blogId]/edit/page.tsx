@@ -1,14 +1,12 @@
 import MainLayout from '@/components/admin-panel/main-layout';
 import CreatePost from '@/components/admin-panel/pages/creations/create-blog';
 
-export default async function PostUpdatePage({
+export default async function BlogUpdatePage({
     params,
 }: {
     params: Promise<{ blogId: string }>;
 }) {
     const { blogId } = await params;
-
-    console.log('postId: ', blogId);
 
     return (
         <MainLayout>

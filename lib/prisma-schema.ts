@@ -54,6 +54,51 @@ export const userLoginSchema = z.object({
 });
 export type userLoginInput = z.infer<typeof userLoginSchema>;
 
+// SETTING VALIDATION
+export const profilePatchSchema = z
+    .object({
+        username: z
+            .string()
+            .min(3, 'Trop court')
+            .max(20)
+            .regex(/^[a-zA-Z0-9_]+$/)
+            .optional()
+            .or(z.literal('')),
+
+        first_name: z.string().max(50).optional().or(z.literal('')),
+
+        last_name: z.string().max(50).optional().or(z.literal('')),
+
+        email: z.string().email('Format invalide').optional().or(z.literal('')),
+
+        image: z.preprocess(
+            (val) => (val === null ? '' : val),
+            z.string().optional().or(z.literal('')),
+        ),
+
+        password: z
+            .string()
+            .min(8, 'Le mot de passe doit faire au moins 8 caractères')
+            .optional()
+            .or(z.literal('')),
+
+        confirmPassword: z.string().optional().or(z.literal('')),
+    })
+    .refine(
+        (data) => {
+            if (data.password || data.confirmPassword) {
+                return data.password === data.confirmPassword;
+            }
+            return true;
+        },
+        {
+            message: 'Les mots de passe ne correspondent pas',
+            path: ['confirmPassword'],
+        },
+    );
+// export const updateProfileSchema = profilePatchSchema.partial();
+export type updateProfileFormValues = z.infer<typeof profilePatchSchema>;
+
 // TEAM VALIDATION
 export const teamSchema = z.object({
     first_name: z
