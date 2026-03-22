@@ -1,6 +1,6 @@
 'use client';
 
-import { Mail, Share2 } from 'lucide-react';
+import { Mail, Share2, Linkedin, Twitter, Globe } from 'lucide-react';
 import { useTeamsQuery } from '@/lib/query/user.query';
 import ErrorState from '@/components/ui/error-state';
 
@@ -82,21 +82,60 @@ export default function TeamSection() {
                                 >
                                     {member.role}
                                 </p>
-                                <div className="flex gap-4 opacity-40 group-hover:opacity-100 transition-opacity">
-                                    <a
-                                        className="text-slate-600 dark:text-slate-300 hover:text-primary"
-                                        href="#"
-                                    >
-                                        <Share2 />
-                                    </a>
-                                    <a
-                                        className="text-slate-600 dark:text-slate-300 hover:text-primary"
-                                        href={`mailto:${member.email}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        <Mail />
-                                    </a>
+                                <div className="flex justify-center gap-4 opacity-40 group-hover:opacity-100 transition-opacity">
+                                    {member.socialLinks &&
+                                        Object.entries(member.socialLinks).map(
+                                            ([platform, url]) => {
+                                                if (
+                                                    !url ||
+                                                    typeof url !== 'string'
+                                                )
+                                                    return null;
+
+                                                const platformConfig: any = {
+                                                    linkedin: {
+                                                        icon: Linkedin,
+                                                        color: 'text-blue-600',
+                                                        bg: 'hover:bg-blue-100',
+                                                    },
+                                                    twitter: {
+                                                        icon: Twitter,
+                                                        color: 'text-sky-500',
+                                                        bg: 'hover:bg-sky-100',
+                                                    },
+                                                    facebook: {
+                                                        icon: Globe,
+                                                        color: 'text-blue-700',
+                                                        bg: 'hover:bg-blue-50',
+                                                    },
+                                                };
+
+                                                const config =
+                                                    platformConfig[
+                                                        platform.toLowerCase()
+                                                    ];
+                                                if (!config) return null;
+                                                const Icon = config.icon;
+
+                                                return (
+                                                    <a
+                                                        key={platform}
+                                                        href={
+                                                            url.startsWith(
+                                                                'http',
+                                                            )
+                                                                ? url
+                                                                : `https://${url}`
+                                                        }
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className={`p-2 bg-slate-400/10 ${config.bg} ${config.color} rounded-lg transition-all duration-200 hover:scale-110 shadow-sm`}
+                                                    >
+                                                        <Icon size={18} />
+                                                    </a>
+                                                );
+                                            },
+                                        )}
                                 </div>
                             </div>
                         ))
