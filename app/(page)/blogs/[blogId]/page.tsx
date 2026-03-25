@@ -28,6 +28,7 @@ export default function BlogDetailPage({
     params: Promise<{ blogId: string }>;
 }) {
     const resolvedParams = use(params);
+
     const router = useRouter();
     const { data: blogResponse, isLoading: blogLoading } = useBlogQuery(
         resolvedParams.blogId,
@@ -42,17 +43,9 @@ export default function BlogDetailPage({
         )
         .slice(0, 3);
 
-    if (!blog) {
-        return (
-            <div className="text-white text-center py-20">
-                Article not found.
-            </div>
-        );
-    }
-
     return (
         <MainLayout>
-            {blogLoading ? (
+            {blogLoading && !blog ? (
                 <div className="min-h-screen bg-slate-950 flex items-center justify-center">
                     <LoadingSpinner />
                 </div>

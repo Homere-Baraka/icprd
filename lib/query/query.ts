@@ -23,13 +23,22 @@ export function useBlogsQuery() {
     });
 }
 
-export function useBlogQuery(postId: string) {
+export function useBlogQuery(blogId: string) {
     return useQuery({
-        queryKey: ['post'],
-        queryFn: () => getBlogByIdAction(postId),
+        queryKey: ['blog', blogId],
+        queryFn: async () => {
+            const res = await fetch(`/api/blog/${blogId}`);
+
+            if (!res.ok) {
+                throw new Error('Failed to fetch blog');
+            }
+
+            const data = await res.json();
+
+            return data;
+        },
         retry: 3,
         staleTime: 0,
-        refetchInterval: 1000 * 10,
         refetchIntervalInBackground: false,
     });
 }

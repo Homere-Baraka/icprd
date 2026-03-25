@@ -6,6 +6,7 @@ import { authOptions } from '@/lib/auth/options';
 import { getServerSession } from 'next-auth';
 import { blogSchema } from '@/lib/prisma-schema';
 import { cleanupBlogFiles } from '@/utils/clean-file';
+import { getFingerprint } from '@/utils/fingerprint';
 
 export async function createBlogAction(
     data: unknown,
@@ -188,9 +189,11 @@ export async function updateBlogAction(
     }
 }
 
-export async function getBlogByIdAction(blogId: string) {
+export async function getBlogByIdAction(req: Request, blogId: string) {
     try {
-        const post = await prisma.blog.findUnique({
+        const fingerprint = getFingerprint(req);
+
+        const blog = await prisma.blog.findUnique({
             where: { id: blogId },
             include: {
                 author: true,
@@ -198,11 +201,38 @@ export async function getBlogByIdAction(blogId: string) {
             },
         });
 
-        if (!post) {
+        if (!blog) {
             return { success: false, message: 'Post not found' };
         }
 
-        return { success: true, data: post };
+        let fingerprints: string[] = [];
+
+        if (Array.isArray(blog.fingerprint)) {
+            fingerprints = blog.fingerprint as any;
+        } else if (typeof blog.fingerprint === 'string') {
+            try {
+                fingerprints = JSON.parse(blog.fingerprint);
+            } catch {
+                fingerprints = [];
+            }
+        }
+
+        const alreadyViewed = fingerprints.includes(fingerprint);
+
+        console.log('BlogViewd fingerprint : ', blog.fingerprint);
+        console.log('alreadyViewed : ', alreadyViewed);
+
+        if (!alreadyViewed) {
+            await prisma.blog.update({
+                where: { id: blogId },
+                data: {
+                    views: { increment: 1 },
+                    fingerprint: JSON.stringify([...fingerprints, fingerprint]),
+                },
+            });
+        }
+
+        return { success: true, data: blog };
     } catch (error) {
         console.error('[POST_GET_ACTION]', error);
         return { success: false, message: 'Error while fetching data.' };

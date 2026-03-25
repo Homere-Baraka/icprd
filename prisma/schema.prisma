@@ -190,6 +190,7 @@ model Blog {
   author      User      @relation(fields: [userId], references: [id])
 
   publishedAt DateTime? @default(now())
+  fingerprint  Json    @default("[]")
   views       Int       @default(0)
   order       Int       @default(0)
 

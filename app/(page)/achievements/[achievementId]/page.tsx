@@ -92,28 +92,6 @@ export default function AchievementDetailPage({
 
                         <div className="absolute bottom-0 w-full z-10 pb-16">
                             <div className="max-w-6xl mx-auto px-6">
-                                <div className="flex items-center gap-3 mb-6">
-                                    <span className="inline-block px-4 py-1.5 bg-primary text-white text-[10px] font-black uppercase tracking-widest rounded-md shadow-xl">
-                                        {achievement.category ||
-                                            'Impact Social'}
-                                    </span>
-                                    <span
-                                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[10px] font-black uppercase tracking-widest border ${
-                                            achievement.status === 'FINISHED'
-                                                ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
-                                                : 'bg-amber-500/10 border-amber-500/20 text-amber-400'
-                                        }`}
-                                    >
-                                        {achievement.status === 'FINISHED' ? (
-                                            <CheckCircle2 size={12} />
-                                        ) : (
-                                            <Clock size={12} />
-                                        )}
-                                        {achievement.status === 'FINISHED'
-                                            ? 'Terminé'
-                                            : 'En cours'}
-                                    </span>
-                                </div>
                                 <h1 className="text-4xl md:text-7xl font-black text-white leading-[1] mb-8 tracking-tighter max-w-4xl">
                                     {achievement.title}
                                 </h1>
