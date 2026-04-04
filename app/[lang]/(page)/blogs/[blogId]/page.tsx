@@ -55,7 +55,7 @@ export default function BlogDetailPage({
                         <div className="absolute inset-0 z-0">
                             <img
                                 src={blog?.imageUrl || 'images/user.png'}
-                                alt={blog.title}
+                                alt={blog?.title}
                                 className="w-full h-full object-cover"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />

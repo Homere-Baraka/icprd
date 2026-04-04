@@ -45,17 +45,9 @@ export default function AchievementDetailPage({
         )
         .slice(0, 3);
 
-    if (!achievement) {
-        return (
-            <div className="text-white text-center py-20 font-black">
-                Réalisation introuvable.
-            </div>
-        );
-    }
-
     return (
         <MainLayout>
-            {achievementLoading ? (
+            {achievementLoading && !achievement ? (
                 <div className="min-h-screen bg-slate-950 flex items-center justify-center">
                     <LoadingSpinner />
                 </div>
@@ -67,7 +59,7 @@ export default function AchievementDetailPage({
                                 src={
                                     achievement?.imageUrl || '/images/user.png'
                                 }
-                                alt={achievement.title}
+                                alt={achievement?.title}
                                 className="w-full h-full object-cover"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
@@ -93,7 +85,7 @@ export default function AchievementDetailPage({
                         <div className="absolute bottom-0 w-full z-10 pb-16">
                             <div className="max-w-6xl mx-auto px-6">
                                 <h1 className="text-4xl md:text-7xl font-black text-white leading-[1] mb-8 tracking-tighter max-w-4xl">
-                                    {achievement.title}
+                                    {achievement?.title}
                                 </h1>
                                 <div className="flex flex-wrap items-center gap-6 text-sm text-slate-300">
                                     <div className="flex items-center gap-3">
@@ -108,7 +100,7 @@ export default function AchievementDetailPage({
                                                 'Équipe ICPRD'}
                                         </span>
                                     </div>
-                                    {achievement.date && (
+                                    {achievement?.date && (
                                         <div className="flex items-center gap-2">
                                             <Calendar
                                                 size={18}
@@ -128,49 +120,9 @@ export default function AchievementDetailPage({
                         </div>
                     </div>
 
-                    <section className="relative z-20 -mt-10 max-w-6xl mx-auto px-6">
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div className="bg-slate-900/80 border border-white/10 p-6 rounded-3xl backdrop-blur-xl shadow-2xl">
-                                <DollarSign
-                                    className="text-primary mb-3"
-                                    size={24}
-                                />
-                                <p className="text-2xl font-black text-white leading-none">
-                                    {achievement.revenue
-                                        ? `${achievement.revenue.toLocaleString()} $`
-                                        : '0 $'}
-                                </p>
-                                <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mt-2">
-                                    Budget Investi
-                                </p>
-                            </div>
-                            <div className="bg-slate-900/80 border border-white/10 p-6 rounded-3xl backdrop-blur-xl shadow-2xl">
-                                <Map className="text-primary mb-3" size={24} />
-                                <p className="text-2xl font-black text-white leading-none">
-                                    {achievement.province || '0'}
-                                </p>
-                                <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mt-2">
-                                    Provinces
-                                </p>
-                            </div>
-                            <div className="bg-slate-900/80 border border-white/10 p-6 rounded-3xl backdrop-blur-xl shadow-2xl">
-                                <Globe
-                                    className="text-primary mb-3"
-                                    size={24}
-                                />
-                                <p className="text-2xl font-black text-white leading-none">
-                                    {achievement.countries || '0'}
-                                </p>
-                                <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mt-2">
-                                    Pays touchés
-                                </p>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section className="max-w-6xl mx-auto px-6 py-24">
+                    <section className="max-w-6xl mx-auto px-6 pt-10 pb-24">
                         <div className="prose prose-invert prose-lg max-w-none prose-img:rounded-3xl prose-p:text-slate-300 prose-headings:text-white prose-headings:font-black">
-                            {Array.isArray(achievement.contents) ? (
+                            {Array.isArray(achievement?.contents) ? (
                                 achievement.contents.map(
                                     (content: any, index: number) => (
                                         <div
@@ -185,7 +137,7 @@ export default function AchievementDetailPage({
                             ) : (
                                 <div
                                     dangerouslySetInnerHTML={{
-                                        __html: achievement.contents,
+                                        __html: achievement?.contents,
                                     }}
                                 />
                             )}
@@ -199,7 +151,7 @@ export default function AchievementDetailPage({
                                 #RDC
                             </span>
                             <span className="px-5 py-2 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black text-slate-400 uppercase">
-                                #{achievement.category}
+                                #{achievement?.category}
                             </span>
                         </div>
                     </section>

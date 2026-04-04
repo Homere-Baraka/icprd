@@ -131,6 +131,41 @@ export async function getAchievementsAction() {
     }
 }
 
+export async function getAchievementHeadlineAction() {
+    try {
+        const fifteenDaysAgo = new Date();
+        fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 15);
+
+        const achievement = await prisma.achievement.findFirst({
+            orderBy: { createdAt: 'desc' },
+            where: {
+                createdAt: { gte: fifteenDaysAgo },
+            },
+            include: {
+                author: {
+                    select: {
+                        username: true,
+                        first_name: true,
+                        email: true,
+                    },
+                },
+                contents: true,
+            },
+        });
+
+        return {
+            success: true,
+            data: achievement,
+        };
+    } catch (error) {
+        console.error('[ACHIEVEMENT_HEADLINE_ERROR]:', error);
+        return {
+            success: false,
+            error: 'Error while fetching data.',
+        };
+    }
+}
+
 export async function updateAchievementAction(
     achievementId: string,
     data: unknown,

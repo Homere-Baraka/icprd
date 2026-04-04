@@ -1,0 +1,213 @@
+{
+    "nav": {
+        "home": "Accueil",
+        "achievements": "Réalisations",
+        "news": "Actualités",
+        "team": "Équipe",
+        "about": "À Propos",
+        "contact": "Contact",
+        "donate": "Faire un don"
+    },
+
+    "hero": {
+        "badge": "Depuis 2004 • Focus RDC",
+        "title": "Construction d'une Paix et d'une Stabilité",
+        "titleAccent": "Durables",
+        "subtitle": "L'Initiative Chrétienne pour la Paix, la Réconciliation et le Développement (ICPRD) œuvre pour autonomiser les communautés locales et favoriser l'harmonie régionale par le dialogue et le développement durable.",
+        "button1": "S'impliquer",
+        "button2": "Notre Plan Stratégique"
+    },
+
+    "stats": {
+        "combatants": "Combattants Désarmés",
+        "experience": "Années d'Expérience",
+        "communities": "Communautés Touchées",
+        "partners": "Partenaires Internationaux"
+    },
+
+    "pillars": {
+        "subtitle": "Domaines d'Intervention",
+        "title": "Agir pour le Changement à Travers Nos Trois Domaines Clés",
+        "description": "Notre approche holistique garantit que la paix n'est pas seulement l'absence de conflit, mais la présence de justice et d'opportunités.",
+        "pillar1": {
+            "title": "Consolidation de la Paix",
+            "desc": "Acteur majeur dans le Désarmement, Démobilisation et Réintégration (DDR) au Sud-Kivu. Nous facilitons le rapatriement des groupes armés et la réintégration socio-professionnelle des combattants.",
+            "learn": "En savoir plus"
+        },
+        "pillar2": {
+            "title": "Urgence Humanitaire",
+            "desc": "Nous intervenons dans les domaines de la santé et de la nutrition lorsque le besoin se fait sentir pendant nos activités, avec le soutien de nos partenaires.",
+            "learn": "En savoir plus"
+        },
+        "pillar3": {
+            "title": "Développement Durable",
+            "desc": "Nous renforçons la résilience des communautés par la formation professionnelle, l'autonomisation et le plaidoyer pour les droits humains et le développement local.",
+            "learn": "En savoir plus"
+        }
+    },
+
+    "mission": {
+        "experience": "Années d'Engagement sur le Terrain",
+        "title": "Notre Mission : Guérir par l'",
+        "title_highlight": "Action",
+        "title_suffix": "et le Dialogue",
+        "desc": "L'Initiative Chrétienne pour la Paix, la Réconciliation et le Développement (ICPRD) est née de la nécessité urgente de rompre les cycles systémiques de conflit dans l'Est de la RDC, pour porter secours aux populations victimes.",
+        "point1": {
+            "title": "Action de Terrain et Médiation",
+            "desc": "Notre approche est fondée sur un engagement direct, la sensibilisation des parties aux conflits et la médiation pour faciliter le désarmement volontaire et les rapatriements."
+        },
+        "point2": {
+            "title": "Développement Communautaire",
+            "desc": "Nous croyons que la paix durable passe par le développement. Nous construisons des centres de formation et soutenons l'autonomie des communautés pour un avenir stable."
+        }
+    },
+
+    "environment": {
+        "badge": "Notre Engagement",
+        "title": "Réhabilitation Environnementale",
+        "subtitle": "L'ICPRD intervient dans la réhabilitation de l'environnement ainsi que le plaidoyer pour amener les destructeurs de l'environnement à le réhabiliter.",
+        "slogan": "\"L'équipe de l'ICPRD lors de l'identification des sites miniers exploités, détruits et abandonnés par les Ets Chinoise à Kitutu\"",
+        "action1": {
+            "title": "Identification des Sites Détruits",
+            "desc": "Identification des sites miniers exploités, détruits et abandonnés par les entreprises à Kitutu dans le territoire de Mwenga au Sud-Kivu."
+        },
+        "action2": {
+            "title": "Sensibilisation Radio",
+            "desc": "Émissions de sensibilisation sur la bonne exploitation des ressources naturelles pour le développement du territoire de Mwenga au studio de la radio GL Tv."
+        },
+        "action3": {
+            "title": "Counseling aux Victimes",
+            "desc": "Counseling au profit des victimes d'exploitation minière à Kitutu dans le Groupement de Banampute."
+        }
+    },
+
+    "gallery": {
+        "title": "Actions sur le Terrain",
+        "action1": "Identification des sites miniers",
+        "action2": "Émission radio GL Tv - Mwenga",
+        "action3": "Counseling à Kitutu, Banampute"
+    },
+
+    "achievements": {
+        "title": "Nos Réalisations",
+        "subtitle": "Un aperçu de notre impact durable à travers le Sud-Kivu et le Nord-Kivu au fil des années.",
+        "status_pending": "Projet en cours",
+        "status_completed": "Projet terminé",
+        "report": "Rapport Complet →",
+        "default_author": "Équipe ICPRD"
+    },
+    "achievement_hero": {
+        "badge": "Nos Réalisations",
+        "title_part1": "Actions &",
+        "title_part2": "Résultats.",
+        "description": "Découvrez l'impact tangible de nos interventions sur le terrain. Chaque projet achevé représente un pas concret vers le développement durable et la résilience en RDC.",
+        "search_placeholder": "Rechercher une réalisation, un projet ou une zone...",
+        "modal_filter": "Filtrer par projet, catégorie ou province...",
+        "no_results": "Aucun projet trouvé pour",
+        "start_typing": "Tapez pour explorer nos succès...",
+        "date_prefix": "Réalisé le",
+        "date_format": "fr-FR"
+    },
+
+    "team": {
+        "title": "Notre Équipe de Direction",
+        "subtitle": "Guidée par des experts engagés, des activistes locaux et des artisans de paix dévoués.",
+        "error_loading": "Erreur lors du chargement de l'équipe."
+    },
+
+    "cta": {
+        "title": "Soutenez la Paix Aujourd'hui",
+        "desc": "Votre contribution finance directement nos programmes de médiation communautaire, de désarmement volontaire et nos projets de développement dans les zones en proie aux conflits.",
+        "button1": "Faire un Don",
+        "button2": "Devenir Partenaire"
+    },
+
+    "blog": {
+        "title": "Derniers Rapports & Témoignages",
+        "subtitle": "Analyses détaillées et récits issus de nos opérations sur le terrain à travers la RDC.",
+        "viewall": "Voir tous les articles",
+        "default_category": "Général",
+        "default_author": "Équipe ICPRD"
+    },
+    "blog_hero": {
+        "badge": "Notre Journal",
+        "title_part1": "Perspectives &",
+        "title_part2": "Impact.",
+        "description": "Découvrez nos derniers rapports de terrain, analyses stratégiques et témoignages directs sur l'évolution de nos projets de développement à travers la République Démocratique du Congo.",
+        "search_placeholder": "Rechercher des articles, actualités ou rapports...",
+        "modal_filter": "Tapez pour filtrer les articles...",
+        "no_results": "Aucun résultat pour",
+        "start_typing": "Commencez à taper pour rechercher dans le journal...",
+        "date_format": "fr-FR"
+    },
+
+    "newsletter": {
+        "title": "Ne manquez aucune de nos actualités.",
+        "description": "Abonnez-vous à notre infolettre hebdomadaire et recevez nos rapports de terrain en priorité, directement dans votre boîte mail.",
+        "placeholder": "votre@email.com",
+        "button": "S'inscrire",
+        "error_fallback": "Une erreur est survenue"
+    },
+
+    "contact": {
+        "title": "Construisons la Paix Ensemble",
+        "subtitle": "Que vous souhaitiez devenir partenaire, bénévole ou soutenir nos programmes, nous serions ravis d'échanger avec vous.",
+        "email_label": "Écrivez-nous",
+        "location_label": "Nos bureaux",
+        "address": "Av Vamaro, No 15, Com d'Ibanda Ville de Bukavu RDC",
+        "form": {
+            "name": "Nom",
+            "name_placeholder": "Nom complet",
+            "email": "Email",
+            "email_placeholder": "Adresse email",
+            "subject": "Sujet",
+            "subject_placeholder": "Objet de votre message",
+            "message": "Message",
+            "message_placeholder": "Comment pouvons-nous vous aider ?",
+            "button": "Envoyer le Message",
+            "loading": "Envoi en cours...",
+            "success": "Message envoyé avec succès",
+            "error": "Une erreur est survenue",
+            "server_error": "Erreur de connexion au serveur"
+        }
+    },
+
+    "construction": {
+        "title": "Page en cours de conception",
+        "description": "Nous travaillons d'arrache-pied pour vous proposer un contenu de qualité. Revenez très bientôt !",
+        "back_home": "Retour à l'accueil"
+    },
+    "construction_features": {
+        "badge": "Évolutions",
+        "title_part1": "Nouvelles",
+        "title_part2": "Fonctionnalités.",
+        "description": "Notre équipe technique prépare des outils innovants pour améliorer le suivi de nos projets. Cette section sera disponible très prochainement.",
+        "back": "Retour à l'accueil"
+    },
+
+    "footer": {
+        "desc": "Dédiée à favoriser l'harmonie et le développement durable à travers la République Démocratique du Congo depuis 2004.",
+        "org_title": "Organisation",
+        "org": {
+            "about": "À propos",
+            "plan": "Plan Stratégique",
+            "reports": "Rapports Annuels",
+            "join": "Rejoignez-nous"
+        },
+        "legal_title": "Légal & Confidentialité",
+        "legal": {
+            "privacy": "Politique de Confidentialité",
+            "charter": "Charte des Donateurs",
+            "governance": "Gouvernance",
+            "transparency": "Transparence"
+        },
+        "newsletter_title": "Newsletter",
+        "newsletter_desc": "Recevez des mises à jour du terrain et nos rapports directement dans votre boîte mail.",
+        "newsletter_placeholder": "Adresse email",
+        "copyright": "© 2024 Initiative Chrétienne pour la Paix, la Réconciliation et le Développement.",
+        "tagline1": "La Paix est Possible",
+        "tagline2": "RDC Forte",
+        "loading": "Envoi...",
+        "error_default": "Une erreur est survenue"
+    }
+}

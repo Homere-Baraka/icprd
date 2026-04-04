@@ -1,4 +1,4 @@
-export default function ImpactSection() {
+export default function ImpactSection({ dict }: { dict: any }) {
     return (
         <section id="stats" className="py-12 bg-white dark:bg-[#161b33]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -11,7 +11,7 @@ export default function ImpactSection() {
                             data-translate="stats.combatants"
                             className="text-slate-500 dark:text-slate-400 font-semibold uppercase text-xs tracking-widest"
                         >
-                            Combattants Désarmés
+                            {dict.combatants}
                         </span>
                     </div>
                     <div className="stat-card flex flex-col items-center p-6 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
@@ -22,7 +22,7 @@ export default function ImpactSection() {
                             data-translate="stats.experience"
                             className="text-slate-500 dark:text-slate-400 font-semibold uppercase text-xs tracking-widest"
                         >
-                            Années d'Expérience
+                            {dict.experience}
                         </span>
                     </div>
                     <div className="stat-card flex flex-col items-center p-6 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
@@ -33,7 +33,7 @@ export default function ImpactSection() {
                             data-translate="stats.communities"
                             className="text-slate-500 dark:text-slate-400 font-semibold uppercase text-xs tracking-widest"
                         >
-                            Communautés Touchées
+                            {dict.communities}
                         </span>
                     </div>
                     <div className="stat-card flex flex-col items-center p-6 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
@@ -44,7 +44,7 @@ export default function ImpactSection() {
                             data-translate="stats.partners"
                             className="text-slate-500 dark:text-slate-400 font-semibold uppercase text-xs tracking-widest"
                         >
-                            Partenaires Internationaux
+                            {dict.partners}
                         </span>
                     </div>
                 </div>

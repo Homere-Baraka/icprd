@@ -1,12 +1,16 @@
 'use client';
 
-import { fr } from 'date-fns/locale';
+import { fr, enUS } from 'date-fns/locale';
+import { useParams } from 'next/navigation';
 import { formatDistanceToNow } from 'date-fns';
 import { useAchievementsQuery } from '@/lib/query/query';
 import { Calendar1, User } from 'lucide-react';
 import { getDescription } from '@/utils/get-description';
 
-export default function AchievementSection() {
+export default function AchievementSection({ dict }: { dict: any }) {
+    const { lang } = useParams();
+    const dateLocale = lang === 'en' ? enUS : fr;
+
     const { data, isLoading } = useAchievementsQuery();
     const achievements = data?.data
         ?.filter((a: any) => a.publishedAt !== null)
@@ -35,15 +39,14 @@ export default function AchievementSection() {
                               data-translate="achievements.title"
                               className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-4"
                           >
-                              Nos Réalisations
+                              {dict.title}
                           </h2>
                           <div className="w-24 h-1.5 bg-primary mx-auto rounded-full mb-6"></div>
                           <p
                               data-translate="achievements.subtitle"
                               className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg italic"
                           >
-                              Un aperçu de notre impact durable à travers le
-                              Sud-Kivu et le Nord-Kivu au fil des années.
+                              {dict.subtitle}
                           </p>
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -103,7 +106,7 @@ export default function AchievementSection() {
                                                       <span className="text-xs font-bold text-white">
                                                           {achievement.author
                                                               ?.username ||
-                                                              'Équipe ICPRD'}
+                                                              dict.default_author}
                                                       </span>
                                                       <span className="text-[10px] text-text-muted">
                                                           {achievement.createdAt &&
@@ -113,7 +116,7 @@ export default function AchievementSection() {
                                                                   ),
                                                                   {
                                                                       addSuffix: true,
-                                                                      locale: fr,
+                                                                      locale: dateLocale,
                                                                   },
                                                               )}
                                                       </span>
@@ -124,7 +127,7 @@ export default function AchievementSection() {
                                                   data-translate="achievement1.report"
                                                   className="text-primary font-black text-xs uppercase tracking-tighter cursor-pointer hover:underline"
                                               >
-                                                  Rapport Complet →
+                                                  {dict.report} →
                                               </a>
                                           </div>
                                       </div>

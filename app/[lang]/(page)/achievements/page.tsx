@@ -3,14 +3,22 @@ import AchievementsHero from '@/components/sections/achievement/achievement-hero
 import FeatureAchievement from '@/components/sections/achievement/achievement-feature';
 import AchievementInfos from '@/components/sections/achievement/achievement-infos';
 import NewsletterSection from '@/components/sections/home-sections/newsletter-section';
+import { getDictionary } from '@/lib/get-dictionary';
 
-export default function BlogPage() {
+export default async function AchievementPage({
+    params,
+}: {
+    params: Promise<{ lang: 'fr' | 'en' }>;
+}) {
+    const { lang } = await params;
+    const dict = await getDictionary(lang);
+
     return (
         <MainLayout>
-            <AchievementsHero />
+            <AchievementsHero dict={dict.achievement_hero} />
             <FeatureAchievement />
             <AchievementInfos />
-            <NewsletterSection />
+            <NewsletterSection dict={dict.newsletter} />
         </MainLayout>
     );
 }

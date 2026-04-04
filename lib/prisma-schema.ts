@@ -126,6 +126,10 @@ export const teamSchema = z.object({
 
     phone: z
         .string()
+        .refine((val) => val.startsWith('+'), {
+            message:
+                "Le numéro de téléphone doit commencer par l'indicatif pays (+)",
+        })
         .regex(/^\+?[0-9]{10,15}$/, 'Numéro de téléphone invalide')
         .nullable()
         .optional(),

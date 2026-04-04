@@ -4,7 +4,7 @@ import { Mail, Share2, Linkedin, Twitter, Globe } from 'lucide-react';
 import { useTeamsQuery } from '@/lib/query/user.query';
 import ErrorState from '@/components/ui/error-state';
 
-export default function TeamSection() {
+export default function TeamSection({ dict }: { dict: any }) {
     const {
         data: teamMembers,
         isLoading,
@@ -21,14 +21,13 @@ export default function TeamSection() {
                         data-translate="team.title"
                         className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4"
                     >
-                        Notre Équipe de Direction
+                        {dict.title}
                     </h2>
                     <p
                         data-translate="team.subtitle"
                         className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg"
                     >
-                        Guidée par des experts engagés, des activistes locaux et
-                        des artisans de paix dévoués.
+                        {dict.subtitle}
                     </p>
                 </div>
                 <div className="flex flex-wrap mx-auto justify-center gap-x-8 gap-y-12">
@@ -54,7 +53,10 @@ export default function TeamSection() {
                             </div>
                         ))
                     ) : isError ? (
-                        <ErrorState onRetry={refetch} message={error.message} />
+                        <ErrorState
+                            onRetry={refetch}
+                            message={dict.error_loading || error?.message}
+                        />
                     ) : (
                         teamMembers?.data &&
                         teamMembers.data.length > 0 &&

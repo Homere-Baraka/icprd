@@ -7,23 +7,22 @@ import { subscribeToNewsletter } from '@/actions/subscriber-to-newsletter';
 import LoadingSpinner from '@/components/ui/loading-spinner';
 import { Send, Share2, Users } from 'lucide-react';
 
-export default function FooterSection() {
+export default function FooterSection({ dict }: { dict: any }) {
     const [isPending, startTransition] = useTransition();
     const { notifyError, notifySuccess } = useNotification();
-
     const { register, handleSubmit } = useNewsletterValidation();
 
     const onSubmit = async (data: any) => {
         startTransition(async () => {
-            const result = await subscribeToNewsletter(data);
             try {
+                const result = await subscribeToNewsletter(data);
                 if (result.success) {
                     notifySuccess(result.message as string);
                 } else {
-                    notifyError(result.error as string);
+                    notifyError((result.error as string) || dict.error_default);
                 }
             } catch (error) {
-                notifyError(String(result?.error) || 'Une erreur est survenue');
+                notifyError(dict.error_default);
             }
         });
     };
@@ -45,177 +44,139 @@ export default function FooterSection() {
                             </div>
                             <span className="text-2xl font-black">ICPRD</span>
                         </div>
-                        <p
-                            data-translate="footer.desc"
-                            className="text-sm leading-relaxed mb-8"
-                        >
-                            Dédiée à favoriser l'harmonie et le développement
-                            durable à travers la République Démocratique du
-                            Congo depuis 2004.
+                        <p className="text-sm leading-relaxed mb-8">
+                            {dict.desc}
                         </p>
                         <div className="flex gap-4">
                             <a
                                 className="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center hover:bg-primary hover:border-primary transition-all text-white"
                                 href="#"
-                                aria-label="Partager"
                             >
                                 <Share2 size={18} />
                             </a>
                             <a
                                 className="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center hover:bg-primary hover:border-primary transition-all text-white"
                                 href="#"
-                                aria-label="Équipe"
                             >
                                 <Users size={18} />
                             </a>
                         </div>
                     </div>
+
                     <div>
-                        <h4
-                            data-translate="footer.org"
-                            className="text-white font-black text-sm uppercase tracking-widest mb-8"
-                        >
-                            Organisation
+                        <h4 className="text-white font-black text-sm uppercase tracking-widest mb-8">
+                            {dict.org_title}
                         </h4>
                         <ul className="space-y-4 text-sm font-bold">
                             <li>
                                 <a
-                                    data-translate="footer.org.about"
                                     className="hover:text-primary transition-colors"
                                     href="/construction"
                                 >
-                                    À propos
+                                    {dict.org.about}
                                 </a>
                             </li>
                             <li>
                                 <a
-                                    data-translate="footer.org.plan"
                                     className="hover:text-primary transition-colors"
                                     href="/construction"
                                 >
-                                    Plan Stratégique
+                                    {dict.org.plan}
                                 </a>
                             </li>
                             <li>
                                 <a
-                                    data-translate="footer.org.reports"
                                     className="hover:text-primary transition-colors"
                                     href="/construction"
                                 >
-                                    Rapports Annuels
+                                    {dict.org.reports}
                                 </a>
                             </li>
                             <li>
                                 <a
-                                    data-translate="footer.org.join"
                                     className="hover:text-primary transition-colors"
                                     href="#newsletter"
                                 >
-                                    Rejoignez-nous
+                                    {dict.org.join}
                                 </a>
                             </li>
                         </ul>
                     </div>
+
                     <div>
-                        <h4
-                            data-translate="footer.legal"
-                            className="text-white font-black text-sm uppercase tracking-widest mb-8"
-                        >
-                            Légal & Confidentialité
+                        <h4 className="text-white font-black text-sm uppercase tracking-widest mb-8">
+                            {dict.legal_title}
                         </h4>
                         <ul className="space-y-4 text-sm font-bold">
                             <li>
                                 <a
-                                    data-translate="footer.legal.privacy"
                                     className="hover:text-primary transition-colors"
                                     href="/construction"
                                 >
-                                    Politique de Confidentialité
+                                    {dict.legal.privacy}
                                 </a>
                             </li>
                             <li>
                                 <a
-                                    data-translate="footer.legal.charter"
                                     className="hover:text-primary transition-colors"
                                     href="/construction"
                                 >
-                                    Charte des Donateurs
+                                    {dict.legal.charter}
                                 </a>
                             </li>
                             <li>
                                 <a
-                                    data-translate="footer.legal.governance"
                                     className="hover:text-primary transition-colors"
                                     href="/construction"
                                 >
-                                    Gouvernance
+                                    {dict.legal.governance}
                                 </a>
                             </li>
                             <li>
                                 <a
-                                    data-translate="footer.legal.transparency"
                                     className="hover:text-primary transition-colors"
                                     href="/construction"
                                 >
-                                    Transparence
+                                    {dict.legal.transparency}
                                 </a>
                             </li>
                         </ul>
                     </div>
+
                     <div>
-                        <h4
-                            data-translate="footer.newsletter"
-                            className="text-white font-black text-sm uppercase tracking-widest mb-8"
-                        >
-                            Newsletter
+                        <h4 className="text-white font-black text-sm uppercase tracking-widest mb-8">
+                            {dict.newsletter_title}
                         </h4>
-                        <p
-                            data-translate="footer.newsletter.desc"
-                            className="text-sm mb-6"
-                        >
-                            Recevez des mises à jour du terrain et nos rapports
-                            directement dans votre boîte mail.
-                        </p>
+                        <p className="text-sm mb-6">{dict.newsletter_desc}</p>
                         <form
-                            method="post"
                             className="flex gap-2"
                             onSubmit={handleSubmit(onSubmit)}
                         >
                             <input
                                 {...register('email')}
-                                data-translate="footer.newsletter.placeholder"
                                 className="bg-slate-900 border-none rounded-xl focus:ring-primary text-sm w-full p-3"
-                                placeholder="Adresse email"
+                                placeholder={dict.newsletter_placeholder}
                                 type="email"
                             />
-                            <button
-                                data-translate="footer.newsletter.button"
-                                className="bg-primary text-white px-5 rounded-xl hover:bg-primary/90 transition-colors flex items-center justify-center"
-                            >
-                                {isPending ? <LoadingSpinner /> : <Send />}
+                            <button className="bg-primary text-white px-5 rounded-xl hover:bg-primary/90 transition-colors flex items-center justify-center min-w-[50px]">
+                                {isPending ? (
+                                    <LoadingSpinner />
+                                ) : (
+                                    <Send size={18} />
+                                )}
                             </button>
                         </form>
                     </div>
                 </div>
+
                 <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em]">
-                    <p data-translate="footer.copyright">
-                        © 2024 Initiative Chrétienne pour la Paix, la
-                        Réconciliation et le Développement.
-                    </p>
+                    <p>{dict.copyright}</p>
                     <div className="flex gap-10">
-                        <a
-                            data-translate="footer.tagline1"
-                            className="hover:text-primary"
-                            href="construction"
-                        >
-                            La Paix est Possible
+                        <a className="hover:text-primary" href="/construction">
+                            {dict.tagline1}
                         </a>
-                        <a
-                            data-translate="footer.tagline2"
-                            className="hover:text-primary"
-                            href="/construction"
-                        >
-                            RDC Forte
+                        <a className="hover:text-primary" href="/construction">
+                            {dict.tagline2}
                         </a>
                     </div>
                 </div>

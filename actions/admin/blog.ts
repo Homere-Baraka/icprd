@@ -117,6 +117,42 @@ export async function getBlogsAction() {
     }
 }
 
+export async function getBlogHeadlineAction() {
+    try {
+        const fifteenDaysAgo = new Date();
+        fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 15);
+
+        const post = await prisma.blog.findFirst({
+            orderBy: [{ views: 'desc' }, { createdAt: 'desc' }],
+            where: {
+                views: { gt: 0 },
+                createdAt: { gte: fifteenDaysAgo },
+            },
+            include: {
+                author: {
+                    select: {
+                        username: true,
+                        first_name: true,
+                        email: true,
+                    },
+                },
+                contents: true,
+            },
+        });
+
+        return {
+            success: true,
+            data: post,
+        };
+    } catch (error) {
+        console.error('[POST_HEADLINE_ERROR]:', error);
+        return {
+            success: false,
+            error: 'Error while fetching data.',
+        };
+    }
+}
+
 export async function updateBlogAction(
     blogId: string,
     data: unknown,

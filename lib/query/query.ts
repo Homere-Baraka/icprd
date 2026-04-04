@@ -1,10 +1,15 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { getBlogsAction, getBlogByIdAction } from '@/actions/admin/blog';
+import {
+    getBlogsAction,
+    getBlogByIdAction,
+    getBlogHeadlineAction,
+} from '@/actions/admin/blog';
 import {
     getAchievementsAction,
     getAchievementByIdAction,
+    getAchievementHeadlineAction,
 } from '@/actions/admin/achievement';
 import {
     getContactMessagesAction,
@@ -16,6 +21,17 @@ export function useBlogsQuery() {
     return useQuery({
         queryKey: ['blogs'],
         queryFn: () => getBlogsAction(),
+        retry: 3,
+        staleTime: 0,
+        refetchInterval: 1000 * 10,
+        refetchIntervalInBackground: false,
+    });
+}
+
+export function useBlogHeadlineQuery() {
+    return useQuery({
+        queryKey: ['blog_headline'],
+        queryFn: () => getBlogHeadlineAction(),
         retry: 3,
         staleTime: 0,
         refetchInterval: 1000 * 10,
@@ -48,6 +64,17 @@ export function useAchievementsQuery() {
     return useQuery({
         queryKey: ['achievements'],
         queryFn: () => getAchievementsAction(),
+        retry: 3,
+        staleTime: 0,
+        refetchInterval: 1000 * 10,
+        refetchIntervalInBackground: false,
+    });
+}
+
+export function useAchievementHeadlineQuery() {
+    return useQuery({
+        queryKey: ['achievement_headlines'],
+        queryFn: () => getAchievementHeadlineAction(),
         retry: 3,
         staleTime: 0,
         refetchInterval: 1000 * 10,

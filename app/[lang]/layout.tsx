@@ -20,20 +20,23 @@ export const metadata: Metadata = {
     description: "Construction d'une Paix et d'une Stabilité Durables",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
+    params,
 }: Readonly<{
     children: React.ReactNode;
+    params: Promise<{ lang: string }>;
 }>) {
+    const { lang } = await params;
+
     return (
-        <html lang="en" suppressHydrationWarning>
+        <html lang={lang} suppressHydrationWarning>
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background-dark`}
             >
                 <NextSessionProvider>
                     <Provider>
                         {children}
-
                         <Toaster position="top-right" />
                     </Provider>
                 </NextSessionProvider>

@@ -1,0 +1,213 @@
+{
+    "nav": {
+        "home": "Home",
+        "achievements": "Achievements",
+        "news": "News",
+        "team": "Team",
+        "about": "About Us",
+        "contact": "Contact",
+        "donate": "Donate Now"
+    },
+
+    "hero": {
+        "badge": "Since 2004 • DRC Focus",
+        "title": "Building Lasting Peace and",
+        "titleAccent": "Stability",
+        "subtitle": "The Christian Initiative for Peace, Reconciliation and Development (ICPRD) works to empower local communities and foster regional harmony through dialogue and sustainable development.",
+        "button1": "Get Involved",
+        "button2": "Our Strategic Plan"
+    },
+
+    "stats": {
+        "combatants": "Disarmed Combatants",
+        "experience": "Years of Experience",
+        "communities": "Communities Impacted",
+        "partners": "International Partners"
+    },
+
+    "pillars": {
+        "subtitle": "Areas of Intervention",
+        "title": "Acting for Change Through Our Three Key Areas",
+        "description": "Our holistic approach ensures that peace is not just the absence of conflict, but the presence of justice and opportunities.",
+        "pillar1": {
+            "title": "Peacebuilding",
+            "desc": "A major player in Disarmament, Demobilization and Reintegration (DDR) in South Kivu. We facilitate the repatriation of armed groups and the socio-professional reintegration of combatants.",
+            "learn": "Learn more"
+        },
+        "pillar2": {
+            "title": "Humanitarian Emergency",
+            "desc": "We intervene in the fields of health and nutrition whenever the need arises during our activities, with the support of our partners.",
+            "learn": "Learn more"
+        },
+        "pillar3": {
+            "title": "Sustainable Development",
+            "desc": "We strengthen community resilience through vocational training, empowerment, and advocacy for human rights and local development.",
+            "learn": "Learn more"
+        }
+    },
+
+    "mission": {
+        "experience": "Years of On-the-Ground Engagement",
+        "title": "Our Mission: Healing through ",
+        "title_highlight": "Action",
+        "title_suffix": "and Dialogue",
+        "desc": "The Christian Initiative for Peace, Reconciliation and Development (ICPRD) was born from the urgent need to break systemic cycles of conflict in Eastern DRC, to assist victim populations.",
+        "point1": {
+            "title": "Field Action and Mediation",
+            "desc": "Our approach is based on direct engagement, raising awareness among conflict parties, and mediation to facilitate voluntary disarmament and repatriation."
+        },
+        "point2": {
+            "title": "Community Development",
+            "desc": "We believe lasting peace comes through development. We build training centers and support community autonomy for a stable future."
+        }
+    },
+
+    "environment": {
+        "badge": "Our Commitment",
+        "title": "Environmental Rehabilitation",
+        "subtitle": "ICPRD intervenes in environmental rehabilitation as well as advocacy to bring environmental destroyers to rehabilitate it.",
+        "slogan": "\"The ICPRD team during the identification of mining sites exploited, destroyed, and abandoned by Chinese companies in Kitutu\"",
+        "action1": {
+            "title": "Identification of Destroyed Sites",
+            "desc": "Identification of mining sites exploited, destroyed, and abandoned by companies in Kitutu, Mwenga territory, South Kivu."
+        },
+        "action2": {
+            "title": "Radio Awareness",
+            "desc": "Awareness broadcasts on the proper exploitation of natural resources for the development of Mwenga territory at the GL Tv radio studio."
+        },
+        "action3": {
+            "title": "Counseling for Victims",
+            "desc": "Counseling for victims of mining exploitation in Kitutu within the Banampute Grouping."
+        }
+    },
+
+    "gallery": {
+        "title": "Field Actions",
+        "action1": "Identification of mining sites",
+        "action2": "GL Tv Radio Broadcast - Mwenga",
+        "action3": "Counseling in Kitutu, Banampute"
+    },
+
+    "achievements": {
+        "title": "Our Achievements",
+        "subtitle": "An overview of our lasting impact across South Kivu and North Kivu over the years.",
+        "status_pending": "Ongoing Project",
+        "status_completed": "Completed Project",
+        "report": "Full Report →",
+        "default_author": "ICPRD Team"
+    },
+    "achievement_hero": {
+        "badge": "Our Achievements",
+        "title_part1": "Actions &",
+        "title_part2": "Results.",
+        "description": "Discover the tangible impact of our field interventions. Each completed project represents a concrete step towards sustainable development and resilience in the DRC.",
+        "search_placeholder": "Search for an achievement, a project or a zone...",
+        "modal_filter": "Filter by project, category or province...",
+        "no_results": "No projects found for",
+        "start_typing": "Type to explore our successes...",
+        "date_prefix": "Completed on",
+        "date_format": "en-US"
+    },
+
+    "team": {
+        "title": "Our Leadership Team",
+        "subtitle": "Guided by committed experts, local activists, and dedicated peacebuilders.",
+        "error_loading": "Error loading the team members."
+    },
+
+    "cta": {
+        "title": "Support Peace Today",
+        "desc": "Your contribution directly funds our community mediation programs, voluntary disarmament, and development projects in conflict-prone areas.",
+        "button1": "Donate Now",
+        "button2": "Become a Partner"
+    },
+
+    "blog": {
+        "title": "Latest Reports & Testimonials",
+        "subtitle": "Detailed analyses and stories from our field operations across the DRC.",
+        "viewall": "View all articles",
+        "default_category": "General",
+        "default_author": "ICPRD Team"
+    },
+    "blog_hero": {
+        "badge": "Our Journal",
+        "title_part1": "Insights &",
+        "title_part2": "Impact.",
+        "description": "Discover our latest field reports, strategic analyses, and direct testimonies on the progress of our development projects across the Democratic Republic of Congo.",
+        "search_placeholder": "Search for articles, news or reports...",
+        "modal_filter": "Type to filter articles...",
+        "no_results": "No results for",
+        "start_typing": "Start typing to search the journal...",
+        "date_format": "en-US"
+    },
+
+    "newsletter": {
+        "title": "Don't miss any of our updates.",
+        "description": "Subscribe to our weekly newsletter and receive our field reports first, directly in your inbox.",
+        "placeholder": "your@email.com",
+        "button": "Subscribe",
+        "error_fallback": "An error has occurred"
+    },
+
+    "contact": {
+        "title": "Building Peace Together",
+        "subtitle": "Whether you want to become a partner, volunteer, or support our programs, we would love to hear from you.",
+        "email_label": "Write to us",
+        "location_label": "Our offices",
+        "address": "Av Vamaro, No 15, Ibanda District, Bukavu City, DRC",
+        "form": {
+            "name": "Name",
+            "name_placeholder": "Full name",
+            "email": "Email",
+            "email_placeholder": "Email address",
+            "subject": "Subject",
+            "subject_placeholder": "Subject of your message",
+            "message": "Message",
+            "message_placeholder": "How can we help you?",
+            "button": "Send Message",
+            "loading": "Sending...",
+            "success": "Message sent successfully",
+            "error": "An error occurred",
+            "server_error": "Server connection error"
+        }
+    },
+
+    "construction": {
+        "title": "Page Under Construction",
+        "description": "We are working hard to bring you high-quality content. Please check back very soon!",
+        "back_home": "Back to Home"
+    },
+    "construction_features": {
+        "badge": "Roadmap",
+        "title_part1": "New",
+        "title_part2": "Features.",
+        "description": "Our technical team is developing innovative tools to improve project tracking. This section will be available very soon.",
+        "back": "Back to Home"
+    },
+
+    "footer": {
+        "desc": "Dedicated to fostering harmony and sustainable development across the Democratic Republic of Congo since 2004.",
+        "org_title": "Organization",
+        "org": {
+            "about": "About Us",
+            "plan": "Strategic Plan",
+            "reports": "Annual Reports",
+            "join": "Join Us"
+        },
+        "legal_title": "Legal & Privacy",
+        "legal": {
+            "privacy": "Privacy Policy",
+            "charter": "Donor Charter",
+            "governance": "Governance",
+            "transparency": "Transparency"
+        },
+        "newsletter_title": "Newsletter",
+        "newsletter_desc": "Receive field updates and our reports directly in your inbox.",
+        "newsletter_placeholder": "Email address",
+        "copyright": "© 2024 Christian Initiative for Peace, Reconciliation and Development.",
+        "tagline1": "Peace is Possible",
+        "tagline2": "Strong DRC",
+        "loading": "Sending...",
+        "error_default": "An error occurred"
+    }
+}

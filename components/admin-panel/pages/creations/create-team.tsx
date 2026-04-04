@@ -324,12 +324,15 @@ export default function CreateTeam({ teamId }: CreateTeamProps) {
                         className="flex items-center gap-3 px-12 py-4 bg-primary hover:bg-primary/90 text-white rounded-xl font-black text-xs tracking-widest transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:hover:scale-100"
                     >
                         {isPending ? (
-                            <LoadingSpinner />
+                            <>
+                                <LoadingSpinner />
+                                Enregistrement...
+                            </>
                         ) : (
                             <>
                                 <Save size={16} />
                                 {isEditing
-                                    ? 'METTRE À JOUR LE PROFIL'
+                                    ? 'METTRE À JOUR LE MEMBRE'
                                     : 'ENREGISTRER LE MEMBRE'}
                             </>
                         )}

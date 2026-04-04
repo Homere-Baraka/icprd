@@ -1,13 +1,17 @@
 'use client';
 
 import Link from 'next/link';
-import { fr } from 'date-fns/locale';
+import { fr, enUS } from 'date-fns/locale';
+import { useParams } from 'next/navigation';
 import { useBlogsQuery } from '@/lib/query/query';
 import { getDescription } from '@/utils/get-description';
 import { ArrowRight, Eye, User } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 
-export default function BlogSection() {
+export default function BlogSection({ dict }: { dict: any }) {
+    const { lang } = useParams();
+    const dateLocale = lang === 'en' ? enUS : fr;
+
     const { data: blogsResponse, isLoading } = useBlogsQuery();
     const blogs = blogsResponse?.data
         ?.filter((b: any) => b.publishedAt !== null)
@@ -37,14 +41,13 @@ export default function BlogSection() {
                                   data-translate="blog.title"
                                   className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4"
                               >
-                                  Derniers Rapports & Témoignages
+                                  {dict.title}
                               </h2>
                               <p
                                   data-translate="blog.subtitle"
                                   className="text-slate-600 dark:text-slate-400 max-w-2xl text-lg"
                               >
-                                  Analyses détaillées et récits issus de nos
-                                  opérations sur le terrain à travers la RDC.
+                                  {dict.subtitle}
                               </p>
                           </div>
                           <Link
@@ -52,7 +55,7 @@ export default function BlogSection() {
                               className="text-primary font-bold flex items-center gap-2 hover:gap-3 transition-all"
                               href="/blogs"
                           >
-                              Voir tous les articles
+                              {dict.viewall}
                               <ArrowRight />
                           </Link>
                       </div>
@@ -107,7 +110,7 @@ export default function BlogSection() {
                                                                   ),
                                                                   {
                                                                       addSuffix: true,
-                                                                      locale: fr,
+                                                                      locale: dateLocale,
                                                                   },
                                                               )}
                                                       </span>

@@ -109,7 +109,7 @@ export default function BlogDetailsAdminPage({
                                 <Trash2 size={20} />
                             </button>
                             <Link
-                                href={`/blog/${blogData?.id}`}
+                                href={`/blogs/${blogData?.id}`}
                                 target="_blank"
                                 className="flex items-center gap-2 px-4 py-2 bg-card border border-card-border rounded-lg text-sm font-bold hover:bg-card-border transition-all shadow-sm"
                             >

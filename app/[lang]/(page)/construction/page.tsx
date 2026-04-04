@@ -1,11 +1,17 @@
 import Link from 'next/link';
 import MainLayout from '@/components/sections/shares/main-layout';
 import { ChevronLeft, Construction, Hammer, Pickaxe } from 'lucide-react';
+import { getDictionary } from '@/lib/get-dictionary';
 
-export default function ConstructionPage({
-    title = 'Page en cours de conception',
-    description = "Nous travaillons d'arrache-pied pour vous proposer un contenu de qualité. Revenez très bientôt !",
+export default async function ConstructionPage({
+    params,
+}: {
+    params: Promise<{ lang: 'fr' | 'en' }>;
 }) {
+    const { lang } = await params;
+    const dict = await getDictionary(lang);
+    const t = dict.construction;
+
     return (
         <MainLayout>
             <div className="min-h-[80vh] flex flex-col items-center justify-center mt-10 px-4">
@@ -27,15 +33,16 @@ export default function ConstructionPage({
 
                 <div className="text-center max-w-lg">
                     <h1 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-4">
-                        {title}
+                        {t.title || 'Page en cours de conception'}
                     </h1>
                     <p className="text-slate-600 dark:text-slate-400 text-lg mb-10">
-                        {description}
+                        {t.description ||
+                            "Nous travaillons d'arrache-pied pour vous proposer un contenu de qualité. Revenez très bientôt !"}
                     </p>
                     <Link href="/" className="flex justify-center items-center">
                         <button className="flex items-center text-primary gap-2 p-2 text-lg cursor-pointer">
                             <ChevronLeft size={20} />
-                            Retour à l'accueil
+                            {t.back_home || "Retour à l'accueil"}
                         </button>
                     </Link>
                 </div>

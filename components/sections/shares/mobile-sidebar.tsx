@@ -7,9 +7,11 @@ import { X } from 'lucide-react';
 export default function MobileSidebar({
     isOpen,
     setIsOpen,
+    dict,
 }: {
     isOpen: boolean;
     setIsOpen: (val: boolean) => void;
+    dict: any;
 }) {
     const router = useRouter();
     const dropdownRef = useRef<HTMLDivElement>(null);
@@ -69,28 +71,20 @@ export default function MobileSidebar({
                     </div>
                     <nav className="flex-1 p-6 space-y-4 overflow-y-auto">
                         <a
-                            href="#mission"
+                            href="/"
                             onClick={() => setIsOpen(false)}
                             className="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
-                            data-translate="nav.about"
+                            data-translate="nav.home"
                         >
-                            À Propos
+                            {dict.home}
                         </a>
                         <a
-                            href="#intervention"
+                            href="/achievements"
                             onClick={() => setIsOpen(false)}
                             className="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
                             data-translate="nav.what-we-do"
                         >
-                            Nos Actions
-                        </a>
-                        <a
-                            href="#environment"
-                            onClick={() => setIsOpen(false)}
-                            className="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
-                            data-translate="nav.environment"
-                        >
-                            Environnement
+                            {dict.achievements}
                         </a>
                         <a
                             href="/blogs"
@@ -98,15 +92,15 @@ export default function MobileSidebar({
                             className="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
                             data-translate="nav.insights"
                         >
-                            Perspectives
+                            {dict.views}
                         </a>
                         <a
-                            href="#team"
+                            href="#contact"
                             onClick={() => setIsOpen(false)}
                             className="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
                             data-translate="nav.team"
                         >
-                            Équipe
+                            {dict.team}
                         </a>
                         <a
                             href="#contact"
@@ -114,19 +108,19 @@ export default function MobileSidebar({
                             className="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
                             data-translate="nav.contact"
                         >
-                            Contact
+                            {dict.contact}
                         </a>
                     </nav>
                     <div className="p-6 border-t border-slate-200 dark:border-slate-800">
-                        <button
-                            onClick={() => router.push('/donation')}
+                        <a
+                            href="/construction"
                             className="w-full bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full font-bold text-sm transition-all mb-4 sidebar-link"
                             data-translate="header.donate"
                         >
-                            Donate Now
-                        </button>
+                            {dict.donate}
+                        </a>
                         <p className="text-xs text-slate-500 dark:text-slate-400 text-center">
-                            © 2024 ICPRD
+                            © 2026 ICPRD
                         </p>
                     </div>
                 </div>

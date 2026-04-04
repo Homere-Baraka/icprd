@@ -1,4 +1,4 @@
-export default function HeroSection() {
+export default function HeroSection({ dict }: { dict: any }) {
     return (
         <section
             id="hero"
@@ -20,25 +20,22 @@ export default function HeroSection() {
                         data-translate="hero.badge"
                         className="inline-block px-3 py-1 bg-primary/20 text-primary border border-primary/30 rounded-full text-xs font-bold uppercase tracking-wider mb-6"
                     >
-                        Depuis 2004 • Focus RDC
+                        {dict.badge}
                     </span>
                     <h1
                         id="hero-title"
                         className="text-5xl md:text-6xl font-black text-white leading-tight mb-6"
                         data-translate="hero.title"
                     >
-                        Construction d'une Paix et d'une Stabilité
-                        <span className="text-primary">Durables</span>
+                        {dict.title}{' '}
+                        <span className="text-primary">{dict.titleAccent}</span>
                     </h1>
                     <p
                         id="hero-subtitle"
                         className="text-slate-300 text-lg md:text-xl leading-relaxed mb-10 max-w-xl"
                         data-translate="hero.subtitle"
                     >
-                        L'Initiative Chrétienne pour la Paix, la Réconciliation
-                        et le Développement (ICPRD) œuvre pour autonomiser les
-                        communautés locales et favoriser l'harmonie régionale
-                        par le dialogue et le développement durable.
+                        {dict.subtitle}
                     </p>
                     <div className="hero-buttons flex flex-wrap gap-4">
                         <button
@@ -46,14 +43,14 @@ export default function HeroSection() {
                             data-translate="hero.button1"
                             className="bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-2xl shadow-primary/30 transition-all"
                         >
-                            S'impliquer
+                            {dict.button1}
                         </button>
                         <button
                             id="hero-btn2"
                             data-translate="hero.button2"
                             className="bg-white/10 hover:bg-white/20 text-white backdrop-blur-sm border border-white/20 px-8 py-4 rounded-xl font-bold text-lg shadow-lg transition-all"
                         >
-                            Notre Plan Stratégique
+                            {dict.button2}
                         </button>
                     </div>
                 </div>
