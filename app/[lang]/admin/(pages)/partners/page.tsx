@@ -9,7 +9,7 @@ export default async function AchievementPage({
 }) {
     const { lang } = await params;
     const dict = await getDictionary(lang as 'fr' | 'en');
-    
+
     return (
         <>
             <Partners />

@@ -9,8 +9,7 @@ export default function HeroSection({ dict }: { dict: any }) {
                 className="absolute inset-0 bg-cover bg-center"
                 data-alt="Community outreach group in the Democratic Republic of Congo"
                 style={{
-                    backgroundImage:
-                        "url('/images/WhatsApp Image 2026-02-13 at 15.28.28.jpeg')",
+                    backgroundImage: "url('/images/ICPRD.PNG')",
                 }}
             ></div>
             <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">

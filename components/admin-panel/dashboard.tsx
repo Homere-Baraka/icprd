@@ -143,13 +143,15 @@ export default function Dashboard() {
                                     System Status
                                 </h3>
                             </div>
-                            
+
                             <div className="space-y-1">
                                 <p className="text-3xl font-light text-white tracking-tighter">
                                     Opérationnel.
                                 </p>
                                 <p className="text-xs font-medium text-zinc-500 leading-relaxed">
-                                    Tous les modules de contenu et les bases de données sont synchronisés avec le serveur de production.
+                                    Tous les modules de contenu et les bases de
+                                    données sont synchronisés avec le serveur de
+                                    production.
                                 </p>
                             </div>
                         </div>

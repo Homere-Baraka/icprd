@@ -28,11 +28,15 @@ export default function NavBar({ onMenuClick, dict }: any) {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
                     <div className="flex items-center gap-10">
-                        <div className="flex items-center gap-3">
-                            <div className="text-primary">
-                                <Logo />
+                        <div className="flex items-center gap-4">
+                            <div className="relative flex items-center justify-center rounded-lg h-12 w-12 overflow-hidden">
+                                <img
+                                    src="/images/logo.png"
+                                    alt="icprd logo"
+                                    className="w-full h-full object-contain"
+                                />
                             </div>
-                            <h2 className="text-slate-900 dark:text-white text-2xl font-black tracking-tighter">
+                            <h2 className="text-slate-900 dark:text-white text-3xl font-black tracking-tighter leading-none">
                                 ICPRD
                             </h2>
                         </div>

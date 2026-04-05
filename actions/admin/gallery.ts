@@ -9,13 +9,12 @@ import { revalidatePath } from 'next/cache';
 import { requireAdmin } from '@/lib/auth/admin-guard';
 import { deleteFileFromStorage } from '@/lib/file-helper';
 
-
 export async function createGalleryAction(data: unknown) {
     try {
         await requireAdmin();
 
         const session = await getServerSession(authOptions);
-        
+
         if (!session || !session.user) {
             return { success: false, error: 'Vous devez être connecté.' };
         }
@@ -29,9 +28,7 @@ export async function createGalleryAction(data: unknown) {
             };
         }
 
-        const {
-            title, description, imageUrl, category
-        } = validated.data;
+        const { title, description, imageUrl, category } = validated.data;
 
         const user = await prisma.user.findUnique({
             where: { id: session.user.id },
@@ -72,7 +69,7 @@ export async function updateGalleryAction(galleryId: string, data: unknown) {
         await requireAdmin();
 
         const session = await getServerSession(authOptions);
-        
+
         if (!session || !session.user) {
             return { success: false, error: 'Vous devez être connecté.' };
         }
@@ -86,14 +83,12 @@ export async function updateGalleryAction(galleryId: string, data: unknown) {
             };
         }
 
-        const {
-            title, description, imageUrl, category
-        } = validated.data;
+        const { title, description, imageUrl, category } = validated.data;
 
         const user = await prisma.user.findUnique({
             where: { id: session.user.id },
         });
-    
+
         if (!user) {
             return {
                 success: false,

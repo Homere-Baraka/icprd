@@ -1,11 +1,9 @@
+import CreateGallery from '@/components/admin-panel/pages/creations/create-gallery';
 
-import CreateGallery from "@/components/admin-panel/pages/creations/create-gallery"
-
-
-export default function createGalleryPage(){
+export default function createGalleryPage() {
     return (
         <>
             <CreateGallery />
         </>
-    )
+    );
 }

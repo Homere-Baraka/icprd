@@ -137,7 +137,9 @@ export default function AchievementDetailPage({
                             ) : (
                                 <div
                                     dangerouslySetInnerHTML={{
-                                        __html: achievement?.contents || "<p>Aucun contenu disponible.</p>",
+                                        __html:
+                                            achievement?.contents ||
+                                            '<p>Aucun contenu disponible.</p>',
                                     }}
                                 />
                             )}

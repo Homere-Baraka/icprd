@@ -15,7 +15,7 @@ export default async function AdminLayout({
     params: Promise<{ lang: string }>;
 }) {
     const { lang } = await params;
-    const dict = await getDictionary(lang as "fr" | "en");
+    const dict = await getDictionary(lang as 'fr' | 'en');
 
     const session = await getServerSession(authOptions);
 

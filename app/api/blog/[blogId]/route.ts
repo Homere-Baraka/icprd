@@ -7,7 +7,7 @@ export async function GET(
     const resolvedParams = await params;
 
     const blogId = resolvedParams.blogId;
-    
+
     const result = await getBlogByIdAction(blogId);
 
     return Response.json(result);

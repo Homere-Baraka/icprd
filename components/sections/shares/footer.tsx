@@ -32,17 +32,17 @@ export default function FooterSection({ dict }: { dict: any }) {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
                     <div className="col-span-1 md:col-span-1">
-                        <div className="flex items-center gap-3 text-white mb-8">
-                            <div className="text-primary">
-                                <svg
-                                    className="size-8"
-                                    fill="currentColor"
-                                    viewBox="0 0 48 48"
-                                >
-                                    <path d="M13.8261 17.4264C16.7203 18.1174 20.2244 18.5217 24 18.5217C27.7756 18.5217 31.2797 18.1174 34.1739 17.4264C36.9144 16.7722 39.9967 15.2331 41.3563 14.1648L24.8486 40.6391C24.4571 41.267 23.5429 41.267 23.1514 40.6391L6.64374 14.1648C8.00331 15.2331 11.0856 16.7722 13.8261 17.4264Z"></path>
-                                </svg>
+                        <div className="flex items-center gap-4 pb-6">
+                            <div className="relative flex items-center justify-center rounded-lg h-12 w-12 overflow-hidden">
+                                <img
+                                    src="/images/logo.png"
+                                    alt="icprd logo"
+                                    className="w-full h-full object-contain"
+                                />
                             </div>
-                            <span className="text-2xl font-black">ICPRD</span>
+                            <h2 className="text-slate-900 dark:text-white text-3xl font-black tracking-tighter leading-none">
+                                ICPRD
+                            </h2>
                         </div>
                         <p className="text-sm leading-relaxed mb-8">
                             {dict.desc}
