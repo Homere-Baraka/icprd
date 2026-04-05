@@ -34,7 +34,7 @@ export default function Dashboard() {
         {
             label: 'Articles',
             count: counts.blogs,
-            link: '/admin/posts',
+            link: '/admin/blogs',
             color: 'from-blue-500 to-cyan-400',
         },
         {

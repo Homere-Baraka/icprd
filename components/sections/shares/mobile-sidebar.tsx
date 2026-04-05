@@ -92,10 +92,10 @@ export default function MobileSidebar({
                             className="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
                             data-translate="nav.insights"
                         >
-                            {dict.views}
+                            {dict.news}
                         </a>
                         <a
-                            href="#contact"
+                            href="/construction"
                             onClick={() => setIsOpen(false)}
                             className="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
                             data-translate="nav.team"

@@ -246,29 +246,18 @@ export async function getBlogByIdAction(blogId: string) {
             return { success: false, message: 'Post not found' };
         }
 
-        let fingerprints: string[] = [];
-
-        if (Array.isArray(blog.fingerprint)) {
-            fingerprints = blog.fingerprint as any;
-        } else if (typeof blog.fingerprint === 'string') {
-            try {
-                fingerprints = JSON.parse(blog.fingerprint);
-            } catch {
-                fingerprints = [];
-            }
-        }
+        let fingerprints: string[] = Array.isArray(blog.fingerprint) 
+            ? (blog.fingerprint as string[]) 
+            : [];
 
         const alreadyViewed = fingerprints.includes(fingerprint);
-
-        console.log('BlogViewd fingerprint : ', blog.fingerprint);
-        console.log('alreadyViewed : ', alreadyViewed);
 
         if (!alreadyViewed) {
             await prisma.blog.update({
                 where: { id: blogId },
                 data: {
                     views: { increment: 1 },
-                    fingerprint: JSON.stringify([...fingerprints, fingerprint]),
+                    fingerprint: [...fingerprints, fingerprint],
                 },
             });
         }
