@@ -3,8 +3,8 @@ import Testimonial from '@/components/admin-panel/pages/testimonial';
 
 export default function TestimonialPage() {
     return (
-        <MainLayout>
+        <>
             <Testimonial />
-        </MainLayout>
+        </>
     );
 }

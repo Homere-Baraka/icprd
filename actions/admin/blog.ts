@@ -1,6 +1,7 @@
 'use server';
 
 import { prisma } from '@/lib/prisma';
+import { headers } from 'next/headers';
 import { revalidatePath } from 'next/cache';
 import { authOptions } from '@/lib/auth/options';
 import { getServerSession } from 'next-auth';
@@ -225,8 +226,12 @@ export async function updateBlogAction(
     }
 }
 
-export async function getBlogByIdAction(req: Request, blogId: string) {
+export async function getBlogByIdAction(blogId: string) {
     try {
+        const headerStore = await headers();
+        const req = {
+            headers: headerStore,
+        } as Request;
         const fingerprint = getFingerprint(req);
 
         const blog = await prisma.blog.findUnique({

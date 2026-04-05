@@ -6,7 +6,7 @@ import { useNewsletterValidation } from '@/hooks/use-validation-form';
 import { subscribeToNewsletter } from '@/actions/subscriber-to-newsletter';
 import LoadingSpinner from '@/components/ui/loading-spinner';
 
-export default function NewsletterSection({ dict }: { dict: any }) {
+export default function NewsletterSection({ dict }: { dict?: any }) {
     const t = dict?.newsletter || {};
 
     const [isPending, startTransition] = useTransition();

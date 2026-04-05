@@ -9,8 +9,8 @@ export default async function TeamUpdatePage({
     const { teamId } = await params;
 
     return (
-        <MainLayout>
+        <>
             <CreateTeam teamId={String(teamId)} />
-        </MainLayout>
+        </>
     );
 }

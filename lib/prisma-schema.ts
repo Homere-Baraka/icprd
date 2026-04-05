@@ -235,3 +235,40 @@ export const newsletterSchema = z.object({
     name: z.string().optional().or(z.literal('')),
 });
 export type newsletterFormValues = z.infer<typeof newsletterSchema>;
+
+
+// GALLERY VALIDATION
+
+// Configuration des limites
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+
+export const gallerySchema = z.object({
+  title: z
+    .string()
+    .min(3, "Le titre doit contenir au moins 3 caractères")
+    .max(100, "Le titre est trop long"),
+  
+  category: z
+    .string()
+    .min(2, "Veuillez sélectionner ou entrer une catégorie"),
+  
+  description: z
+    .string()
+    .max(500, "La description ne doit pas dépasser 500 caractères")
+    .optional()
+    .or(z.literal("")),
+
+  imageUrl: z
+    .any()
+    .refine((file) => file?.size > 0, "Une image est requise")
+    .refine(
+      (file) => file?.size <= MAX_FILE_SIZE,
+      `L'image est trop lourde (Max 5Mo)`
+    )
+    .refine(
+      (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
+      "Seuls les formats .jpg, .png et .webp sont acceptés"
+    ),
+});
+export type GalleryFormValues = z.infer<typeof gallerySchema>;

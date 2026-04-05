@@ -3,8 +3,8 @@ import CreateAchievement from '@/components/admin-panel/pages/creations/create-a
 
 export default function CreateAchievementPage() {
     return (
-        <MainLayout>
+        <>
             <CreateAchievement />
-        </MainLayout>
+        </>
     );
 }

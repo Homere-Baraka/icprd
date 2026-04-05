@@ -57,8 +57,6 @@ export default function CreatePostPage({ blogId }: { blogId?: string }) {
                         htmlContent = blogData?.contents || '';
                     }
 
-                    console.log('htmlContent: ', htmlContent);
-
                     reset({ ...blogData, contents: htmlContent } as any);
 
                     if (blogData?.imageUrl) {

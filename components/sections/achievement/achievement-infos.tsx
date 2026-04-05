@@ -8,17 +8,40 @@ import {
     CheckCircle2,
     Clock,
 } from 'lucide-react';
+import { useState } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { useAchievementsQuery } from '@/lib/query/query';
 import { getDescription } from '@/utils/get-description';
-import Link from 'next/link';
+import Pagination from '@/components/ui/pagination';
 
 export default function AchievementInfos() {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const ITEMS_PER_PAGE = 10;
+
     const { data, isLoading } = useAchievementsQuery();
     const achievements = data?.data?.filter(
         (achievement: any) => achievement.publishedAt !== null,
-    );
+    ) || [];
+
+    const startIndex = currentIndex * ITEMS_PER_PAGE;
+    const visibleAchievements = achievements?.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+    const totalPages = Math.ceil(achievements.length / ITEMS_PER_PAGE);
+
+    const handleNext = () => {
+        if (currentIndex < totalPages - 1) {
+            setCurrentIndex(prev => prev + 1);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
+
+    const handleBack = () => {
+        if (currentIndex > 0) {
+            setCurrentIndex(prev => prev - 1);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
 
     return (
         <>
@@ -51,12 +74,11 @@ export default function AchievementInfos() {
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {achievements &&
-                                achievements.map((achievement: any) => (
-                                    <article
-                                        key={achievement?.id}
-                                        className="achievement-card group relative flex flex-col bg-white dark:bg-slate-900/40 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl shadow-primary/5"
-                                    >
+                            {visibleAchievements.map((achievement: any) => (
+                                <article
+                                    key={achievement?.id}
+                                    className="achievement-card group relative flex flex-col bg-white dark:bg-slate-900/40 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl shadow-primary/5"
+                                >
                                         <div className="relative h-64 overflow-hidden">
                                             <img
                                                 className="achievement-img w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -157,6 +179,17 @@ export default function AchievementInfos() {
                     )}
                 </div>
             </section>
+
+            {achievements.length > ITEMS_PER_PAGE && (
+                <Pagination
+                    onBack={handleBack}
+                    onNext={handleNext}
+                    isFirst={currentIndex === 0}
+                    isLast={currentIndex === totalPages - 1}
+                    currentIndex={currentIndex}
+                    totalCount={totalPages}
+                />
+            )}
         </>
     );
 }

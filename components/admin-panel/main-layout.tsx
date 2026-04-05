@@ -6,12 +6,14 @@ import Sidebar from './side-bar';
 
 export default function MainLayout({
     children,
+    dict,
 }: {
     children: React.ReactNode;
+    dict: any;
 }) {
     return (
         <div className="flex h-screen bg-background overflow-hidden">
-            <Sidebar />
+            <Sidebar dict={dict} />
 
             <div className="relative flex flex-col flex-1 overflow-hidden">
                 <TopBar />

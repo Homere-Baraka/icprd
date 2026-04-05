@@ -3,8 +3,8 @@ import Setting from '@/components/admin-panel/pages/settings';
 
 export default function SettingPage() {
     return (
-        <MainLayout>
+        <>
             <Setting />
-        </MainLayout>
+        </>
     );
 }

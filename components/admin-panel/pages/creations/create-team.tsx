@@ -134,11 +134,11 @@ export default function CreateTeam({ teamId }: CreateTeamProps) {
 
     if (isInitialLoading) {
         return (
-            <MainLayout>
+            <>
                 <div className="flex h-[60vh] items-center justify-center">
                     <LoadingSpinner />
                 </div>
-            </MainLayout>
+            </>
         );
     }
 

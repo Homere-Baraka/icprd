@@ -9,8 +9,8 @@ export default async function BlogUpdatePage({
     const { blogId } = await params;
 
     return (
-        <MainLayout>
+        <>
             <CreatePost blogId={String(blogId)} />
-        </MainLayout>
+        </>
     );
 }

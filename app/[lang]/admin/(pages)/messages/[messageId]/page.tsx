@@ -47,7 +47,7 @@ export default function MessageDetail() {
     const messageData = message?.data;
 
     return (
-        <MainLayout>
+        <>
             {isLoading || !messageData ? (
                 <div className="p-10 mt-10 flex justify-center">
                     <LoadingSpinner />
@@ -147,6 +147,6 @@ export default function MessageDetail() {
                     />
                 </>
             )}
-        </MainLayout>
+        </>
     );
 }

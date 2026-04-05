@@ -15,6 +15,7 @@ import {
     getContactMessagesAction,
     getContactMessageByIdAction,
 } from '@/actions/admin/contact';
+import { getGalleriesAction } from '@/actions/admin/gallery';
 
 /*====== BLOG QUERY =======*/
 export function useBlogsQuery() {
@@ -109,6 +110,20 @@ export function useContactMessageQuery(messageId: string) {
     return useQuery({
         queryKey: ['contact_message'],
         queryFn: () => getContactMessageByIdAction(messageId),
+        retry: 3,
+        staleTime: 0,
+        refetchInterval: 1000 * 10,
+        refetchIntervalInBackground: false,
+    });
+}
+
+
+// GALLERY QUERY
+
+export function useGalleriesQuery() {
+    return useQuery({
+        queryKey: ['galleries'],
+        queryFn: () => getGalleriesAction(),
         retry: 3,
         staleTime: 0,
         refetchInterval: 1000 * 10,

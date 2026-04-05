@@ -15,51 +15,36 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Logo from '@/components/ui/logo';
 
-export default function Sidebar() {
+export default function Sidebar({ dict }: any) {
     const pathname = usePathname();
+    const t = dict?.sidebar_admin || {};
 
     const menuItems = [
         {
             icon: LayoutDashboard,
-            label: 'Tableau de bord',
+            label: t.dashboard || 'Tableau de bord',
             href: '/admin',
-            active: true,
         },
         {
             icon: Users,
-            label: 'Équipes',
+            label: t.teams || 'Équipes',
             href: '/admin/teams',
         },
         {
             icon: BookOpen,
-            label: 'Articles',
+            label: t.news || 'Actualités',
             href: '/admin/blogs',
         },
         {
             icon: Trophy,
-            label: 'Réalisations',
+            label: t.achievements || 'Réalisations',
             href: '/admin/achievements',
         },
         // {
-        //     icon: MessageSquareQuote,
-        //     label: 'Testimonials',
-        //     href: '/admin/testimonials',
-        // },
-        // {
         //     icon: ImageIcon,
-        //     label: 'Galleries',
+        //     label: t.gallery || 'Galleries',
         //     href: '/admin/gallery',
-        // },
-        // {
-        //     icon: Handshake,
-        //     label: 'Partenaires',
-        //     href: '/admin/partners',
-        // },
-        // {
-        //     icon: Settings,
-        //     label: 'Paramétres',
-        //     href: '/admin/settings',
-        // },
+        // }
     ];
 
     return (
@@ -106,16 +91,6 @@ export default function Sidebar() {
                     );
                 })}
             </nav>
-
-            {/* <div className="mt-auto pt-6 space-y-4">
-                <button className="flex items-center gap-3 px-4 py-2 text-gray-500 hover:text-red-400 transition-colors w-full group">
-                    <LogOut
-                        size={18}
-                        className="group-hover:translate-x-1 transition-transform"
-                    />
-                    <span className="text-sm font-medium">Déconnexion</span>
-                </button>
-            </div> */}
         </aside>
     );
 }

@@ -57,7 +57,7 @@ export default function BlogDetailsAdminPage({
     };
 
     return (
-        <MainLayout>
+        <>
             {isLoading || !blogData ? (
                 <div className="p-10 mt-10 flex justify-center">
                     <LoadingSpinner />
@@ -249,6 +249,6 @@ export default function BlogDetailsAdminPage({
                 onConfirm={handleDelete}
                 isLoading={isPending}
             />
-        </MainLayout>
+        </>
     );
 }

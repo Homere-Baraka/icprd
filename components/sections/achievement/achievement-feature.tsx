@@ -79,7 +79,7 @@ export default function FeatureAchievement() {
                     <div className="flex items-center gap-3 text-xs font-bold text-slate-400">
                         <span className="flex items-center gap-1">
                             <MapPin size={14} className="text-primary" />
-                            {achievement?.province > 1
+                            {(achievement?.province ?? 0) > 1
                                 ? `Déployé dans ${achievement?.province} provinces`
                                 : 'Impact local'}
                         </span>

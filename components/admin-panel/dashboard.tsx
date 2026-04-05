@@ -8,7 +8,13 @@ import Link from 'next/link';
 
 export default function Dashboard() {
     const [isActionModalOpen, setIsActionModalOpen] = useState(false);
-    const [counts, setCounts] = useState({
+    const [counts, setCounts] = useState<{
+        blogs: number;
+        members: number;
+        partners: number;
+        achievements: number;
+        gallery: number;
+    }>({
         blogs: 0,
         members: 0,
         partners: 0,
@@ -40,13 +46,13 @@ export default function Dashboard() {
         {
             label: 'Partenaires',
             count: counts.partners,
-            link: '/admin/partners',
+            link: '/admin/construction',
             color: 'from-amber-400 to-orange-500',
         },
         {
             label: 'Média',
             count: counts.gallery,
-            link: '/admin/gallery',
+            link: '/admin/construction',
             color: 'from-emerald-400 to-teal-500',
         },
     ];
@@ -128,28 +134,23 @@ export default function Dashboard() {
                         </div>
                     </div>
 
-                    {/* Colonne Latérale - Raccourcis rapides */}
-                    <div className="lg:col-span-4 bg-zinc-900/30 border border-white/5 rounded-[2.5rem] p-8 flex flex-col justify-between">
+                    {/* Colonne Latérale - Statut Système */}
+                    <div className="lg:col-span-4 bg-zinc-900/30 border border-white/5 rounded-[2.5rem] h-[270px] p-8 flex flex-col justify-between">
                         <div>
                             <div className="flex items-center gap-3 mb-8">
-                                <Layers className="text-zinc-500" size={20} />
-                                <h3 className="font-bold text-sm uppercase tracking-widest text-zinc-500">
-                                    Archives
+                                <div className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+                                <h3 className="font-bold text-sm uppercase tracking-[0.3em] text-zinc-500">
+                                    System Status
                                 </h3>
                             </div>
-                            <p className="text-zinc-400 text-sm leading-relaxed">
-                                Gérez vos ressources numériques et l'intégrité
-                                de vos données depuis ce panneau centralisé.
-                            </p>
-                        </div>
-
-                        <div className="space-y-4 mt-12">
-                            <div className="h-1 w-full bg-zinc-800 rounded-full overflow-hidden">
-                                <div className="h-full w-2/3 bg-blue-600 rounded-full shadow-[0_0_15px_rgba(37,99,235,0.5)]"></div>
-                            </div>
-                            <div className="flex justify-between text-[10px] font-black uppercase text-zinc-600 tracking-tighter">
-                                <span>Stockage Cloud</span>
-                                <span>64% utilisé</span>
+                            
+                            <div className="space-y-1">
+                                <p className="text-3xl font-light text-white tracking-tighter">
+                                    Opérationnel.
+                                </p>
+                                <p className="text-xs font-medium text-zinc-500 leading-relaxed">
+                                    Tous les modules de contenu et les bases de données sont synchronisés avec le serveur de production.
+                                </p>
                             </div>
                         </div>
                     </div>

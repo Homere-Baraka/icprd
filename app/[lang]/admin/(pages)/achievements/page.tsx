@@ -3,8 +3,8 @@ import Achievements from '@/components/admin-panel/pages/achievement';
 
 export default function AchievementPage() {
     return (
-        <MainLayout>
+        <>
             <Achievements />
-        </MainLayout>
+        </>
     );
 }

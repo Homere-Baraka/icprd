@@ -3,8 +3,8 @@ import Messages from '@/components/admin-panel/pages/message';
 
 export default function AchievementPage() {
     return (
-        <MainLayout>
+        <>
             <Messages />
-        </MainLayout>
+        </>
     );
 }

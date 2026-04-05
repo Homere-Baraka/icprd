@@ -17,6 +17,8 @@ import {
     contactMessageSchema,
     newsletterFormValues,
     newsletterSchema,
+    GalleryFormValues,
+    gallerySchema,
 } from '@/lib/prisma-schema';
 
 /*====== ADMIN SETTING VALIDATION =======*/
@@ -87,6 +89,14 @@ export const useContactValidation = () => {
 export const useNewsletterValidation = () => {
     const form = useForm<newsletterFormValues>({
         resolver: zodResolver(newsletterSchema),
+    });
+    return form;
+};
+
+/*======= GALLERY VALIDATION ======*/
+export const useGalleryValidation = () => {
+    const form = useForm<GalleryFormValues>({
+        resolver: zodResolver(gallerySchema),
     });
     return form;
 };

@@ -209,5 +209,27 @@
         "tagline2": "Strong DRC",
         "loading": "Sending...",
         "error_default": "An error occurred"
+    },
+
+
+    "admin_sidebar": {
+        "dashboard": "Dashboard",
+        "teams": "Teams",
+        "news": "News",
+        "achievements": "Achievements",
+        "gallery": "Galleries",
+        "partners": "Partners"
+    },
+    "admin_gallery": {
+        "title": "Gallery",
+        "subtitle": "Manage your visual assets and media.",
+        "btn_add": "Add to Gallery",
+        "modal_title": "New Asset",
+        "label_title": "Title",
+        "label_desc": "Description",
+        "label_url": "Image URL",
+        "label_cat": "Category",
+        "btn_cancel": "Cancel",
+        "btn_save": "Save"
     }
 }

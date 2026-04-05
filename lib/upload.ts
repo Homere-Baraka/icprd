@@ -85,3 +85,18 @@ export async function uploadProfileImage(file: File) {
 
     return await response.json();
 }
+
+// GALLERY UPLOAD
+export async function uploadGalleryImage(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await fetch('/api/upload/gallery', {
+        method: 'POST',
+        body: formData,
+    });
+
+    if (!response.ok) throw new Error('Error to upload file.');
+
+    return await response.json();
+}

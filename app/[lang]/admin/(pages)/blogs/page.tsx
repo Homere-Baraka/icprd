@@ -3,8 +3,8 @@ import Blogs from '@/components/admin-panel/pages/blog';
 
 export default function BlogPage() {
     return (
-        <MainLayout>
+        <>
             <Blogs />
-        </MainLayout>
+        </>
     );
 }

@@ -8,11 +8,9 @@ export default async function AchievementUpdatePage({
 }) {
     const { achievementId } = await params;
 
-    console.log('achievementId: ', achievementId);
-
     return (
-        <MainLayout>
+        <>
             <CreateAchievement achievementId={String(achievementId)} />
-        </MainLayout>
+        </>
     );
 }

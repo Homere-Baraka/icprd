@@ -209,5 +209,27 @@
         "tagline2": "RDC Forte",
         "loading": "Envoi...",
         "error_default": "Une erreur est survenue"
+    },
+
+
+    "admin_sidebar": {
+        "dashboard": "Tableau de bord",
+        "teams": "Équipes",
+        "news": "Actualités",
+        "achievements": "Réalisations",
+        "gallery": "Galeries",
+        "partners": "Partenaires"
+    },
+    "admin_gallery": {
+        "title": "Galerie",
+        "subtitle": "Gérez vos ressources visuelles et vos médias.",
+        "btn_add": "Ajouter une galerie",
+        "modal_title": "Nouvel Élément",
+        "label_title": "Titre",
+        "label_desc": "Description",
+        "label_url": "URL de l'image",
+        "label_cat": "Catégorie",
+        "btn_cancel": "Annuler",
+        "btn_save": "Enregistrer"
     }
 }

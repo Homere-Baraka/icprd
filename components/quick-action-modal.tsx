@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import {
     X,
@@ -5,98 +7,100 @@ import {
     Users,
     Handshake,
     Trophy,
-    Image as ImageIcon,
     Plus,
+    ArrowRight
 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function QuickActionModal({ isOpen, onClose }: any) {
+    const router = useRouter();
+
     if (!isOpen) return null;
 
     const actions = [
         {
-            label: 'Nouveau Post',
+            label: 'Nouveau Blog',
+            description: 'Publier un article ou une actualité',
             icon: <FileText size={20} />,
-            color: 'bg-blue-100/10 text-blue-600',
+            color: 'bg-blue-500/10 text-blue-500',
             href: '/admin/blogs/new',
         },
         {
             label: 'Ajouter un Membre',
+            description: 'Intégrer un nouvel expert à l\'équipe',
             icon: <Users size={20} />,
-            color: 'bg-emerald-100/10 text-emerald-600',
+            color: 'bg-emerald-500/10 text-emerald-500',
             href: '/admin/teams/new',
         },
         {
             label: 'Nouveau Partenaire',
+            description: 'Enregistrer une collaboration stratégique',
             icon: <Handshake size={20} />,
-            color: 'bg-amber-100/10 text-amber-600',
-            href: '/admin/partners/new',
+            color: 'bg-amber-500/10 text-amber-500',
+            href: '/admin/construction',
         },
         {
             label: 'Nouvelle Réussite',
+            description: 'Documenter un projet achevé',
             icon: <Trophy size={20} />,
-            color: 'bg-purple-100/10 text-purple-600',
+            color: 'bg-purple-500/10 text-purple-500',
             href: '/admin/achievements/new',
         },
     ];
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-            {/* Overlay sombre */}
-            <div
-                className="absolute inset-0 bg-slate-900/10 animate-in fade-in duration-300"
-                onClick={onClose}
-            />
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40">
+            {/* Overlay */}
+            <div className="absolute inset-0 transition-opacity" onClick={onClose} />
 
             {/* Modal Card */}
-            <div className="relative top-10 left-20 bg-card w-full max-w-lg rounded-2xl shadow-2xl border border-card-border overflow-hidden animate-in zoom-in-95 duration-200">
-                {/* Header de la Modal */}
-                <div className="p-8 border-b border-card-border flex justify-between items-center">
+            <div className="relative bg-card w-full max-w-lg rounded-[2rem] shadow-2xl border border-white/5 overflow-hidden animate-in zoom-in-95 duration-200">
+                
+                {/* Header */}
+                <div className="p-8 border-b border-card-border flex justify-between items-center bg-zinc-900/50">
                     <div>
-                        <h2 className="text-2xl font-black">
-                            Quick Action{' '}
-                            <span className="text-blue-600">+</span>
+                        <h2 className="text-2xl font-black text-white tracking-tighter">
+                            Quick <span className="text-primary text-3xl">.</span> Actions
                         </h2>
-                        <p className="text-slate-400 text-sm font-medium">
-                            Que souhaitez-vous créer aujourd'hui ?
+                        <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest mt-1">
+                            Raccourcis de gestion
                         </p>
                     </div>
                     <button
                         onClick={onClose}
-                        className="p-2 bg-slate-100/10 text-text-muted rounded-xl hover:bg-red-50 hover:text-red-500 transition-colors"
+                        className="p-3 bg-white/5 text-zinc-400 rounded-2xl hover:bg-red-500/10 hover:text-red-500 transition-all active:scale-90"
                     >
                         <X size={20} />
                     </button>
                 </div>
 
                 {/* Liste des Actions */}
-                <div className="p-3 grid grid-cols-1 gap-1">
+                <div className="p-4 space-y-2">
                     {actions.map((action, index) => (
                         <button
                             key={index}
                             onClick={() => {
-                                // Ici tu navigues vers l'URL
-                                window.location.href = action.href;
+                                router.push(action.href);
                                 onClose();
                             }}
-                            className="group w-full flex items-center justify-between p-3 rounded-2xl hover:bg-card-border transition-all border border-transparent hover:border-card-border text-left"
+                            className="group w-full flex items-center justify-between p-4 rounded-[1.5rem] hover:bg-white/[0.03] transition-all border border-transparent hover:border-white/5 text-left"
                         >
-                            <div className="flex items-center gap-3">
-                                <div
-                                    className={`w-10 h-10 ${action.color} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform`}
-                                >
+                            <div className="flex items-center gap-4">
+                                <div className={`w-12 h-12 ${action.color} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-lg shadow-black/20`}>
                                     {action.icon}
                                 </div>
                                 <div>
-                                    <p className="font-bold text-text-main">
+                                    <p className="font-bold text-zinc-100 group-hover:text-primary transition-colors">
                                         {action.label}
                                     </p>
-                                    <p className="text-xs text-text-subtle tracking-tighter font-semibold">
-                                        Action instantanée
+                                    <p className="text-[11px] text-zinc-500 font-medium italic">
+                                        {action.description}
                                     </p>
                                 </div>
                             </div>
-                            <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-background opacity-0 hover:bg-primary hover:text-white cursor-pointer group-hover:opacity-100 transition-opacity">
-                                <Plus size={16} />
+                            
+                            <div className="p-2 rounded-full bg-zinc-800 text-zinc-500 group-hover:bg-primary group-hover:text-white transition-all transform group-hover:translate-x-1">
+                                <ArrowRight size={16} />
                             </div>
                         </button>
                     ))}

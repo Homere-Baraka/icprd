@@ -3,8 +3,8 @@ import CreateTeam from '@/components/admin-panel/pages/creations/create-team';
 
 export default async function CreateTeamPage() {
     return (
-        <MainLayout>
+        <>
             <CreateTeam />
-        </MainLayout>
+        </>
     );
 }

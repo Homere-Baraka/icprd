@@ -83,7 +83,6 @@ export default function Partners() {
                             </span>
                         </div>
 
-                        {/* Partner Info */}
                         <div className="mb-6">
                             <h3 className="text-xl font-bold text-text-main group-hover:text-blue-600 transition-colors">
                                 {partner.name}

@@ -181,7 +181,7 @@ export default function BlogDetailPage({
                                     Discover more.
                                 </h3>
                                 <a
-                                    href="/blog"
+                                    href="/blogs"
                                     className="text-primary font-bold text-sm flex items-center gap-2 group"
                                 >
                                     All posts{' '}
@@ -192,24 +192,24 @@ export default function BlogDetailPage({
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                                {otherBlogs?.map((item: any) => (
+                                {otherBlogs?.map((b: any) => (
                                     <article
-                                        key={blog.id}
+                                        key={b?.id}
                                         className="blog-card flex flex-col bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                                     >
-                                        <a href={`/blogs/${blog.id}`}>
+                                        <a href={`/blogs/${b?.id}`}>
                                             <div className="relative h-60 overflow-hidden">
                                                 <div className="absolute top-4 left-4 z-20">
                                                     <span className="bg-primary text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg shadow-xl">
-                                                        {blog.category ||
+                                                        {b?.category ||
                                                             'Général'}
                                                     </span>
                                                 </div>
                                                 <img
-                                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                                    alt={blog.title}
+                                                    className="w-full h-full flex items-center justify-center object-cover transition-transform duration-700 group-hover:scale-110"
+                                                    alt={b?.title}
                                                     src={
-                                                        blog.imageUrl ||
+                                                        b?.imageUrl ||
                                                         '/images/placeholder-blog.jpg'
                                                     }
                                                 />
@@ -218,12 +218,12 @@ export default function BlogDetailPage({
 
                                             <div className="p-6 flex-1 flex flex-col">
                                                 <h3 className="text-xl font-bold text-white mb-3 line-clamp-2 leading-snug group-hover:text-primary transition-colors">
-                                                    {blog.title}
+                                                    {b?.title}
                                                 </h3>
 
                                                 <p className="text-slate-200 text-sm leading-relaxed mb-6 line-clamp-3">
                                                     {getDescription(
-                                                        blog.contents,
+                                                        b?.contents,
                                                     )}
                                                 </p>
 
@@ -234,15 +234,15 @@ export default function BlogDetailPage({
                                                         </div>
                                                         <div className="flex flex-col">
                                                             <span className="text-xs font-bold text-white">
-                                                                {blog.author
+                                                                {b?.author
                                                                     ?.first_name ||
                                                                     'Équipe ICPRD'}
                                                             </span>
                                                             <span className="text-[10px] text-text-muted">
-                                                                {blog.createdAt &&
+                                                                {b?.createdAt &&
                                                                     formatDistanceToNow(
                                                                         new Date(
-                                                                            blog.createdAt,
+                                                                            b?.createdAt,
                                                                         ),
                                                                         {
                                                                             addSuffix: true,
@@ -257,7 +257,7 @@ export default function BlogDetailPage({
                                                             size={14}
                                                             className="text-primary"
                                                         />
-                                                        {blog.views || 0}
+                                                        {b?.views || 0}
                                                     </div>
                                                 </div>
                                             </div>

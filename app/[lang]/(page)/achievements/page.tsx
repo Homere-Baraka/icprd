@@ -8,10 +8,10 @@ import { getDictionary } from '@/lib/get-dictionary';
 export default async function AchievementPage({
     params,
 }: {
-    params: Promise<{ lang: 'fr' | 'en' }>;
+    params: Promise<{ lang: string }>;
 }) {
     const { lang } = await params;
-    const dict = await getDictionary(lang);
+    const dict = await getDictionary(lang as 'fr' | 'en');
 
     return (
         <MainLayout>

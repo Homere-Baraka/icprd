@@ -62,7 +62,7 @@ export default function AchievementDetailsAdminPage({
     };
 
     return (
-        <MainLayout>
+        <>
             {isLoading || !achievementData ? (
                 <div className="p-10 mt-10 flex justify-center">
                     <LoadingSpinner />
@@ -286,6 +286,6 @@ export default function AchievementDetailsAdminPage({
                 onConfirm={handleDelete}
                 isLoading={isPending}
             />
-        </MainLayout>
+        </>
     );
 }
