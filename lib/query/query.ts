@@ -118,7 +118,6 @@ export function useContactMessageQuery(messageId: string) {
 }
 
 // GALLERY QUERY
-
 export function useGalleriesQuery() {
     return useQuery({
         queryKey: ['galleries'],

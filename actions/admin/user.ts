@@ -260,18 +260,31 @@ export async function updateAdminProfileAction(formData: any) {
         const session = await getServerSession(authOptions);
 
         if (!session?.user?.id) {
-            return { success: false, error: 'Forbiden' };
+            return { success: false, error: 'Forbidden' };
         }
 
         const userId = session.user.id;
-        const dataToUpdate: any = { ...formData };
 
-        if (dataToUpdate.password) {
-            const salt = await bcrypt.genSalt(10);
-            dataToUpdate.password = await bcrypt.hash(
-                dataToUpdate.password,
-                salt,
-            );
+        const { passwordSchema, ...dataToUpdate } = formData;
+
+        const oldPassword = passwordSchema?.oldPassword;
+        const newPassword = passwordSchema?.newPassword;
+
+        if (oldPassword && newPassword) {
+            const currentUser = await prisma.user.findUnique({
+                where: { id: userId },
+                select: { password: true }
+            });
+
+            if (!currentUser || !currentUser.password) {
+                return { success: false, error: 'Utilisateur introuvable' };
+            }
+            const isMatch = await bcrypt.compare(oldPassword, currentUser.password);
+            
+            if (!isMatch) {
+                return { success: false, error: 'L’ancien mot de passe est incorrect.' };
+            }
+            dataToUpdate.password = await bcrypt.hash(newPassword, 10);
         }
 
         await prisma.user.update({
@@ -283,6 +296,7 @@ export async function updateAdminProfileAction(formData: any) {
         revalidatePath('/admin');
 
         return { success: true, message: 'User updated successfully' };
+
     } catch (error: any) {
         console.error('Prisma Patch Error:', error);
 

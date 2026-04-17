@@ -46,7 +46,7 @@ export default function Teams() {
                     setIsModalOpen(false);
                     setSelectedTeamId(null);
                     notifySuccess(result.message || 'Supprimé avec succès');
-                    // On rafraîchit les données sans recharger la page
+
                     await refetch();
                 } else {
                     notifyError(String(result.error));
@@ -84,7 +84,10 @@ export default function Teams() {
 
             {/* Rendu Conditionnel */}
             {isLoading ? (
-                <TeamSkeletton />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <TeamSkeletton />
+                </div>
+                
             ) : isError ? (
                 <ErrorState onRetry={refetch} message={error.message} />
             ) : teamMembers?.data && teamMembers.data.length > 0 ? (
@@ -219,6 +222,7 @@ export default function Teams() {
 
             <DeleteConfirmModal
                 title="Supprimer définitivement"
+                element="ce membre de l'équipe"
                 isOpen={isModalOpen}
                 onClose={() => {
                     setIsModalOpen(false);

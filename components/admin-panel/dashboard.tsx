@@ -52,7 +52,7 @@ export default function Dashboard() {
         {
             label: 'Média',
             count: counts.gallery,
-            link: '/admin/construction',
+            link: '/admin/gallery',
             color: 'from-emerald-400 to-teal-500',
         },
     ];

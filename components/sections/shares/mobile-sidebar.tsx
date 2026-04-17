@@ -8,10 +8,12 @@ export default function MobileSidebar({
     isOpen,
     setIsOpen,
     dict,
+    lang,
 }: {
     isOpen: boolean;
     setIsOpen: (val: boolean) => void;
     dict: any;
+    lang: string;
 }) {
     const router = useRouter();
     const dropdownRef = useRef<HTMLDivElement>(null);
@@ -47,14 +49,12 @@ export default function MobileSidebar({
                 <div className="flex flex-col h-full">
                     <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-800">
                         <div className="flex items-center gap-3">
-                            <div className="text-primary">
-                                <svg
-                                    className="size-8"
-                                    fill="currentColor"
-                                    viewBox="0 0 48 48"
-                                >
-                                    <path d="M13.8261 17.4264C16.7203 18.1174 20.2244 18.5217 24 18.5217C27.7756 18.5217 31.2797 18.1174 34.1739 17.4264C36.9144 16.7722 39.9967 15.2331 41.3563 14.1648L24.8486 40.6391C24.4571 41.267 23.5429 41.267 23.1514 40.6391L6.64374 14.1648C8.00331 15.2331 11.0856 16.7722 13.8261 17.4264Z"></path>
-                                </svg>
+                            <div className="relative flex items-center justify-center rounded-lg h-12 w-12 overflow-hidden">
+                                <img
+                                    src="/images/logo.png"
+                                    alt="icprd logo"
+                                    className="w-full h-full object-contain"
+                                />
                             </div>
                             <span className="text-xl font-black text-slate-900 dark:text-white">
                                 ICPRD
@@ -71,7 +71,7 @@ export default function MobileSidebar({
                     </div>
                     <nav className="flex-1 p-6 space-y-4 overflow-y-auto">
                         <a
-                            href="/"
+                            href={`/${lang}`}
                             onClick={() => setIsOpen(false)}
                             className="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
                             data-translate="nav.home"
@@ -79,7 +79,7 @@ export default function MobileSidebar({
                             {dict.home}
                         </a>
                         <a
-                            href="/achievements"
+                            href={`/${lang}/achievements`}
                             onClick={() => setIsOpen(false)}
                             className="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
                             data-translate="nav.what-we-do"
@@ -87,7 +87,7 @@ export default function MobileSidebar({
                             {dict.achievements}
                         </a>
                         <a
-                            href="/blogs"
+                            href={`/${lang}/blogs`}
                             onClick={() => setIsOpen(false)}
                             className="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
                             data-translate="nav.insights"
@@ -95,7 +95,7 @@ export default function MobileSidebar({
                             {dict.news}
                         </a>
                         <a
-                            href="/construction"
+                            href={`/${lang}/construction`}
                             onClick={() => setIsOpen(false)}
                             className="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
                             data-translate="nav.team"
@@ -103,7 +103,7 @@ export default function MobileSidebar({
                             {dict.team}
                         </a>
                         <a
-                            href="#contact"
+                            href={`/${lang}#contact`}
                             onClick={() => setIsOpen(false)}
                             className="block text-slate-700 dark:text-slate-300 hover:text-primary font-bold text-sm uppercase tracking-wide py-3 transition-colors sidebar-link"
                             data-translate="nav.contact"
@@ -113,7 +113,7 @@ export default function MobileSidebar({
                     </nav>
                     <div className="p-6 border-t border-slate-200 dark:border-slate-800">
                         <a
-                            href="/construction"
+                            href={`/${lang}#contact`}
                             className="w-full bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full font-bold text-sm transition-all mb-4 sidebar-link"
                             data-translate="header.donate"
                         >

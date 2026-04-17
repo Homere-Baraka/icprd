@@ -38,10 +38,15 @@ export default function MainLayout({
 
     return (
         <div>
-            <NavBar onMenuClick={() => setIsSidebarOpen(true)} dict={navDict} />
+            <NavBar
+                onMenuClick={() => setIsSidebarOpen(true)}
+                dict={navDict} 
+                lang={lang}
+            />
 
             <MobileSidebar
                 dict={navDict}
+                lang={lang}
                 isOpen={isSidebarOpen}
                 setIsOpen={setIsSidebarOpen}
             />
@@ -50,7 +55,7 @@ export default function MainLayout({
                 {children}
             </main>
 
-            <FooterSection dict={footerDict} />
+            <FooterSection lang={lang} dict={footerDict} />
         </div>
     );
 }

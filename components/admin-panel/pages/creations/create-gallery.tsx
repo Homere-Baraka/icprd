@@ -26,6 +26,7 @@ export default function CreateGallery({ galleryId }: { galleryId?: string }) {
 
     // États pour la gestion d'image et UI
     const [previewImage, setPreviewImage] = useState<string | null>(null);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [isDragging, setIsDragging] = useState(false);
     const [isInitialLoading, setIsInitialLoading] = useState(!!galleryId);
     const [isPending, setIsPending] = useState(false);
@@ -78,33 +79,20 @@ export default function CreateGallery({ galleryId }: { galleryId?: string }) {
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
-        uploadProcess(file);
+        prepareImage(file);
     };
 
-    const uploadProcess = async (file: File) => {
+    const prepareImage = (file: File) => {
         const localPreview = URL.createObjectURL(file);
         setPreviewImage(localPreview);
-
-        try {
-            const result = await uploadGalleryImage(file);
-            console.log('Upload result:', result);
-            if (result.success) {
-                setPreviewImage(result.url);
-                setValue('imageUrl', result.url, { shouldValidate: true });
-                notifySuccess('Image téléchargée avec succès');
-            } else {
-                throw new Error();
-            }
-        } catch (error) {
-            console.log('Error : ', error);
-            notifyError("Échec de l'upload de l'image");
-            setPreviewImage(null);
-            setValue('imageUrl', '');
-        }
+        setSelectedFile(file);
+        
+        setValue('imageUrl', 'pending_upload', { shouldValidate: true });
     };
 
     const removeImage = () => {
         setPreviewImage(null);
+        setSelectedFile(null);
         setValue('imageUrl', '', { shouldValidate: true });
         if (fileInputRef.current) fileInputRef.current.value = '';
     };
@@ -118,27 +106,38 @@ export default function CreateGallery({ galleryId }: { galleryId?: string }) {
         e.preventDefault();
         setIsDragging(false);
         const file = e.dataTransfer.files?.[0];
-        if (file) uploadProcess(file);
+        if (file) prepareImage(file);
     };
 
     const onSubmit = async (data: any) => {
         setIsPending(true);
         try {
+            let finalImageUrl = data.imageUrl;
+
+            if (selectedFile) {
+                const uploadResult = await uploadGalleryImage(selectedFile);
+                if (uploadResult.success) {
+                    finalImageUrl = uploadResult.url;
+                } else {
+                    throw new Error("Erreur lors de l'upload de l'image");
+                }
+            }
+
+            const finalData = { ...data, imageUrl: finalImageUrl };
+
             const result = isEditing
-                ? await updateGalleryAction(galleryId!, data)
-                : await createGalleryAction(data);
+                ? await updateGalleryAction(galleryId!, finalData)
+                : await createGalleryAction(finalData);
 
             if (result.success) {
-                notifySuccess(
-                    isEditing ? 'Galerie mise à jour' : 'Galerie créée',
-                );
-                window.location.href = '/admin/gallery';
+                notifySuccess(isEditing ? 'Mise à jour réussie' : 'Création réussie');
+                router.push('/admin/gallery');
                 router.refresh();
             } else {
                 notifyError(result.error || 'Une erreur est survenue');
             }
-        } catch (err) {
-            notifyError('Erreur de communication avec le serveur');
+        } catch (err: any) {
+            notifyError(err.message || 'Erreur de communication');
         } finally {
             setIsPending(false);
         }
@@ -177,6 +176,7 @@ export default function CreateGallery({ galleryId }: { galleryId?: string }) {
 
                 <form
                     onSubmit={handleSubmit(onSubmit)}
+                    action="#"
                     className="grid grid-cols-1 lg:grid-cols-12 gap-12"
                 >
                     {/* --- UPLOAD --- */}
@@ -244,6 +244,11 @@ export default function CreateGallery({ galleryId }: { galleryId?: string }) {
                                 </div>
                             )}
                         </div>
+                        {errors.imageUrl && (
+                            <p className="text-red-500 text-xs mt-1 ml-1">
+                                {errors.imageUrl.message as string}
+                            </p>
+                        )}
                     </div>
 
                     {/* --- FORMULAIRE --- */}
@@ -291,6 +296,11 @@ export default function CreateGallery({ galleryId }: { galleryId?: string }) {
                                     className="w-full bg-card border border-card-border rounded-2xl px-5 py-4 outline-none focus:border-primary transition-all resize-none"
                                     placeholder="Détails optionnels..."
                                 />
+                                {errors.description && (
+                                    <p className="text-red-500 text-xs mt-1 ml-1">
+                                        {errors.description.message as string}
+                                    </p>
+                                )}
                             </div>
                         </div>
 

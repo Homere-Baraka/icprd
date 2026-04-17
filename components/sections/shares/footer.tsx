@@ -7,7 +7,7 @@ import { subscribeToNewsletter } from '@/actions/subscriber-to-newsletter';
 import LoadingSpinner from '@/components/ui/loading-spinner';
 import { Send, Share2, Users } from 'lucide-react';
 
-export default function FooterSection({ dict }: { dict: any }) {
+export default function FooterSection({ dict, lang }: { dict: any, lang: string }) {
     const [isPending, startTransition] = useTransition();
     const { notifyError, notifySuccess } = useNotification();
     const { register, handleSubmit } = useNewsletterValidation();
@@ -71,7 +71,7 @@ export default function FooterSection({ dict }: { dict: any }) {
                             <li>
                                 <a
                                     className="hover:text-primary transition-colors"
-                                    href="/construction"
+                                    href={`/${lang}/construction`}
                                 >
                                     {dict.org.about}
                                 </a>
@@ -79,7 +79,7 @@ export default function FooterSection({ dict }: { dict: any }) {
                             <li>
                                 <a
                                     className="hover:text-primary transition-colors"
-                                    href="/construction"
+                                    href={`/${lang}/construction`}
                                 >
                                     {dict.org.plan}
                                 </a>
@@ -87,7 +87,7 @@ export default function FooterSection({ dict }: { dict: any }) {
                             <li>
                                 <a
                                     className="hover:text-primary transition-colors"
-                                    href="/construction"
+                                    href={`/${lang}/construction`}
                                 >
                                     {dict.org.reports}
                                 </a>
@@ -95,7 +95,7 @@ export default function FooterSection({ dict }: { dict: any }) {
                             <li>
                                 <a
                                     className="hover:text-primary transition-colors"
-                                    href="#newsletter"
+                                    href={`/${lang}#newsletter`}
                                 >
                                     {dict.org.join}
                                 </a>
@@ -111,7 +111,7 @@ export default function FooterSection({ dict }: { dict: any }) {
                             <li>
                                 <a
                                     className="hover:text-primary transition-colors"
-                                    href="/construction"
+                                    href={`/${lang}/construction`}
                                 >
                                     {dict.legal.privacy}
                                 </a>
@@ -119,7 +119,7 @@ export default function FooterSection({ dict }: { dict: any }) {
                             <li>
                                 <a
                                     className="hover:text-primary transition-colors"
-                                    href="/construction"
+                                    href={`/${lang}/construction`}
                                 >
                                     {dict.legal.charter}
                                 </a>
@@ -127,7 +127,7 @@ export default function FooterSection({ dict }: { dict: any }) {
                             <li>
                                 <a
                                     className="hover:text-primary transition-colors"
-                                    href="/construction"
+                                    href={`/${lang}/construction`}
                                 >
                                     {dict.legal.governance}
                                 </a>
@@ -135,7 +135,7 @@ export default function FooterSection({ dict }: { dict: any }) {
                             <li>
                                 <a
                                     className="hover:text-primary transition-colors"
-                                    href="/construction"
+                                    href={`/${lang}/construction`}
                                 >
                                     {dict.legal.transparency}
                                 </a>
@@ -172,10 +172,10 @@ export default function FooterSection({ dict }: { dict: any }) {
                 <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em]">
                     <p>{dict.copyright}</p>
                     <div className="flex gap-10">
-                        <a className="hover:text-primary" href="/construction">
+                        <a className="hover:text-primary" href={`/${lang}/construction`}>
                             {dict.tagline1}
                         </a>
-                        <a className="hover:text-primary" href="/construction">
+                        <a className="hover:text-primary" href={`/${lang}/construction`}>
                             {dict.tagline2}
                         </a>
                     </div>

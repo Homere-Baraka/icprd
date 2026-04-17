@@ -141,6 +141,26 @@
         "date_format": "fr-FR"
     },
 
+    "hero_gallery": {
+        "title": "Galerie Photos",
+        "description": "Découvrez nos actions sur le terrain à travers nos clichés. Un aperçu visuel de l'impact de l'ICPRD dans les communautés de la RDC.",
+        "image_alt": "Vue aérienne d'un paysage forestier dense en République Démocratique du Congo"
+    },
+    "gallery_filters": {
+        "all": "Tous",
+        "peace": "Paix & Réconciliation",
+        "env": "Environnement",
+        "dev": "Développement Durable",
+        "life": "Vie de l'ONG"
+    },
+    "cta_gallery": {
+        "title": "Soutenez notre voyage",
+        "description": "Chaque photographie représente une vie touchée et une communauté renforcée. Joignez-vous à nous pour créer un impact encore plus grand.",
+        "btn_partner": "Devenir Partenaire",
+        "btn_volunteer": "Devenir Bénévole"
+    },
+
+
     "newsletter": {
         "title": "Ne manquez aucune de nos actualités.",
         "description": "Abonnez-vous à notre infolettre hebdomadaire et recevez nos rapports de terrain en priorité, directement dans votre boîte mail.",
@@ -210,6 +230,10 @@
         "loading": "Envoi...",
         "error_default": "Une erreur est survenue"
     },
+
+
+
+
 
     "admin_sidebar": {
         "dashboard": "Tableau de bord",

@@ -17,7 +17,7 @@ export default async function AchievementPage({
         <MainLayout>
             <AchievementsHero dict={dict.achievement_hero} />
             <FeatureAchievement />
-            <AchievementInfos />
+            <AchievementInfos lang={lang} />
             <NewsletterSection dict={dict.newsletter} />
         </MainLayout>
     );

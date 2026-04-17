@@ -28,6 +28,7 @@ export default function CreateAchievement({
     const [actionType, setActionType] = useState<'draft' | 'publish'>('draft');
     const [isDataLoaded, setIsDataLoaded] = useState(false);
     const [previewImage, setPreviewImage] = useState<string | null>(null);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [isSubmitting, setIsSubmitting] = useState<
         'draft' | 'publish' | null
     >(null);
@@ -88,26 +89,14 @@ export default function CreateAchievement({
         return result.success ? result.url : null;
     };
 
-    const handleAchievementUpload = async (file: File) => {
-        const result = await uploadAchievementImage(file);
-        return result.success ? result.url : null;
-    };
-
-    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
             const localPreview = URL.createObjectURL(file);
             setPreviewImage(localPreview);
-
-            const url = await handleAchievementUpload(file);
-            if (url) {
-                setPreviewImage(url);
-                setValue('imageUrl', url, { shouldValidate: true });
-                notifySuccess('Image de couverture téléchargée');
-            } else {
-                notifyError("Erreur lors de l'upload");
-                setPreviewImage(null);
-            }
+            setSelectedFile(file);
+            
+            setValue('imageUrl', 'pending_upload', { shouldValidate: true });
         }
     };
 
@@ -116,16 +105,31 @@ export default function CreateAchievement({
     const processForm = async (data: any, actionType: 'draft' | 'publish') => {
         setIsSubmitting(actionType);
 
-        console.log('content: ', data?.contents);
         try {
+            let finalImageUrl = data.imageUrl;
+            
+            if (selectedFile) {
+                const uploadResult = await uploadAchievementImage(selectedFile);
+                if (uploadResult.success) {
+                    finalImageUrl = uploadResult.url;
+                } else {
+                    throw new Error("Échec de l'upload de l'image de couverture");
+                }
+            }
+
+            const finalData = { 
+                ...data, 
+                imageUrl: finalImageUrl 
+            };
+
             const result =
                 isEditing && achievementId
                     ? await updateAchievementAction(
                           achievementId,
-                          data,
+                          finalData,
                           actionType,
                       )
-                    : await createAchievementAction(data, actionType);
+                    : await createAchievementAction(finalData, actionType);
 
             if (result.success) {
                 notifySuccess(

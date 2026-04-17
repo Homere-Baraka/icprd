@@ -33,6 +33,7 @@ export default function CreateTeam({ teamId }: CreateTeamProps) {
     const [isPending, setIsPending] = useState(false);
     const [isInitialLoading, setIsInitialLoading] = useState(isEditing);
     const [previewImage, setPreviewImage] = useState<string | null>(null);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     const {
         register,
@@ -95,28 +96,33 @@ export default function CreateTeam({ teamId }: CreateTeamProps) {
 
         const localPreview = URL.createObjectURL(file);
         setPreviewImage(localPreview);
+        setSelectedFile(file);
 
-        try {
-            const result = await uploadTeamImage(file);
-            if (result.success) {
-                setPreviewImage(result.url);
-                setValue('image', result.url, { shouldValidate: true });
-                notifySuccess('Image enregistrée');
-            } else {
-                throw new Error();
-            }
-        } catch (error) {
-            notifyError("Échec de l'upload de l'image");
-            setPreviewImage(null);
-        }
+        setValue('image', "pending_upload", { shouldValidate: true });
     };
 
     const onSubmit = async (data: any) => {
         setIsPending(true);
         try {
+            let finalImageUrl = data.image;
+            
+            if (selectedFile) {
+                const uploadResult = await uploadTeamImage(selectedFile);
+                if (uploadResult.success) {
+                    finalImageUrl = uploadResult.url;
+                } else {
+                    throw new Error("Échec de l'upload de l'image de couverture");
+                }
+            }
+
+            const finalData = { 
+                ...data, 
+                image: finalImageUrl 
+            };
+
             const result = isEditing
-                ? await updateTeamAction(teamId!, data)
-                : await createTeamAction(data);
+                ? await updateTeamAction(teamId!, finalData)
+                : await createTeamAction(finalData);
 
             if (result.success) {
                 notifySuccess(isEditing ? 'Membre mis à jour' : 'Membre créé');

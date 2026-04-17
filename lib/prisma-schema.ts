@@ -76,28 +76,59 @@ export const profilePatchSchema = z
             z.string().optional().or(z.literal('')),
         ),
 
-        password: z
-            .string()
-            .min(8, 'Le mot de passe doit faire au moins 8 caractères')
-            .optional()
-            .or(z.literal('')),
+        passwordSchema : z
+            .object({
+                oldPassword: z
+                .string()
+                .optional()
+                .or(z.literal('')),
+                
+                newPassword: z
+                .string()
+                .optional()
+                .or(z.literal('')),
+            })
+            .superRefine((data, ctx) => {
+                if (data.oldPassword && data.oldPassword.length > 0) {
+                
+                if (!data.newPassword || data.newPassword.length === 0) {
+                    ctx.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path: ['newPassword'],
+                    message: "Le nouveau mot de passe est requis si l'ancien est fourni",
+                    });
+                }
+            
+                if (data.newPassword) {
+                    if (data.newPassword.length < 8) {
+                        ctx.addIssue({
+                            code: z.ZodIssueCode.custom,
+                            path: ['newPassword'],
+                            message: "Le mot de passe doit faire au moins 8 caractères",
+                        });
+                    }
 
-        confirmPassword: z.string().optional().or(z.literal('')),
-    })
-    .refine(
-        (data) => {
-            if (data.password || data.confirmPassword) {
-                return data.password === data.confirmPassword;
+                    if (!/[A-Z]/.test(data.newPassword)) {
+                        ctx.addIssue({
+                            code: z.ZodIssueCode.custom,
+                            path: ['newPassword'],
+                            message: "Au moins une majuscule",
+                        });
+                    }
+                    if (!/[0-9]/.test(data.newPassword)) {
+                        ctx.addIssue({
+                            code: z.ZodIssueCode.custom,
+                            path: ['newPassword'],
+                            message: "Au moins un chiffre",
+                        });
+                    }
+                }
             }
-            return true;
-        },
-        {
-            message: 'Les mots de passe ne correspondent pas',
-            path: ['confirmPassword'],
-        },
-    );
+        })
+    })
 // export const updateProfileSchema = profilePatchSchema.partial();
 export type updateProfileFormValues = z.infer<typeof profilePatchSchema>;
+
 
 // TEAM VALIDATION
 export const teamSchema = z.object({
@@ -265,14 +296,19 @@ export const gallerySchema = z.object({
 
     imageUrl: z
         .any()
-        .refine((file) => file?.size > 0, 'Une image est requise')
-        .refine(
-            (file) => file?.size <= MAX_FILE_SIZE,
-            `L'image est trop lourde (Max 5Mo)`,
-        )
-        .refine(
-            (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
-            'Seuls les formats .jpg, .png et .webp sont acceptés',
-        ),
+        .refine((val) => {
+            if (!val) return false;
+            if (typeof val === 'string' && val.length > 0) return true;
+            if (val instanceof File) return val.size > 0;
+            return false;
+        }, 'Une image est requise')
+        .refine((val) => {
+            if (val instanceof File) return val.size <= MAX_FILE_SIZE;
+            return true; 
+        }, `L'image est trop lourde (Max 5Mo)`)
+        .refine((val) => {
+            if (val instanceof File) return ACCEPTED_IMAGE_TYPES.includes(val.type);
+            return true;
+        }, 'Seuls les formats .jpg, .png et .webp sont acceptés'),
 });
 export type GalleryFormValues = z.infer<typeof gallerySchema>;

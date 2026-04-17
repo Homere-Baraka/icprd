@@ -273,19 +273,19 @@ export default function Setting() {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
                                     <div className="space-y-1">
                                         <label className="text-xs font-medium text-text-muted flex items-center gap-2">
-                                            <Lock size={14} /> Nouveau mot de
+                                            <Lock size={14} /> Ancien mot de
                                             passe
                                         </label>
                                         <input
                                             type="password"
                                             placeholder="••••••••"
-                                            {...register('password')}
+                                            {...register('passwordSchema.oldPassword')}
                                             className="w-full bg-card border border-card-border rounded-lg px-4 py-2 text-sm focus:border-rose-500 focus:outline-none transition-all"
                                         />
-                                        {errors.password && (
+                                        {errors.passwordSchema?.oldPassword && (
                                             <p className="text-red-500 text-xs font-bold">
                                                 {
-                                                    errors.password
+                                                    errors.passwordSchema.oldPassword
                                                         .message as string
                                                 }
                                             </p>
@@ -293,18 +293,18 @@ export default function Setting() {
                                     </div>
                                     <div className="space-y-1">
                                         <label className="text-xs font-medium text-text-muted flex items-center gap-2">
-                                            Confirmer le mot de passe
+                                            Nouveau mot de passe
                                         </label>
                                         <input
                                             type="password"
                                             placeholder="••••••••"
-                                            {...register('confirmPassword')}
+                                            {...register('passwordSchema.newPassword')}
                                             className="w-full bg-card border border-card-border rounded-lg px-4 py-2 text-sm focus:border-rose-500 focus:outline-none transition-all"
                                         />
-                                        {errors.confirmPassword && (
+                                        {errors.passwordSchema?.newPassword && (
                                             <p className="text-red-500 text-xs font-bold">
                                                 {
-                                                    errors.confirmPassword
+                                                    errors.passwordSchema.newPassword
                                                         .message as string
                                                 }
                                             </p>

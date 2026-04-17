@@ -25,7 +25,7 @@ import NewsletterSection from '@/components/sections/home-sections/newsletter-se
 export default function BlogDetailPage({
     params,
 }: {
-    params: Promise<{ blogId: string }>;
+    params: Promise<{ lang: string, blogId: string }>;
 }) {
     const resolvedParams = use(params);
 
@@ -197,7 +197,7 @@ export default function BlogDetailPage({
                                         key={b?.id}
                                         className="blog-card flex flex-col bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                                     >
-                                        <a href={`/blogs/${b?.id}`}>
+                                        <a href={`/${resolvedParams.lang}/blogs/${b?.id}`}>
                                             <div className="relative h-60 overflow-hidden">
                                                 <div className="absolute top-4 left-4 z-20">
                                                     <span className="bg-primary text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg shadow-xl">

@@ -25,11 +25,11 @@ export default async function Home({
         <MainLayout>
             <HeroSection dict={dict.hero} />
             <ImpactSection dict={dict.stats} />
-            <InterventionSection dict={dict.pillars} />
+            <InterventionSection dict={dict.pillars} lang={lang} />
             <MissionSection dict={dict.mission} />
             <ReabilitationSection dict={dict.environment} />
-            <GallerySection dict={dict.gallery} />
-            <AchievementSection dict={dict.achievements} />
+            <GallerySection dict={dict.gallery} lang={lang} />
+            <AchievementSection dict={dict.achievements}/>
             <TeamSection dict={dict.team} />
             <CTASection dict={dict.cta} />
             <BlogSection dict={dict.blog} />

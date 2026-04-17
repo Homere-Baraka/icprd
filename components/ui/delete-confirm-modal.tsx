@@ -10,6 +10,7 @@ interface DeleteModalProps {
     onConfirm: () => void;
     isLoading?: boolean;
     title?: string;
+    element?: string;
 }
 
 export default function DeleteConfirmModal({
@@ -18,6 +19,7 @@ export default function DeleteConfirmModal({
     onConfirm,
     isLoading,
     title = 'Supprimer ce message',
+    element="cet élément"
 }: DeleteModalProps) {
     if (!isOpen) return null;
 
@@ -45,7 +47,7 @@ export default function DeleteConfirmModal({
                         {title}
                     </h3>
                     <p className="text-slate-500 text-sm leading-relaxed mb-8">
-                        Êtes-vous sûr de vouloir supprimer cet élément ? <br />
+                        Êtes-vous sûr de vouloir supprimer {element} ? <br />
                         Cette action est irréversible.
                     </p>
 

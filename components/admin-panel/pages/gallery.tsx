@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import {
     Eye,
@@ -13,14 +13,21 @@ import {
     Loader2,
     AlertCircle,
 } from 'lucide-react';
+import { deleteGalleryAction } from '@/actions/admin/gallery';
+import useNotification from '@/hooks/use-taost';
 import { useGalleriesQuery } from '@/lib/query/query';
+import DeleteConfirmModal from '@/components/ui/delete-confirm-modal';
 
 export default function Gallery({ dict }: { dict: any }) {
     const t = dict?.admin_gallery || {};
     const router = useRouter();
-    const { data: response, isLoading, error } = useGalleriesQuery();
+    const [isPending, startTransition] = useTransition();
+    const { notifySuccess, notifyError } = useNotification();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { data: response, isLoading, error, refetch } = useGalleriesQuery();
     const galleries = response?.data || [];
 
+    const [selectedGalleryId, setSelectedGalleryId] = useState<string | null>(null);
     const [currentIndex, setCurrentIndex] = useState<number | null>(null);
 
     const openCarousel = (index: number) => setCurrentIndex(index);
@@ -33,6 +40,27 @@ export default function Gallery({ dict }: { dict: any }) {
         setCurrentIndex(
             (currentIndex - 1 + galleries.length) % galleries.length,
         );
+
+    const handleDelete = async () => {
+        if (!selectedGalleryId) return;
+
+        startTransition(async () => {
+            try {
+                const result = await deleteGalleryAction(selectedGalleryId);
+
+                if (result.success) {
+                    setIsModalOpen(false);
+                    setSelectedGalleryId(null);
+                    notifySuccess(result.message || 'Gallerie supprimée avec succès');
+                    await refetch();
+                } else {
+                    notifyError(String(result.error));
+                }
+            } catch (err) {
+                notifyError('Une erreur est survenue');
+            }
+        });
+    };
 
     if (isLoading) {
         return (
@@ -123,7 +151,13 @@ export default function Gallery({ dict }: { dict: any }) {
                                     >
                                         <Eye size={20} />
                                     </button>
-                                    <button className="p-3 bg-red-500/20 hover:bg-red-500 text-white rounded-2xl transition-colors border border-red-500/50">
+                                    <button
+                                        onClick={() => {
+                                            setSelectedGalleryId(gallery.id);
+                                            setIsModalOpen(true);
+                                        }}
+                                        className="p-3 bg-red-500/20 hover:bg-red-500 text-white rounded-2xl transition-colors border border-red-500/50"
+                                    >
                                         <Trash2 size={20} />
                                     </button>
                                 </div>
@@ -196,6 +230,18 @@ export default function Gallery({ dict }: { dict: any }) {
                     </div>
                 </div>
             )}
+
+            <DeleteConfirmModal
+                title="Supprimer définitivement"
+                element="cette gallerie"
+                isOpen={isModalOpen}
+                onClose={() => {
+                    setIsModalOpen(false);
+                    setSelectedGalleryId(null);
+                }}
+                onConfirm={handleDelete}
+                isLoading={isPending}
+            />
         </div>
     );
 }

@@ -5,9 +5,8 @@ import { useState } from 'react';
 import { useParams, usePathname } from 'next/navigation';
 import { Languages, Menu } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import Logo from '@/components/ui/logo';
 
-export default function NavBar({ onMenuClick, dict }: any) {
+export default function NavBar({ onMenuClick, dict, lang }: any) {
     const router = useRouter();
     const pathname = usePathname();
     const params = useParams();
@@ -43,14 +42,14 @@ export default function NavBar({ onMenuClick, dict }: any) {
                         <nav className="hidden lg:flex items-center gap-8">
                             <a
                                 className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
-                                href="/"
+                                href={`/${lang}`}
                                 data-translate="nav.about"
                             >
                                 {dict.home}
                             </a>
                             <a
                                 className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
-                                href="/achievements"
+                                href={`/${lang}/achievements`}
                                 data-translate="nav.what-we-do"
                             >
                                 {dict.achievements}
@@ -58,28 +57,28 @@ export default function NavBar({ onMenuClick, dict }: any) {
 
                             <a
                                 className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
-                                href="/blogs"
+                                href={`/${lang}/blogs`}
                                 data-translate="nav.insights"
                             >
                                 {dict.news}
                             </a>
                             <a
                                 className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
-                                href="#team"
+                                href={`/${lang}#team`}
                                 data-translate="nav.team"
                             >
                                 {dict.team}
                             </a>
                             <a
                                 className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
-                                href="/construction"
+                                href={`/${lang}/construction`}
                                 data-translate="nav.about"
                             >
                                 {dict.about}
                             </a>
                             <a
                                 className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
-                                href="#contact"
+                                href={`/${lang}#contact`}
                                 data-translate="nav.contact"
                             >
                                 {dict.contact}
@@ -114,7 +113,7 @@ export default function NavBar({ onMenuClick, dict }: any) {
                             <Menu />
                         </button>
                         <a
-                            href="/construction"
+                            href={`/${lang}#contact`}
                             className="hidden lg:block bg-primary hover:bg-primary/90 text-white px-7 py-2.5 rounded-full font-bold text-sm transition-all shadow-lg shadow-primary/30"
                             data-translate="header.donate"
                         >

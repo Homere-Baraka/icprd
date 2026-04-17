@@ -17,7 +17,7 @@ export default async function BlogPage({
         <MainLayout>
             <BlogHero dict={dict.blog_hero} />
             <FeatureBlog />
-            <BlogInfos />
+            <BlogInfos lang={lang} />
             <NewsletterSection dict={dict.newsletter} />
         </MainLayout>
     );

@@ -141,6 +141,27 @@
         "date_format": "en-US"
     },
 
+
+    "hero_gallery": {
+        "title": "Photo Gallery",
+        "description": "Discover our actions on the ground through our photos. A visual overview of ICPRD's impact in DRC communities.",
+        "image_alt": "Aerial view of a dense forest landscape in the Democratic Republic of Congo"
+    },
+    "gallery_filters": {
+        "all": "All",
+        "peace": "Peace & Reconciliation",
+        "env": "Environment",
+        "dev": "Sustainable Development",
+        "life": "NGO Life"
+    },
+    "cta_gallery": {
+        "title": "Support Our Journey",
+        "description": "Every photograph represents a life touched and a community strengthened. Join us in making an even greater impact.",
+        "btn_partner": "Become a Partner",
+        "btn_volunteer": "Volunteer with Us"
+    },
+
+
     "newsletter": {
         "title": "Don't miss any of our updates.",
         "description": "Subscribe to our weekly newsletter and receive our field reports first, directly in your inbox.",

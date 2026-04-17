@@ -21,6 +21,7 @@ export default function CreatePostPage({ blogId }: { blogId?: string }) {
     const [isDataLoaded, setIsDataLoaded] = useState(false);
     const [actionType, setActionType] = useState<'draft' | 'publish'>('draft');
     const [previewImage, setPreviewImage] = useState<string | null>(null);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [isSubmitting, setIsSubmitting] = useState<
         'draft' | 'publish' | null
     >(null);
@@ -81,26 +82,14 @@ export default function CreatePostPage({ blogId }: { blogId?: string }) {
         return result.success ? result.url : null;
     };
 
-    const handleBlogUpload = async (file: File) => {
-        const result = await uploadBlogImage(file);
-        return result.success ? result.url : null;
-    };
-
-    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
             const localPreview = URL.createObjectURL(file);
             setPreviewImage(localPreview);
-
-            const url = await handleBlogUpload(file);
-            if (url) {
-                setPreviewImage(url);
-                setValue('imageUrl', url, { shouldValidate: true });
-                notifySuccess('Image de couverture téléchargée');
-            } else {
-                notifyError("Erreur lors de l'upload");
-                setPreviewImage(null);
-            }
+            setSelectedFile(file);
+            
+            setValue('imageUrl', 'pending_upload', { shouldValidate: true });
         }
     };
 
@@ -110,26 +99,35 @@ export default function CreatePostPage({ blogId }: { blogId?: string }) {
         setIsSubmitting(actionType);
 
         try {
-            const result =
-                isEditing && blogId
-                    ? await updateBlogAction(blogId, data, actionType)
-                    : await createBlogAction(data, actionType);
+            let finalImageUrl = data.imageUrl;
+
+            if (selectedFile) {
+                const uploadResult = await uploadBlogImage(selectedFile);
+                if (uploadResult.success) {
+                    finalImageUrl = uploadResult.url;
+                } else {
+                    throw new Error("Échec de l'upload de l'image de couverture");
+                }
+            }
+
+            const finalData = { 
+                ...data, 
+                imageUrl: finalImageUrl 
+            };
+
+            const result = isEditing && blogId
+                    ? await updateBlogAction(blogId, finalData, actionType)
+                    : await createBlogAction(finalData, actionType);
 
             if (result.success) {
-                notifySuccess(
-                    isEditing
-                        ? 'Contenus mis à jour !'
-                        : 'Blog créé avec succès !',
-                );
+                notifySuccess(isEditing ? 'Blog mis à jour !' : 'Blog créé !');
                 router.push('/admin/blogs');
                 router.refresh();
             } else {
-                notifyError(
-                    (result.error as string) || 'Une erreur est survenue.',
-                );
+                notifyError(result.error || 'Une erreur est survenue.');
             }
-        } catch (err) {
-            notifyError('Erreur de connexion au serveur');
+        } catch (err: any) {
+            notifyError(err.message || 'Erreur de connexion au serveur');
         } finally {
             setIsSubmitting(null);
         }

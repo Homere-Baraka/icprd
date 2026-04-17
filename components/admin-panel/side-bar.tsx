@@ -50,7 +50,13 @@ export default function Sidebar({ dict }: any) {
     return (
         <aside className="w-64 h-screen bg-background border-r border-card-border flex flex-col p-6">
             <div className="flex items-center gap-3 mb-10 px-2">
-                <Logo />
+                <div className="relative flex items-center justify-center rounded-lg h-12 w-12 overflow-hidden">
+                    <img
+                        src="/images/logo.png"
+                        alt="icprd logo"
+                        className="w-full h-full object-contain"
+                    />
+                </div>
                 <div>
                     <h1 className="text-text-main font-bold leading-tight tracking-tight">
                         ICPRD

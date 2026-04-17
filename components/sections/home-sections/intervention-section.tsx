@@ -1,6 +1,6 @@
 import { Users, ArrowRight, GraduationCap, ShieldPlus } from 'lucide-react';
 
-export default function InterventionSection({ dict }: { dict: any }) {
+export default function InterventionSection({ dict, lang }: { dict: any, lang: string }) {
     return (
         <section
             id="intervention"
@@ -33,7 +33,7 @@ export default function InterventionSection({ dict }: { dict: any }) {
                             {dict.pillar1.desc}
                         </p>
                         <a
-                            href="/construction"
+                            href={`/${lang}/construction`}
                             className="inline-flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider group-hover:gap-4 transition-all"
                         >
                             {dict.pillar1.learn}
@@ -52,7 +52,7 @@ export default function InterventionSection({ dict }: { dict: any }) {
                             {dict.pillar2.desc}
                         </p>
                         <a
-                            href="/construction"
+                            href={`/${lang}/construction`}
                             className="inline-flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider group-hover:gap-4 transition-all"
                         >
                             {dict.pillar2.learn}
@@ -71,7 +71,7 @@ export default function InterventionSection({ dict }: { dict: any }) {
                             {dict.pillar3.desc}
                         </p>
                         <a
-                            href="/construction"
+                            href={`/${lang}/construction`}
                             className="inline-flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider group-hover:gap-4 transition-all"
                         >
                             {dict.pillar3.learn}

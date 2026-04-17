@@ -15,7 +15,7 @@ import { useAchievementsQuery } from '@/lib/query/query';
 import { getDescription } from '@/utils/get-description';
 import Pagination from '@/components/ui/pagination';
 
-export default function AchievementInfos() {
+export default function AchievementInfos({ lang }: {lang: string}) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const ITEMS_PER_PAGE = 10;
 
@@ -161,7 +161,7 @@ export default function AchievementInfos() {
                                                 </div>
                                             </div>
                                             <a
-                                                href={`/achievements/${achievement.id}`}
+                                                href={`/${lang}/achievements/${achievement.id}`}
                                                 data-translate="achievement1.report"
                                                 className="text-primary font-black text-xs uppercase tracking-tighter cursor-pointer hover:underline"
                                             >

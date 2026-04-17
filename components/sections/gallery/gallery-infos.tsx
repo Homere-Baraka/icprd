@@ -4,36 +4,15 @@ import { useGalleriesQuery } from "@/lib/query/query";
 import Link from "next/link";
 import { ArrowRight, ImageIcon } from "lucide-react";
 
-export default function GallerySection({ dict, lang }: { dict: any, lang: string }) {
+export default function GalleryInfos({ dict }: { dict: any }) {
     const { data: galleriesResponse, isLoading } = useGalleriesQuery();
 
-    const galleries = galleriesResponse?.data
-        ?.filter((g: any) => g.imageUrl?.length > 0)
-        .slice(0, 3);
+    const galleries = galleriesResponse?.data;
 
     return (
-        <section id="gallery" className="pb-20 bg-[#161b33]">
+        <section id="gallery" className="py-20 bg-[#161b33]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                {/* Header avec Titre à gauche et Lien à droite */}
-                <div className="flex justify-between items-end mb-10 border-b border-white/10 pb-4">
-                    <div>
-                        <h3 className="text-3xl font-black text-white uppercase tracking-tighter">
-                            {dict.title}
-                        </h3>
-                        <p className="text-slate-400 text-sm mt-1">Nos activités récentes sur le terrain</p>
-                    </div>
-                    
-                    <Link 
-                        href={`/${lang}/gallery`} 
-                        className="group flex items-center gap-2 text-primary hover:text-white transition-all font-bold text-sm uppercase tracking-widest"
-                    >
-                        Voir tout le catalogue
-                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                </div>
 
-                {/* État de chargement */}
                 {isLoading && (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-pulse">
                         {[1, 2, 3].map((i) => (
