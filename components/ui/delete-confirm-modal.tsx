@@ -19,7 +19,7 @@ export default function DeleteConfirmModal({
     onConfirm,
     isLoading,
     title = 'Supprimer ce message',
-    element="cet élément"
+    element = 'cet élément',
 }: DeleteModalProps) {
     if (!isOpen) return null;
 

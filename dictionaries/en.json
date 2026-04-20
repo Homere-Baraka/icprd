@@ -141,7 +141,6 @@
         "date_format": "en-US"
     },
 
-
     "hero_gallery": {
         "title": "Photo Gallery",
         "description": "Discover our actions on the ground through our photos. A visual overview of ICPRD's impact in DRC communities.",
@@ -160,7 +159,6 @@
         "btn_partner": "Become a Partner",
         "btn_volunteer": "Volunteer with Us"
     },
-
 
     "newsletter": {
         "title": "Don't miss any of our updates.",

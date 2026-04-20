@@ -87,7 +87,6 @@ export default function Teams() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <TeamSkeletton />
                 </div>
-                
             ) : isError ? (
                 <ErrorState onRetry={refetch} message={error.message} />
             ) : teamMembers?.data && teamMembers.data.length > 0 ? (

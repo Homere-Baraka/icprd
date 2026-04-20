@@ -95,7 +95,7 @@ export default function CreateAchievement({
             const localPreview = URL.createObjectURL(file);
             setPreviewImage(localPreview);
             setSelectedFile(file);
-            
+
             setValue('imageUrl', 'pending_upload', { shouldValidate: true });
         }
     };
@@ -107,19 +107,21 @@ export default function CreateAchievement({
 
         try {
             let finalImageUrl = data.imageUrl;
-            
+
             if (selectedFile) {
                 const uploadResult = await uploadAchievementImage(selectedFile);
                 if (uploadResult.success) {
                     finalImageUrl = uploadResult.url;
                 } else {
-                    throw new Error("Échec de l'upload de l'image de couverture");
+                    throw new Error(
+                        "Échec de l'upload de l'image de couverture",
+                    );
                 }
             }
 
-            const finalData = { 
-                ...data, 
-                imageUrl: finalImageUrl 
+            const finalData = {
+                ...data,
+                imageUrl: finalImageUrl,
             };
 
             const result =

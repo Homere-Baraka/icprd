@@ -308,3 +308,54 @@ model Newsletter {
 
   @@map("newsletter")
 }
+
+
+// VISITOR
+
+model Visitor {
+  id            String   @id @default(uuid(7))
+  ip            String   @unique
+  userAgent     String?
+  
+  country       String?
+  region        String?
+  city          String?
+  
+  totalVisits   Int       @default(1)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  sessions      VisitorSession[]
+
+  @@map("visitor")
+}
+
+model VisitorSession {
+  id             String   @id @default(uuid(7))
+  visitorId      String
+  visitor        Visitor   @relation(fields: [visitorId], references: [id])
+  
+  startTime      DateTime  @default(now())
+  lastActivity   DateTime  @default(now())
+  durationSeconds Int      @default(0)
+  
+  pagesCount     Int       @default(1)
+
+  pageViews      PageView[]
+
+  @@index([visitorId])
+  @@map("visitor_session")
+}
+
+model PageView {
+  id            String   @id @default(uuid(7))
+  sessionId     String
+  session       VisitorSession  @relation(fields: [sessionId], references: [id])
+
+  url           String
+  
+  timestamp     DateTime @default(now())
+
+  @@index([sessionId])
+  @@map("page_view")
+}

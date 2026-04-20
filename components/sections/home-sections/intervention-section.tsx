@@ -1,10 +1,16 @@
 import { Users, ArrowRight, GraduationCap, ShieldPlus } from 'lucide-react';
 
-export default function InterventionSection({ dict, lang }: { dict: any, lang: string }) {
+export default function InterventionSection({
+    dict,
+    lang,
+}: {
+    dict: any;
+    lang: string;
+}) {
     return (
         <section
             id="intervention"
-            className="py-32 bg-background-light dark:bg-background-dark"
+            className="py-32 bg-background-dark"
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row justify-between items-end gap-10 mb-20">
@@ -12,7 +18,7 @@ export default function InterventionSection({ dict, lang }: { dict: any, lang: s
                         <h2 className="section-subtitle text-slate-400 font-black uppercase tracking-widest text-sm mb-4">
                             {dict.subtitle}
                         </h2>
-                        <h3 className="section-title text-4xl lg:text-5xl font-black text-slate-900 dark:text-white leading-tight">
+                        <h3 className="section-title text-4xl lg:text-5xl font-black text-white leading-tight">
                             {dict.title}
                         </h3>
                     </div>
@@ -22,7 +28,7 @@ export default function InterventionSection({ dict, lang }: { dict: any, lang: s
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div className="pillar-card group bg-white dark:bg-slate-900 p-10 rounded-3xl border border-slate-100 dark:border-slate-800 hover:border-primary/50 transition-all hover:shadow-2xl">
+                    <div className="pillar-card group bg-slate-900 p-10 rounded-3xl border border-slate-800 hover:border-primary/50 transition-all hover:shadow-2xl">
                         <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-8 group-hover:scale-110 transition-transform">
                             <Users />
                         </div>
@@ -41,7 +47,7 @@ export default function InterventionSection({ dict, lang }: { dict: any, lang: s
                         </a>
                     </div>
 
-                    <div className="pillar-card group bg-white dark:bg-slate-900 p-10 rounded-3xl border border-slate-100 dark:border-slate-800 hover:border-primary/50 transition-all hover:shadow-2xl">
+                    <div className="pillar-card group bg-slate-900 p-10 rounded-3xl border border-slate-800 hover:border-primary/50 transition-all hover:shadow-2xl">
                         <div className="w-16 h-16 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-500 mb-8 group-hover:scale-110 transition-transform">
                             <ShieldPlus />
                         </div>
@@ -60,7 +66,7 @@ export default function InterventionSection({ dict, lang }: { dict: any, lang: s
                         </a>
                     </div>
 
-                    <div className="pillar-card group bg-white dark:bg-slate-900 p-10 rounded-3xl border border-slate-100 dark:border-slate-800 hover:border-primary/50 transition-all hover:shadow-2xl">
+                    <div className="pillar-card group bg-slate-900 p-10 rounded-3xl border border-slate-800 hover:border-primary/50 transition-all hover:shadow-2xl">
                         <div className="w-16 h-16 bg-amber-500/10 rounded-2xl flex items-center justify-center text-amber-500 mb-8 group-hover:scale-110 transition-transform">
                             <GraduationCap />
                         </div>

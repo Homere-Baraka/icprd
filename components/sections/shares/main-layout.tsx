@@ -40,7 +40,7 @@ export default function MainLayout({
         <div>
             <NavBar
                 onMenuClick={() => setIsSidebarOpen(true)}
-                dict={navDict} 
+                dict={navDict}
                 lang={lang}
             />
 

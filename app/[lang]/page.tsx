@@ -29,7 +29,7 @@ export default async function Home({
             <MissionSection dict={dict.mission} />
             <ReabilitationSection dict={dict.environment} />
             <GallerySection dict={dict.gallery} lang={lang} />
-            <AchievementSection dict={dict.achievements}/>
+            <AchievementSection dict={dict.achievements} />
             <TeamSection dict={dict.team} />
             <CTASection dict={dict.cta} />
             <BlogSection dict={dict.blog} />

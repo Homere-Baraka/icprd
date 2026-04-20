@@ -1,40 +1,72 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { v4 as uuidv4 } from 'uuid';
 
 let locales = ['fr', 'en'];
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
     if (pathname.startsWith('/uploads')) {
         return NextResponse.next();
     }
 
-    // Vérifier si l'URL contient déjà une langue
     const pathnameHasLocale = locales.some(
         (locale) =>
             pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
     );
 
-    if (pathnameHasLocale) return;
+    if (!pathnameHasLocale) {
+        const locale = 'fr';
 
-    const locale = 'fr';
+        const url = request.nextUrl.clone();
+        url.pathname = `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`;
 
-    // Construire la nouvelle URL proprement
-    // Si pathname est '/', on ne veut pas '//fr', donc on gère le slash
-    const url = request.nextUrl.clone();
-    url.pathname = `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`;
+        if (pathname === '/') {
+            url.pathname = `/${locale}`;
+        }
 
-    // Correction pour éviter le double slash si pathname est déjà '/'
-    if (pathname === '/') {
-        url.pathname = `/${locale}`;
+        return NextResponse.redirect(url);
     }
 
-    return NextResponse.redirect(url);
+    if (pathnameHasLocale) {
+
+        const cleanPath = pathname.replace(/^\/(fr|en)/, '') || '/';
+
+        let sessionId =
+                request.cookies.get('visitor_session_id')?.value || uuidv4();
+        const ip =
+            request.headers.get('x-forwarded-for')?.split(',')[0] ||
+            '127.0.0.1';
+
+        if(!cleanPath.includes("admin") && !cleanPath.includes("api")){
+            fetch(`${request.nextUrl.origin}/api/status/visitor`, {
+                method: 'POST',
+                headers: {
+                    cookie: request.headers.get('cookie') || '',
+                    'x-forwarded-for': ip,
+                    'user-agent': request.headers.get('user-agent') || '',
+                    'x-target-path': pathname,
+                },
+            }).catch((err) => console.error('Tracking fetch error:', err));
+        }
+
+        const response = NextResponse.next();
+
+        if (!request.cookies.has('visitor_session_id')) {
+            response.cookies.set('visitor_session_id', sessionId, {
+                path: '/',
+                httpOnly: true,
+                maxAge: 1800,
+                sameSite: 'lax',
+            });
+        }
+
+        return response;
+    }
 }
 
 export const config = {
-    // On ajoute 'public' et 'favicon' pour être sûr de ne pas intercepter les assets
     matcher: [
         '/((?!api|_next/static|_next/image|images|favicon.ico|public|robots.txt).*)',
     ],

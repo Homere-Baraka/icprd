@@ -28,7 +28,7 @@ import NewsletterSection from '@/components/sections/home-sections/newsletter-se
 export default function AchievementDetailPage({
     params,
 }: {
-    params: Promise<{ lang: string, achievementId: string }>;
+    params: Promise<{ lang: string; achievementId: string }>;
 }) {
     const resolvedParams = use(params);
     const router = useRouter();
@@ -175,7 +175,9 @@ export default function AchievementDetailPage({
                                         key={item.id}
                                         className="group bg-slate-900/40 rounded-3xl overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-500"
                                     >
-                                        <Link href={`/${resolvedParams.lang}/achievements/${item.id}`}>
+                                        <Link
+                                            href={`/${resolvedParams.lang}/achievements/${item.id}`}
+                                        >
                                             <div className="relative h-56 overflow-hidden">
                                                 <img
                                                     src={

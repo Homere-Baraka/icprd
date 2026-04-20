@@ -8,7 +8,10 @@ export async function POST(request: Request) {
         const file = formData.get('file') as File;
 
         if (!file) {
-            return NextResponse.json({ error: 'Fichier manquant' }, { status: 400 });
+            return NextResponse.json(
+                { error: 'Fichier manquant' },
+                { status: 400 },
+            );
         }
 
         // Conversion du fichier en Buffer de manière plus stable
@@ -17,7 +20,12 @@ export async function POST(request: Request) {
 
         // Chemin de destination
         const filename = `${Date.now()}-${file.name.replace(/\s+/g, '_')}`;
-        const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'gallery');
+        const uploadDir = path.join(
+            process.cwd(),
+            'public',
+            'uploads',
+            'gallery',
+        );
 
         // Création du dossier si inexistant
         await mkdir(uploadDir, { recursive: true });
@@ -32,10 +40,10 @@ export async function POST(request: Request) {
     } catch (error: any) {
         // CE LOG EST CRUCIAL : Regarde ton terminal (pas le navigateur)
         console.error('--- ERREUR SERVEUR API ---');
-        console.error(error); 
+        console.error(error);
         return NextResponse.json(
-            { error: 'Erreur serveur lors de l\'écriture' },
-            { status: 500 }
+            { error: "Erreur serveur lors de l'écriture" },
+            { status: 500 },
         );
     }
 }

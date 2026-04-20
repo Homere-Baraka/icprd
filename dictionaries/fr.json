@@ -160,7 +160,6 @@
         "btn_volunteer": "Devenir Bénévole"
     },
 
-
     "newsletter": {
         "title": "Ne manquez aucune de nos actualités.",
         "description": "Abonnez-vous à notre infolettre hebdomadaire et recevez nos rapports de terrain en priorité, directement dans votre boîte mail.",
@@ -230,10 +229,6 @@
         "loading": "Envoi...",
         "error_default": "Une erreur est survenue"
     },
-
-
-
-
 
     "admin_sidebar": {
         "dashboard": "Tableau de bord",

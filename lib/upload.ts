@@ -13,8 +13,8 @@ export async function uploadTeamImage(file: File) {
     try {
         data = JSON.parse(resultText);
     } catch (err) {
-        console.error("Réponse serveur corrompue :", resultText);
-        throw new Error("Le serveur a renvoyé une réponse invalide.");
+        console.error('Réponse serveur corrompue :', resultText);
+        throw new Error('Le serveur a renvoyé une réponse invalide.');
     }
 
     if (!response.ok) throw new Error('Error to upload file.');
@@ -37,8 +37,8 @@ export async function uploadBlogImage(file: File) {
     try {
         data = JSON.parse(resultText);
     } catch (err) {
-        console.error("Réponse serveur corrompue :", resultText);
-        throw new Error("Le serveur a renvoyé une réponse invalide.");
+        console.error('Réponse serveur corrompue :', resultText);
+        throw new Error('Le serveur a renvoyé une réponse invalide.');
     }
 
     if (!response.ok) throw new Error('Error to upload file.');
@@ -61,8 +61,8 @@ export async function uploadBlogContentImage(file: File) {
     try {
         data = JSON.parse(resultText);
     } catch (err) {
-        console.error("Réponse serveur corrompue :", resultText);
-        throw new Error("Le serveur a renvoyé une réponse invalide.");
+        console.error('Réponse serveur corrompue :', resultText);
+        throw new Error('Le serveur a renvoyé une réponse invalide.');
     }
 
     if (!response.ok) throw new Error('Error to upload file.');
@@ -85,8 +85,8 @@ export async function uploadAchievementImage(file: File) {
     try {
         data = JSON.parse(resultText);
     } catch (err) {
-        console.error("Réponse serveur corrompue :", resultText);
-        throw new Error("Le serveur a renvoyé une réponse invalide.");
+        console.error('Réponse serveur corrompue :', resultText);
+        throw new Error('Le serveur a renvoyé une réponse invalide.');
     }
 
     if (!response.ok) throw new Error('Error to upload file.');
@@ -112,12 +112,12 @@ export async function uploadAchievementContentImage(file: File) {
     try {
         data = JSON.parse(resultText);
     } catch (err) {
-        console.error("Réponse serveur corrompue :", resultText);
-        throw new Error("Le serveur a renvoyé une réponse invalide.");
+        console.error('Réponse serveur corrompue :', resultText);
+        throw new Error('Le serveur a renvoyé une réponse invalide.');
     }
 
     if (!response.ok) {
-        throw new Error(data.error || 'Erreur lors de l\'upload du fichier.');
+        throw new Error(data.error || "Erreur lors de l'upload du fichier.");
     }
 
     return data;
@@ -141,12 +141,12 @@ export async function uploadProfileImage(file: File) {
     try {
         data = JSON.parse(resultText);
     } catch (err) {
-        console.error("Réponse serveur invalide (non-JSON) :", resultText);
-        throw new Error("Le serveur a renvoyé une erreur critique.");
+        console.error('Réponse serveur invalide (non-JSON) :', resultText);
+        throw new Error('Le serveur a renvoyé une erreur critique.');
     }
 
     if (!response.ok) {
-        throw new Error(data.error || 'Échec de l\'upload du profil.');
+        throw new Error(data.error || "Échec de l'upload du profil.");
     }
 
     return data;
@@ -162,7 +162,7 @@ export async function uploadGalleryImage(file: File) {
         body: formData,
     });
 
-    const rawResponse = await response.text(); 
+    const rawResponse = await response.text();
 
     try {
         const data = JSON.parse(rawResponse);
@@ -171,7 +171,7 @@ export async function uploadGalleryImage(file: File) {
         }
         return data;
     } catch (err) {
-        console.error("Réponse serveur non JSON :", rawResponse);
-        throw new Error("Le serveur a renvoyé une erreur formatée en HTML.");
+        console.error('Réponse serveur non JSON :', rawResponse);
+        throw new Error('Le serveur a renvoyé une erreur formatée en HTML.');
     }
 }

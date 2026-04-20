@@ -2,7 +2,7 @@ import { Construction, Handshake } from 'lucide-react';
 
 export default function MissionSection({ dict }: { dict: any }) {
     return (
-        <section id="mission" className="py-32 bg-white dark:bg-[#161b33]">
+        <section id="mission" className="py-32 bg-[#161b33]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid lg:grid-cols-2 gap-20 items-center">
                     <div className="mission-image relative">
@@ -21,14 +21,14 @@ export default function MissionSection({ dict }: { dict: any }) {
                         </div>
                     </div>
                     <div className="mission-content">
-                        <h2 className="text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-8 leading-tight">
+                        <h2 className="text-4xl lg:text-5xl font-black text-white mb-8 leading-tight">
                             {dict.title}
                             <span className="text-primary underline underline-offset-8 mx-2">
                                 {dict.title_highlight}
                             </span>
                             {dict.title_suffix}
                         </h2>
-                        <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                        <p className="text-lg text-slate-400 mb-8 leading-relaxed">
                             {dict.desc}
                         </p>
                         <div className="space-y-6">
@@ -38,10 +38,10 @@ export default function MissionSection({ dict }: { dict: any }) {
                                     <Handshake />
                                 </div>
                                 <div>
-                                    <h5 className="font-bold text-slate-900 dark:text-white mb-2">
+                                    <h5 className="font-bold text-white mb-2">
                                         {dict.point1.title}
                                     </h5>
-                                    <p className="text-slate-500 dark:text-slate-400 text-sm">
+                                    <p className="text-slate-400 text-sm">
                                         {dict.point1.desc}
                                     </p>
                                 </div>
@@ -52,7 +52,7 @@ export default function MissionSection({ dict }: { dict: any }) {
                                     <Construction />
                                 </div>
                                 <div>
-                                    <h5 className="font-bold text-slate-900 dark:text-white mb-2">
+                                    <h5 className="font-bold text-white mb-2">
                                         {dict.point2.title}
                                     </h5>
                                     <p className="text-slate-500 dark:text-slate-400 text-sm">

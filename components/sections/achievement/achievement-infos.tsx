@@ -15,7 +15,7 @@ import { useAchievementsQuery } from '@/lib/query/query';
 import { getDescription } from '@/utils/get-description';
 import Pagination from '@/components/ui/pagination';
 
-export default function AchievementInfos({ lang }: {lang: string}) {
+export default function AchievementInfos({ lang }: { lang: string }) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const ITEMS_PER_PAGE = 10;
 
@@ -81,7 +81,7 @@ export default function AchievementInfos({ lang }: {lang: string}) {
                             {visibleAchievements.map((achievement: any) => (
                                 <article
                                     key={achievement?.id}
-                                    className="achievement-card group relative flex flex-col bg-white dark:bg-slate-900/40 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl shadow-primary/5"
+                                    className="achievement-card group relative flex flex-col bg-slate-900/40 rounded-3xl overflow-hidden border border-slate-800 shadow-2xl shadow-primary/5"
                                 >
                                     <div className="relative h-64 overflow-hidden">
                                         <img
@@ -123,13 +123,13 @@ export default function AchievementInfos({ lang }: {lang: string}) {
                                     <div className="p-8">
                                         <h3
                                             data-translate="achievement1.title"
-                                            className="text-2xl font-black text-slate-900 dark:text-white mb-4 leading-tight group-hover:text-primary transition-colors"
+                                            className="text-2xl font-black text-white mb-4 leading-tight group-hover:text-primary transition-colors"
                                         >
                                             {achievement.title}
                                         </h3>
                                         <p
                                             data-translate="achievement1.desc"
-                                            className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed"
+                                            className="text-slate-400 text-sm leading-relaxed"
                                         >
                                             {getDescription(
                                                 achievement.contents,

@@ -279,13 +279,16 @@ export default function Setting() {
                                         <input
                                             type="password"
                                             placeholder="••••••••"
-                                            {...register('passwordSchema.oldPassword')}
+                                            {...register(
+                                                'passwordSchema.oldPassword',
+                                            )}
                                             className="w-full bg-card border border-card-border rounded-lg px-4 py-2 text-sm focus:border-rose-500 focus:outline-none transition-all"
                                         />
                                         {errors.passwordSchema?.oldPassword && (
                                             <p className="text-red-500 text-xs font-bold">
                                                 {
-                                                    errors.passwordSchema.oldPassword
+                                                    errors.passwordSchema
+                                                        .oldPassword
                                                         .message as string
                                                 }
                                             </p>
@@ -298,13 +301,16 @@ export default function Setting() {
                                         <input
                                             type="password"
                                             placeholder="••••••••"
-                                            {...register('passwordSchema.newPassword')}
+                                            {...register(
+                                                'passwordSchema.newPassword',
+                                            )}
                                             className="w-full bg-card border border-card-border rounded-lg px-4 py-2 text-sm focus:border-rose-500 focus:outline-none transition-all"
                                         />
                                         {errors.passwordSchema?.newPassword && (
                                             <p className="text-red-500 text-xs font-bold">
                                                 {
-                                                    errors.passwordSchema.newPassword
+                                                    errors.passwordSchema
+                                                        .newPassword
                                                         .message as string
                                                 }
                                             </p>

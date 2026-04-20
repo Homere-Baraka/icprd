@@ -246,8 +246,8 @@ export async function getBlogByIdAction(blogId: string) {
             return { success: false, message: 'Post not found' };
         }
 
-        let fingerprints: string[] = Array.isArray(blog.fingerprint) 
-            ? (blog.fingerprint as string[]) 
+        let fingerprints: string[] = Array.isArray(blog.fingerprint)
+            ? (blog.fingerprint as string[])
             : [];
 
         const alreadyViewed = fingerprints.includes(fingerprint);
