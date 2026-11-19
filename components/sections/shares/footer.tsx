@@ -7,7 +7,13 @@ import { subscribeToNewsletter } from '@/actions/subscriber-to-newsletter';
 import LoadingSpinner from '@/components/ui/loading-spinner';
 import { Send, Share2, Users } from 'lucide-react';
 
-export default function FooterSection({ dict, lang }: { dict: any, lang: string }) {
+export default function FooterSection({
+    dict,
+    lang,
+}: {
+    dict: any;
+    lang: string;
+}) {
     const [isPending, startTransition] = useTransition();
     const { notifyError, notifySuccess } = useNotification();
     const { register, handleSubmit } = useNewsletterValidation();
@@ -172,10 +178,16 @@ export default function FooterSection({ dict, lang }: { dict: any, lang: string 
                 <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em]">
                     <p>{dict.copyright}</p>
                     <div className="flex gap-10">
-                        <a className="hover:text-primary" href={`/${lang}/construction`}>
+                        <a
+                            className="hover:text-primary"
+                            href={`/${lang}/construction`}
+                        >
                             {dict.tagline1}
                         </a>
-                        <a className="hover:text-primary" href={`/${lang}/construction`}>
+                        <a
+                            className="hover:text-primary"
+                            href={`/${lang}/construction`}
+                        >
                             {dict.tagline2}
                         </a>
                     </div>

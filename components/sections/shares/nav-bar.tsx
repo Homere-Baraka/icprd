@@ -23,7 +23,7 @@ export default function NavBar({ onMenuClick, dict, lang }: any) {
     };
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#101322]/80 backdrop-blur-md">
+        <header className="sticky top-0 z-50 w-full border-b border-slate-800 bg-[#101322]/80 backdrop-blur-md">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
                     <div className="flex items-center gap-10">
@@ -35,20 +35,20 @@ export default function NavBar({ onMenuClick, dict, lang }: any) {
                                     className="w-full h-full object-contain"
                                 />
                             </div>
-                            <h2 className="text-slate-900 dark:text-white text-3xl font-black tracking-tighter leading-none">
+                            <h2 className="text-white text-3xl font-black tracking-tighter leading-none">
                                 ICPRD
                             </h2>
                         </div>
                         <nav className="hidden lg:flex items-center gap-8">
                             <a
-                                className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+                                className="text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
                                 href={`/${lang}`}
                                 data-translate="nav.about"
                             >
                                 {dict.home}
                             </a>
                             <a
-                                className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+                                className="text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
                                 href={`/${lang}/achievements`}
                                 data-translate="nav.what-we-do"
                             >
@@ -56,28 +56,28 @@ export default function NavBar({ onMenuClick, dict, lang }: any) {
                             </a>
 
                             <a
-                                className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+                                className="text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
                                 href={`/${lang}/blogs`}
                                 data-translate="nav.insights"
                             >
                                 {dict.news}
                             </a>
                             <a
-                                className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+                                className="text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
                                 href={`/${lang}#team`}
                                 data-translate="nav.team"
                             >
                                 {dict.team}
                             </a>
                             <a
-                                className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+                                className="text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
                                 href={`/${lang}/construction`}
                                 data-translate="nav.about"
                             >
                                 {dict.about}
                             </a>
                             <a
-                                className="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
+                                className="text-slate-300 hover:text-primary transition-colors text-sm font-bold uppercase tracking-wide"
                                 href={`/${lang}#contact`}
                                 data-translate="nav.contact"
                             >
@@ -86,7 +86,7 @@ export default function NavBar({ onMenuClick, dict, lang }: any) {
                         </nav>
                     </div>
                     <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-800 bg-slate-900/50">
                             <Languages size={20} color="white" />
                             <button
                                 onClick={() => handleLanguageChange('en')}
@@ -94,7 +94,7 @@ export default function NavBar({ onMenuClick, dict, lang }: any) {
                             >
                                 EN
                             </button>
-                            <span className="text-slate-300 dark:text-slate-700">
+                            <span className="text-slate-700">
                                 |
                             </span>
                             <button
@@ -107,7 +107,7 @@ export default function NavBar({ onMenuClick, dict, lang }: any) {
                         <button
                             onClick={onMenuClick}
                             id="mobile-menu-toggle"
-                            className="lg:hidden flex items-center border justify-center text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+                            className="lg:hidden flex items-center border justify-center text-slate-300 hover:bg-slate-800 rounded-lg transition-colors"
                             aria-label="Menu"
                         >
                             <Menu />

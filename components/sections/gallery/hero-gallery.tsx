@@ -1,7 +1,6 @@
 import { ChevronDown } from 'lucide-react';
 
 export default function HeroGallerySection({ dict }: { dict: any }) {
-
     return (
         <section className="relative py-20 overflow-hidden">
             <div className="absolute inset-0 bg-slate-950">

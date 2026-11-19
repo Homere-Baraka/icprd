@@ -5,8 +5,7 @@ import { useBlogHeadlineQuery } from '@/lib/query/query';
 import { getDescriptionForHeadline } from '@/utils/get-description';
 
 export default function FeatureBlog() {
-    const { data: response, isLoading, isError } = useBlogHeadlineQuery();
-    const blogHeadline = response?.data;
+    const { data: blogHeadline, isLoading, isError } = useBlogHeadlineQuery();
 
     if (isLoading) {
         return (

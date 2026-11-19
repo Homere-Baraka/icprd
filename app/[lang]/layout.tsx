@@ -3,6 +3,7 @@ import { Toaster } from 'react-hot-toast';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { NextSessionProvider } from '@/hooks/use-session-provider';
 import { Provider } from '@/hooks/use-query-client-provider';
+import { VisitorTracker } from '@/components/visitor-tracker';
 import './globals.css';
 
 const geistSans = Geist({
@@ -36,6 +37,7 @@ export default async function RootLayout({
             >
                 <NextSessionProvider>
                     <Provider>
+                        {/* <VisitorTracker /> */}
                         {children}
                         <Toaster position="top-right" />
                     </Provider>

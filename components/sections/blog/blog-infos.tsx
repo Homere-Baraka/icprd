@@ -9,7 +9,7 @@ import { fr } from 'date-fns/locale';
 import { getDescription } from '@/utils/get-description';
 import Pagination from '@/components/ui/pagination';
 
-export default function BlogInfos({ lang }:{lang: string}) {
+export default function BlogInfos({ lang }: { lang: string }) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const ITEMS_PER_PAGE = 10;
 
@@ -66,7 +66,7 @@ export default function BlogInfos({ lang }:{lang: string}) {
                             {visibleBlogs.map((blog: any) => (
                                 <article
                                     key={blog.id}
-                                    className="group blog-card flex flex-col bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                                    className="group blog-card flex flex-col bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                                 >
                                     <Link href={`/${lang}/blogs/${blog.id}`}>
                                         <div className="relative h-60 overflow-hidden">

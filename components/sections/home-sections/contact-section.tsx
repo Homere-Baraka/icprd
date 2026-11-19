@@ -78,7 +78,7 @@ export default function ContactSection({ dict }: { dict: any }) {
                         </div>
                     </div>
 
-                    <div className="contact-form bg-white dark:bg-slate-900 p-12 rounded-[2.5rem] shadow-2xl">
+                    <div className="contact-form bg-slate-900 p-12 rounded-[2.5rem] shadow-2xl">
                         <form
                             onSubmit={handleSubmit(onSubmit)}
                             className="space-y-6"
@@ -90,7 +90,7 @@ export default function ContactSection({ dict }: { dict: any }) {
                                     </label>
                                     <input
                                         {...register('name')}
-                                        className="w-full text-slate-900 dark:text-slate-50 px-3 placeholder:text-slate-500 bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary py-4"
+                                        className="w-full text-slate-50 px-3 placeholder:text-slate-500 bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary py-4"
                                         placeholder={dict.form.name_placeholder}
                                         type="text"
                                     />
@@ -106,7 +106,7 @@ export default function ContactSection({ dict }: { dict: any }) {
                                     </label>
                                     <input
                                         {...register('email')}
-                                        className="w-full text-slate-900 dark:text-slate-50 px-3 placeholder:text-slate-500 bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary py-4"
+                                        className="w-full text-slate-50 px-3 placeholder:text-slate-500 bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary py-4"
                                         placeholder={
                                             dict.form.email_placeholder
                                         }
@@ -125,7 +125,7 @@ export default function ContactSection({ dict }: { dict: any }) {
                                 </label>
                                 <input
                                     {...register('subject')}
-                                    className="w-full text-slate-900 dark:text-slate-50 px-3 placeholder:text-slate-500 bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary py-4"
+                                    className="w-full text-slate-50 px-3 placeholder:text-slate-500 bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary py-4"
                                     placeholder={dict.form.subject_placeholder}
                                     type="text"
                                 />
@@ -136,7 +136,7 @@ export default function ContactSection({ dict }: { dict: any }) {
                                 </label>
                                 <textarea
                                     {...register('message')}
-                                    className="w-full text-slate-900 dark:text-slate-50 px-3 placeholder:text-slate-500 bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary py-4"
+                                    className="w-full text-slate-50 px-3 placeholder:text-slate-500 bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary py-4"
                                     placeholder={dict.form.message_placeholder}
                                     rows={4}
                                 ></textarea>

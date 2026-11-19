@@ -55,56 +55,50 @@ export const userLoginSchema = z.object({
 export type userLoginInput = z.infer<typeof userLoginSchema>;
 
 // SETTING VALIDATION
-export const profilePatchSchema = z
-    .object({
-        username: z
-            .string()
-            .min(3, 'Trop court')
-            .max(20)
-            .regex(/^[a-zA-Z0-9_]+$/)
-            .optional()
-            .or(z.literal('')),
+export const profilePatchSchema = z.object({
+    username: z
+        .string()
+        .min(3, 'Trop court')
+        .max(20)
+        .regex(/^[a-zA-Z0-9_]+$/)
+        .optional()
+        .or(z.literal('')),
 
-        first_name: z.string().max(50).optional().or(z.literal('')),
+    first_name: z.string().max(50).optional().or(z.literal('')),
 
-        last_name: z.string().max(50).optional().or(z.literal('')),
+    last_name: z.string().max(50).optional().or(z.literal('')),
 
-        email: z.string().email('Format invalide').optional().or(z.literal('')),
+    email: z.string().email('Format invalide').optional().or(z.literal('')),
 
-        image: z.preprocess(
-            (val) => (val === null ? '' : val),
-            z.string().optional().or(z.literal('')),
-        ),
+    image: z.preprocess(
+        (val) => (val === null ? '' : val),
+        z.string().optional().or(z.literal('')),
+    ),
 
-        passwordSchema : z
-            .object({
-                oldPassword: z
-                .string()
-                .optional()
-                .or(z.literal('')),
-                
-                newPassword: z
-                .string()
-                .optional()
-                .or(z.literal('')),
-            })
-            .superRefine((data, ctx) => {
-                if (data.oldPassword && data.oldPassword.length > 0) {
-                
+    passwordSchema: z
+        .object({
+            oldPassword: z.string().optional().or(z.literal('')),
+
+            newPassword: z.string().optional().or(z.literal('')),
+        })
+        .superRefine((data, ctx) => {
+            if (data.oldPassword && data.oldPassword.length > 0) {
                 if (!data.newPassword || data.newPassword.length === 0) {
                     ctx.addIssue({
-                    code: z.ZodIssueCode.custom,
-                    path: ['newPassword'],
-                    message: "Le nouveau mot de passe est requis si l'ancien est fourni",
+                        code: z.ZodIssueCode.custom,
+                        path: ['newPassword'],
+                        message:
+                            "Le nouveau mot de passe est requis si l'ancien est fourni",
                     });
                 }
-            
+
                 if (data.newPassword) {
                     if (data.newPassword.length < 8) {
                         ctx.addIssue({
                             code: z.ZodIssueCode.custom,
                             path: ['newPassword'],
-                            message: "Le mot de passe doit faire au moins 8 caractères",
+                            message:
+                                'Le mot de passe doit faire au moins 8 caractères',
                         });
                     }
 
@@ -112,23 +106,22 @@ export const profilePatchSchema = z
                         ctx.addIssue({
                             code: z.ZodIssueCode.custom,
                             path: ['newPassword'],
-                            message: "Au moins une majuscule",
+                            message: 'Au moins une majuscule',
                         });
                     }
                     if (!/[0-9]/.test(data.newPassword)) {
                         ctx.addIssue({
                             code: z.ZodIssueCode.custom,
                             path: ['newPassword'],
-                            message: "Au moins un chiffre",
+                            message: 'Au moins un chiffre',
                         });
                     }
                 }
             }
-        })
-    })
+        }),
+});
 // export const updateProfileSchema = profilePatchSchema.partial();
 export type updateProfileFormValues = z.infer<typeof profilePatchSchema>;
-
 
 // TEAM VALIDATION
 export const teamSchema = z.object({
@@ -304,10 +297,11 @@ export const gallerySchema = z.object({
         }, 'Une image est requise')
         .refine((val) => {
             if (val instanceof File) return val.size <= MAX_FILE_SIZE;
-            return true; 
+            return true;
         }, `L'image est trop lourde (Max 5Mo)`)
         .refine((val) => {
-            if (val instanceof File) return ACCEPTED_IMAGE_TYPES.includes(val.type);
+            if (val instanceof File)
+                return ACCEPTED_IMAGE_TYPES.includes(val.type);
             return true;
         }, 'Seuls les formats .jpg, .png et .webp sont acceptés'),
 });

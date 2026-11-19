@@ -27,7 +27,9 @@ export default function Gallery({ dict }: { dict: any }) {
     const { data: response, isLoading, error, refetch } = useGalleriesQuery();
     const galleries = response?.data || [];
 
-    const [selectedGalleryId, setSelectedGalleryId] = useState<string | null>(null);
+    const [selectedGalleryId, setSelectedGalleryId] = useState<string | null>(
+        null,
+    );
     const [currentIndex, setCurrentIndex] = useState<number | null>(null);
 
     const openCarousel = (index: number) => setCurrentIndex(index);
@@ -51,7 +53,9 @@ export default function Gallery({ dict }: { dict: any }) {
                 if (result.success) {
                     setIsModalOpen(false);
                     setSelectedGalleryId(null);
-                    notifySuccess(result.message || 'Gallerie supprimée avec succès');
+                    notifySuccess(
+                        result.message || 'Gallerie supprimée avec succès',
+                    );
                     await refetch();
                 } else {
                     notifyError(String(result.error));

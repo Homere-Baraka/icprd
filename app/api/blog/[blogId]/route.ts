@@ -4,11 +4,15 @@ export async function GET(
     req: Request,
     { params }: { params: Promise<{ blogId: string }> },
 ) {
-    const resolvedParams = await params;
+    const { blogId } = await params;
 
-    const blogId = resolvedParams.blogId;
+    const result = await getBlogByIdAction(blogId, req);
 
-    const result = await getBlogByIdAction(blogId);
+    if (!result.success) {
+        return Response.json(result, {
+            status: result.message === 'Post not found' ? 404 : 500,
+        });
+    }
 
     return Response.json(result);
 }

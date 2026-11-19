@@ -86,7 +86,7 @@ export default function CreateGallery({ galleryId }: { galleryId?: string }) {
         const localPreview = URL.createObjectURL(file);
         setPreviewImage(localPreview);
         setSelectedFile(file);
-        
+
         setValue('imageUrl', 'pending_upload', { shouldValidate: true });
     };
 
@@ -130,7 +130,9 @@ export default function CreateGallery({ galleryId }: { galleryId?: string }) {
                 : await createGalleryAction(finalData);
 
             if (result.success) {
-                notifySuccess(isEditing ? 'Mise à jour réussie' : 'Création réussie');
+                notifySuccess(
+                    isEditing ? 'Mise à jour réussie' : 'Création réussie',
+                );
                 router.push('/admin/gallery');
                 router.refresh();
             } else {

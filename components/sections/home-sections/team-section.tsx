@@ -14,18 +14,18 @@ export default function TeamSection({ dict }: { dict: any }) {
     } = useTeamsQuery();
 
     return (
-        <section id="team" className="py-24 bg-white dark:bg-[#161b33]">
+        <section id="team" className="py-24 bg-white bg-[#161b33]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
                     <h2
                         data-translate="team.title"
-                        className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4"
+                        className="text-3xl md:text-4xl font-black text-slate-900 text-white mb-4"
                     >
                         {dict.title}
                     </h2>
                     <p
                         data-translate="team.subtitle"
-                        className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg"
+                        className="text-slate-600 text-slate-400 max-w-2xl mx-auto text-lg"
                     >
                         {dict.subtitle}
                     </p>
@@ -38,17 +38,17 @@ export default function TeamSection({ dict }: { dict: any }) {
                                 className="flex flex-col items-center flex-1 animate-pulse"
                             >
                                 <div className="relative w-48 h-48 mb-6">
-                                    <div className="absolute inset-0 bg-slate-200 dark:bg-slate-800 rounded-2xl transform rotate-6"></div>
-                                    <div className="relative w-full h-full bg-slate-300 dark:bg-slate-700 rounded-2xl shadow-xl"></div>
+                                    <div className="absolute inset-0 bg-slate-200 bg-slate-800 rounded-2xl transform rotate-6"></div>
+                                    <div className="relative w-full h-full bg-slate-300 bg-slate-700 rounded-2xl shadow-xl"></div>
                                 </div>
 
-                                <div className="h-6 w-40 bg-slate-300 dark:bg-slate-700 rounded-md mb-2"></div>
+                                <div className="h-6 w-40 bg-slate-300 bg-slate-700 rounded-md mb-2"></div>
 
                                 <div className="h-4 w-32 bg-primary/20 rounded-md mb-5"></div>
 
                                 <div className="flex gap-4 opacity-30">
-                                    <div className="w-6 h-6 bg-slate-300 dark:bg-slate-700 rounded-full"></div>
-                                    <div className="w-6 h-6 bg-slate-300 dark:bg-slate-700 rounded-full"></div>
+                                    <div className="w-6 h-6 bg-slate-700 rounded-full"></div>
+                                    <div className="w-6 h-6 bg-slate-700 rounded-full"></div>
                                 </div>
                             </div>
                         ))
@@ -75,7 +75,7 @@ export default function TeamSection({ dict }: { dict: any }) {
                                         alt={`${member.first_name} ${member.last_name}`}
                                     />
                                 </div>
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1">
+                                <h3 className="text-xl font-bold text-white mb-1">
                                     {member.first_name} {member.last_name}
                                 </h3>
                                 <p

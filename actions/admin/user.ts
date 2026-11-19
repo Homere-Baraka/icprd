@@ -273,16 +273,22 @@ export async function updateAdminProfileAction(formData: any) {
         if (oldPassword && newPassword) {
             const currentUser = await prisma.user.findUnique({
                 where: { id: userId },
-                select: { password: true }
+                select: { password: true },
             });
 
             if (!currentUser || !currentUser.password) {
                 return { success: false, error: 'Utilisateur introuvable' };
             }
-            const isMatch = await bcrypt.compare(oldPassword, currentUser.password);
-            
+            const isMatch = await bcrypt.compare(
+                oldPassword,
+                currentUser.password,
+            );
+
             if (!isMatch) {
-                return { success: false, error: 'L’ancien mot de passe est incorrect.' };
+                return {
+                    success: false,
+                    error: 'L’ancien mot de passe est incorrect.',
+                };
             }
             dataToUpdate.password = await bcrypt.hash(newPassword, 10);
         }
@@ -296,7 +302,6 @@ export async function updateAdminProfileAction(formData: any) {
         revalidatePath('/admin');
 
         return { success: true, message: 'User updated successfully' };
-
     } catch (error: any) {
         console.error('Prisma Patch Error:', error);
 

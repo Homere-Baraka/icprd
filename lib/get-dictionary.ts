@@ -1,4 +1,4 @@
-import type { Locale } from '@/i18n-config';
+import type { Locale } from '@/i18n';
 
 const dictionaries = {
     fr: () => import('@/dictionaries/fr.json').then((module) => module.default),

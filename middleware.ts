@@ -1,41 +1,44 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { v4 as uuidv4 } from 'uuid';
 
-let locales = ['fr', 'en'];
+const locales = ['fr', 'en'];
 
 export function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
-    if (pathname.startsWith('/uploads')) {
-        return NextResponse.next();
-    }
-
-    // Vérifier si l'URL contient déjà une langue
     const pathnameHasLocale = locales.some(
         (locale) =>
             pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
     );
 
-    if (pathnameHasLocale) return;
+    if (!pathnameHasLocale) {
+        const locale = 'fr';
+        const url = request.nextUrl.clone();
+        url.pathname =
+            pathname === '/'
+                ? `/${locale}`
+                : `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`;
 
-    const locale = 'fr';
-
-    // Construire la nouvelle URL proprement
-    // Si pathname est '/', on ne veut pas '//fr', donc on gère le slash
-    const url = request.nextUrl.clone();
-    url.pathname = `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`;
-
-    // Correction pour éviter le double slash si pathname est déjà '/'
-    if (pathname === '/') {
-        url.pathname = `/${locale}`;
+        return NextResponse.redirect(url);
     }
 
-    return NextResponse.redirect(url);
+    const response = NextResponse.next();
+
+    if (!request.cookies.has('visitor_session_id')) {
+        response.cookies.set('visitor_session_id', uuidv4(), {
+            path: '/',
+            httpOnly: true,
+            maxAge: 1800,
+            sameSite: 'lax',
+        });
+    }
+
+    return response;
 }
 
 export const config = {
-    // On ajoute 'public' et 'favicon' pour être sûr de ne pas intercepter les assets
     matcher: [
-        '/((?!api|_next/static|_next/image|images|favicon.ico|public|robots.txt).*)',
+        '/((?!api|_next/static|_next/image|images|uploads|favicon.ico|public|robots.txt).*)',
     ],
 };

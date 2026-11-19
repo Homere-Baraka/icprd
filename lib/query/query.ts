@@ -32,31 +32,37 @@ export function useBlogsQuery() {
 export function useBlogHeadlineQuery() {
     return useQuery({
         queryKey: ['blog_headline'],
-        queryFn: () => getBlogHeadlineAction(),
-        retry: 3,
-        staleTime: 0,
-        refetchInterval: 1000 * 10,
-        refetchIntervalInBackground: false,
+        queryFn: async () => {
+            const response = await getBlogHeadlineAction();
+
+            if (!response.success) {
+                throw new Error(response.error || 'Erreur lors du chargement');
+            }
+
+            return response.data;
+        },
+        retry: 2,
+        staleTime: 1000 * 60 * 5,
+        refetchOnWindowFocus: false,
     });
 }
 
-export function useBlogQuery(blogId: string) {
+export function useBlogQuery(blogId?: string) {
     return useQuery({
         queryKey: ['blog', blogId],
         queryFn: async () => {
             const res = await fetch(`/api/blog/${blogId}`);
-
-            if (!res.ok) {
-                throw new Error('Failed to fetch blog');
-            }
-
             const data = await res.json();
+
+            if (!res.ok || !data.success) {
+                throw new Error(data.message || 'Failed to fetch blog');
+            }
 
             return data;
         },
-        retry: 3,
-        staleTime: 0,
-        refetchIntervalInBackground: false,
+        enabled: Boolean(blogId),
+        retry: 2,
+        staleTime: 1000 * 60,
     });
 }
 
