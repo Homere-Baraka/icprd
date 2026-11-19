@@ -136,22 +136,31 @@ export async function getAchievementHeadlineAction() {
         const fifteenDaysAgo = new Date();
         fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 15);
 
-        const achievement = await prisma.achievement.findFirst({
+        const includeOptions = {
+            author: {
+                select: {
+                    username: true,
+                    first_name: true,
+                    email: true,
+                },
+            },
+            contents: true,
+        };
+
+        let achievement = await prisma.achievement.findFirst({
             orderBy: { createdAt: 'desc' },
             where: {
                 createdAt: { gte: fifteenDaysAgo },
             },
-            include: {
-                author: {
-                    select: {
-                        username: true,
-                        first_name: true,
-                        email: true,
-                    },
-                },
-                contents: true,
-            },
+            include: includeOptions,
         });
+
+        if (!achievement) {
+            achievement = await prisma.achievement.findFirst({
+                orderBy: { createdAt: 'desc' },
+                include: includeOptions,
+            });
+        }
 
         return {
             success: true,

@@ -123,9 +123,10 @@ export async function getBlogHeadlineAction() {
         const fifteenDaysAgo = new Date();
         fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 15);
 
-        const post = await prisma.blog.findFirst({
+        let post = await prisma.blog.findFirst({
             orderBy: [{ views: 'desc' }, { createdAt: 'desc' }],
             where: {
+                publishedAt: { not: null },
                 views: { gt: 0 },
                 createdAt: { gte: fifteenDaysAgo },
             },
@@ -140,6 +141,25 @@ export async function getBlogHeadlineAction() {
                 contents: true,
             },
         });
+
+        if (!post) {
+            post = await prisma.blog.findFirst({
+                orderBy: [{ views: 'desc' }, { createdAt: 'desc' }],
+                where: {
+                    publishedAt: { not: null },
+                },
+                include: {
+                    author: {
+                        select: {
+                            username: true,
+                            first_name: true,
+                            email: true,
+                        },
+                    },
+                    contents: true,
+                },
+            });
+        }
 
         return {
             success: true,
@@ -226,13 +246,11 @@ export async function updateBlogAction(
     }
 }
 
-export async function getBlogByIdAction(blogId: string) {
+export async function getBlogByIdAction(blogId: string, req?: Request) {
     try {
-        const headerStore = await headers();
-        const req = {
-            headers: headerStore,
-        } as Request;
-        const fingerprint = getFingerprint(req);
+        if (!blogId || blogId === 'undefined') {
+            return { success: false, message: 'Invalid blog ID' };
+        }
 
         const blog = await prisma.blog.findUnique({
             where: { id: blogId },
@@ -246,20 +264,26 @@ export async function getBlogByIdAction(blogId: string) {
             return { success: false, message: 'Post not found' };
         }
 
-        let fingerprints: string[] = Array.isArray(blog.fingerprint)
-            ? (blog.fingerprint as string[])
-            : [];
+        try {
+            const headerStore = await headers();
+            const targetReq = req ?? ({ headers: headerStore } as Request);
+            const fingerprint = getFingerprint(targetReq);
 
-        const alreadyViewed = fingerprints.includes(fingerprint);
+            const fingerprints: string[] = Array.isArray(blog.fingerprint)
+                ? (blog.fingerprint as string[])
+                : [];
 
-        if (!alreadyViewed) {
-            await prisma.blog.update({
-                where: { id: blogId },
-                data: {
-                    views: { increment: 1 },
-                    fingerprint: [...fingerprints, fingerprint],
-                },
-            });
+            if (fingerprint && !fingerprints.includes(fingerprint)) {
+                await prisma.blog.update({
+                    where: { id: blogId },
+                    data: {
+                        views: { increment: 1 },
+                        fingerprint: [...fingerprints, fingerprint],
+                    },
+                });
+            }
+        } catch (viewError) {
+            console.warn('[POST_VIEW_TRACKING_WARNING]', viewError);
         }
 
         return { success: true, data: blog };
